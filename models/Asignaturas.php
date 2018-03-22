@@ -14,21 +14,19 @@ use Yii;
  * @property Grupos[] $grupos
  * @property TareasYear[] $tareasYears
  */
-class Asignaturas extends \yii\db\ActiveRecord
-{
+class Asignaturas extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'asignaturas';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['nombre'], 'string', 'max' => 100],
         ];
@@ -37,8 +35,7 @@ class Asignaturas extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
@@ -48,24 +45,31 @@ class Asignaturas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAsignaturasDocentes()
-    {
+    public function getAsignaturasDocentes() {
         return $this->hasMany(AsignaturasDocentes::className(), ['asignaturas_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGrupos()
-    {
+    public function getGrupos() {
         return $this->hasMany(Grupos::className(), ['asignaturas_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTareasYears()
-    {
+    public function getTareasYears() {
         return $this->hasMany(TareasYear::className(), ['asignaturas_id' => 'id']);
     }
+
+    public static function getListaAsignaturas() {
+        return yii\helpers\ArrayHelper::map(Asignaturas::find()->all(), 'id', 'nombre');
+    }
+
+    public static function getNombrePorId($id) {
+        $objAsignatura = static::findOne(['id' => $id]);
+        return $objAsignatura->nombre;
+    }
+
 }

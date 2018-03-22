@@ -38,9 +38,12 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Alumnos', 'url' => ['/usuarios/index', 't' => 'a']],
+            ['label' => 'Docentes', 'url' => ['/usuarios/index', 't' => 'd']],
+            ['label' => 'Asignaturas', 'url' => ['/asignaturas/index']],
+            ['label' => 'Docentes por Asignaturaa', 'url' => ['/asignaturas-docentes/index']],
+            ['label' => 'Métodos Formación Grupos', 'url' => ['/metodos-formacion/index']],
+            ['label' => 'Sentencias de Apertura', 'url' => ['/sentencias-apertura/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

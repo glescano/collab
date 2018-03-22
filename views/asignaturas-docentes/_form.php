@@ -12,12 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'usuarios_id')->textInput() ?>
+    <?= $form->field($model, 'usuarios_id')->dropDownList(app\models\Usuarios::getListaDocentes())->label('Docente'); ?>
 
-    <?= $form->field($model, 'asignaturas_id')->textInput() ?>
+    <?= $form->field($model, 'asignaturas_id')->dropDownList(app\models\Asignaturas::getListaAsignaturas())->label('Asignatura') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

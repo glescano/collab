@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SentenciasAperturaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sentencias Aperturas';
+$this->title = 'Sentencias de Apertura';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sentencias-apertura-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Sentencias Apertura', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Sentencia de Apertura', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

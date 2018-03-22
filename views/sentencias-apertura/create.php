@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\SentenciasApertura */
 
-$this->title = 'Create Sentencias Apertura';
+$this->title = 'Crear Sentencia de Apertura';
 $this->params['breadcrumbs'][] = ['label' => 'Sentencias Aperturas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

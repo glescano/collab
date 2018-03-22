@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AsignaturasDocentesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Asignaturas Docentes';
+$this->title = 'Docentes por Asignatura';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="asignaturas-docentes-index">
@@ -16,20 +16,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Asignaturas Docentes', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar Docente a una Asignatura', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'usuarios_id',
-            'asignaturas_id',
+            [
+                'attribute' => 'asignaturas_id',
+                'label' => 'Asignatura',
+                'value' => function($data) {
+                    return app\models\Asignaturas::getNombrePorId($data->asignaturas_id);
+                },
+            ],
+            [
+                'attribute' => 'usuarios_id',
+                'label' => 'Docente',
+                'value' => function($data) {
+                    return app\models\Usuarios::getNombrePorId($data->usuarios_id);
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 </div>

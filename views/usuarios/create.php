@@ -6,7 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
 
-$this->title = 'Create Usuarios';
+$tipoUsuario = ($tipo == 'a') ? 'Alumnos' : 'Docentes';
+$this->title = "Crear $tipoUsuario";
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

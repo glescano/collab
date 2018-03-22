@@ -19,21 +19,19 @@ use Yii;
  * @property GruposAlumnos[] $gruposAlumnos
  * @property Sentencias[] $sentencias
  */
-class Usuarios extends \yii\db\ActiveRecord
-{
+class Usuarios extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'usuarios';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['tipo'], 'boolean'],
             [['username'], 'string', 'max' => 45],
@@ -46,8 +44,7 @@ class Usuarios extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'username' => 'Username',
@@ -62,24 +59,35 @@ class Usuarios extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAsignaturasDocentes()
-    {
+    public function getAsignaturasDocentes() {
         return $this->hasMany(AsignaturasDocentes::className(), ['usuarios_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGruposAlumnos()
-    {
+    public function getGruposAlumnos() {
         return $this->hasMany(GruposAlumnos::className(), ['usuarios_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSentencias()
-    {
+    public function getSentencias() {
         return $this->hasMany(Sentencias::className(), ['usuarios_id' => 'id']);
     }
+    
+    public function getNombreCompleto(){
+        return $this->apellido . ', ' . $this->nombre;
+    }
+
+    public static function getListaDocentes(){
+        return yii\helpers\ArrayHelper::map(Usuarios::find()->where(['tipo' => 1])->all(), 'id', 'nombrecompleto');
+    }
+    
+     public static function getNombrePorId($id) {
+        $objUsuario = static::findOne(['id' => $id]);
+        return $objUsuario->apellido . ', ' . $objUsuario->nombre;
+    }
+            
 }

@@ -16,19 +16,29 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Asignaturas', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Asignaturas', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'nombre',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete} {grupos} {practicos}',
+                'buttons' => [
+                    'grupos' => function($url, $model) {
+                        return Html::a('Grupos', ['grupos/index', 'asigid' => $model->id]);
+                    },
+                    'practicos' => function($url, $model) {
+                        return Html::a('Practicos', ['tareas-year/index', 'asigid' => $model->id]);
+                    },
+                ],
+            ],
         ],
-    ]); ?>
+    ]);
+    ?>
 </div>

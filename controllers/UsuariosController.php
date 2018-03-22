@@ -33,14 +33,21 @@ class UsuariosController extends Controller
      * Lists all Usuarios models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($t)
     {
         $searchModel = new UsuariosSearch();
+        if ($t == 'a'){
+            $searchModel->tipo = 0;
+        } else {
+            $searchModel->tipo = 1;
+        }
+        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tipo' => $t,
         ]);
     }
 
@@ -62,9 +69,14 @@ class UsuariosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($t)
     {
         $model = new Usuarios();
+        if ($t == 'a'){
+            $model->tipo = 0;
+        } else {
+            $model->tipo = 1;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,6 +84,7 @@ class UsuariosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'tipo' => $t,
         ]);
     }
 

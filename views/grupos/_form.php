@@ -13,6 +13,10 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'year')->textInput() ?>
+    
+    <?= $form->field($model, 'codigo')->textInput() ?>
+    
+    <?= $form->field($model, 'cantidadintegrantes')->textInput() ?>
 
     <?= $form->field($model, 'asignaturas_id')->textInput() ?>
 

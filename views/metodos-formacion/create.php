@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\MetodosFormacion */
 
-$this->title = 'Create Metodos Formacion';
+$this->title = 'Crear Método de Formación de Grupo';
 $this->params['breadcrumbs'][] = ['label' => 'Metodos Formacions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

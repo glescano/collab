@@ -8,7 +8,9 @@ use Yii;
  * This is the model class for table "grupos".
  *
  * @property int $id
+ * @property string $codigo
  * @property int $year
+ * @property int $cantidadintegrantes
  * @property int $asignaturas_id
  * @property int $metodos_formacion_id
  *
@@ -33,8 +35,8 @@ class Grupos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['asignaturas_id', 'metodos_formacion_id'], 'required'],
-            [['asignaturas_id', 'metodos_formacion_id'], 'integer'],
+            [['asignaturas_id', 'metodos_formacion_id', 'codigo', 'cantidadintegrantes'], 'required'],
+            [['asignaturas_id', 'metodos_formacion_id', 'cantidadintegrantes'], 'integer'],
             [['year'], 'string', 'max' => 4],
             [['asignaturas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asignaturas::className(), 'targetAttribute' => ['asignaturas_id' => 'id']],
             [['metodos_formacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => MetodosFormacion::className(), 'targetAttribute' => ['metodos_formacion_id' => 'id']],
@@ -49,6 +51,8 @@ class Grupos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'year' => 'Year',
+            'codigo' => 'Código',
+            'cantidadintegrantes' => 'Cantidad de Integrantes',
             'asignaturas_id' => 'Asignaturas ID',
             'metodos_formacion_id' => 'Metodos Formacion ID',
         ];
