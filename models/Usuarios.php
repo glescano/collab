@@ -18,8 +18,55 @@ use Yii;
  * @property AsignaturasDocentes[] $asignaturasDocentes
  * @property GruposAlumnos[] $gruposAlumnos
  * @property Sentencias[] $sentencias
+ *
  */
 class Usuarios extends \yii\db\ActiveRecord {
+    
+    //Variables para mantener las respuestas al test de Felder-Silverman
+    public $preg1;
+    public $preg2;
+    public $preg3;
+    public $preg4;
+    public $preg5;
+    public $preg6;
+    public $preg7;
+    public $preg8;
+    public $preg9;
+    public $preg10;
+    public $preg11;
+    public $preg12;
+    public $preg13;
+    public $preg14;
+    public $preg15;
+    public $preg16;
+    public $preg17;
+    public $preg18;
+    public $preg19;
+    public $preg20;
+    public $preg21;
+    public $preg22;
+    public $preg23;
+    public $preg24;
+    public $preg25;
+    public $preg26;
+    public $preg27;
+    public $preg28;
+    public $preg29;
+    public $preg30;
+    public $preg31;
+    public $preg32;
+    public $preg33;
+    public $preg34;
+    public $preg35;
+    public $preg36;
+    public $preg37;
+    public $preg38;
+    public $preg39;
+    public $preg40;
+    public $preg41;
+    public $preg42;
+    public $preg43;
+    public $preg44;
 
     /**
      * @inheritdoc
@@ -37,7 +84,12 @@ class Usuarios extends \yii\db\ActiveRecord {
             [['username'], 'string', 'max' => 45],
             [['password'], 'string', 'max' => 255],
             [['nombre', 'apellido'], 'string', 'max' => 150],
-            [['estiloaprendizaje'], 'string', 'max' => 20],
+            [['estiloaprendizaje'], 'string', 'max' => 30],
+            [['preg1', 'preg2', 'preg3', 'preg4', 'preg5', 'preg6', 'preg7', 'preg8', 'preg9', 'preg10',
+                'preg11', 'preg12', 'preg13', 'preg14', 'preg15', 'preg16', 'preg17', 'preg18', 'preg19', 'preg20',
+                'preg21', 'preg22', 'preg23', 'preg24', 'preg25', 'preg26', 'preg27', 'preg28', 'preg29', 'preg30',
+                'preg31', 'preg32', 'preg33', 'preg34', 'preg35', 'preg36', 'preg37', 'preg38', 'preg39', 'preg40',
+                'preg41', 'preg42', 'preg43', 'preg44', 'fecha'], 'safe'],
         ];
     }
 

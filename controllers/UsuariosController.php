@@ -12,13 +12,12 @@ use yii\filters\VerbFilter;
 /**
  * UsuariosController implements the CRUD actions for Usuarios model.
  */
-class UsuariosController extends Controller
-{
+class UsuariosController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,21 +32,20 @@ class UsuariosController extends Controller
      * Lists all Usuarios models.
      * @return mixed
      */
-    public function actionIndex($t)
-    {
+    public function actionIndex($t) {
         $searchModel = new UsuariosSearch();
-        if ($t == 'a'){
+        if ($t == 'a') {
             $searchModel->tipo = 0;
         } else {
             $searchModel->tipo = 1;
         }
-        
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'tipo' => $t,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'tipo' => $t,
         ]);
     }
 
@@ -57,10 +55,9 @@ class UsuariosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -69,10 +66,9 @@ class UsuariosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($t)
-    {
+    public function actionCreate($t) {
         $model = new Usuarios();
-        if ($t == 'a'){
+        if ($t == 'a') {
             $model->tipo = 0;
         } else {
             $model->tipo = 1;
@@ -83,8 +79,8 @@ class UsuariosController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
-            'tipo' => $t,
+                    'model' => $model,
+                    'tipo' => $t,
         ]);
     }
 
@@ -95,8 +91,7 @@ class UsuariosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,7 +99,7 @@ class UsuariosController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -115,11 +110,158 @@ class UsuariosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionTestFelderSilverman($id) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $activo = 0;
+            $reflexivo = 0;
+            $sensitivo = 0;
+            $intuitivo = 0;
+            $visual = 0;
+            $verbal = 0;
+            $secuencial = 0;
+            $global = 0;
+            $b = true;
+            $estiloAprendizaje = '';
+
+            for ($i = 1; $i <= 44; $i++) {
+                $respuesta = "preg" . $i;
+                if (isset($model->$respuesta)) {
+                    switch ($i) {
+                        case 1:
+                        case 5:
+                        case 9:
+                        case 13:
+                        case 17:
+                        case 21:
+                        case 25:
+                        case 29:
+                        case 33:
+                        case 37:
+                        case 41:
+                            if ($model->$respuesta == 'a') {
+                                $activo += 1;
+                            } else {
+                                $reflexivo += 1;
+                            }
+                            break;
+                        case 2:
+                        case 6:
+                        case 10:
+                        case 14:
+                        case 18:
+                        case 22:
+                        case 26:
+                        case 30:
+                        case 34:
+                        case 38:
+                        case 42:
+                            if ($model->$respuesta == 'a') {
+                                $sensitivo += 1;
+                            } else {
+                                $intuitivo += 1;
+                            }
+                            break;
+                        case 3:
+                        case 7:
+                        case 11:
+                        case 15:
+                        case 19:
+                        case 23:
+                        case 27:
+                        case 31:
+                        case 35:
+                        case 39:
+                        case 43:
+                            if ($model->$respuesta == 'a') {
+                                $visual += 1;
+                            } else {
+                                $verbal += 1;
+                            }
+                            break;
+                        case 4:
+                        case 8:
+                        case 12:
+                        case 16:
+                        case 20:
+                        case 24:
+                        case 28:
+                        case 32:
+                        case 36:
+                        case 40:
+                        case 44:
+                            if ($model->$respuesta == 'a') {
+                                $secuencial += 1;
+                            } else {
+                                $global += 1;
+                            }
+                            break;
+                    }
+                } else {
+                    $b = false;
+                    break;
+                }
+            }
+
+            if ($b) {
+                if ($activo > $reflexivo) {
+                    $estiloAprendizaje = "ACT" . $activo . " - ";
+                } elseif ($activo < $reflexivo) {
+                    $estiloAprendizaje = "REF" . $reflexivo . " - ";
+                } else {
+                    $estiloAprendizaje = "Neutral ACT-REF" . " - ";
+                }
+
+                if ($sensitivo > $intuitivo) {
+                    $estiloAprendizaje .= "SEN" . $sensitivo . " - ";
+                } elseif ($sensitivo < $intuitivo) {
+                    $estiloAprendizaje .= "INT" . $intuitivo . " - ";
+                } else {
+                    $estiloAprendizaje .= "Neutral SEN-INT" . " - ";
+                }
+
+                if ($visual > $verbal) {
+                    $estiloAprendizaje .= "VIS" . $visual . " - ";
+                } elseif ($visual < $verbal) {
+                    $estiloAprendizaje .= "VER" . $verbal . " - ";
+                } else {
+                    $estiloAprendizaje .= "Neutral VIS-VER" . " - ";
+                }
+
+                if ($secuencial > $global) {
+                    $estiloAprendizaje .= "SEC" . $secuencial;
+                } elseif ($secuencial < $global) {
+                    $estiloAprendizaje .= "GLO" . $global;
+                } else {
+                    $estiloAprendizaje .= "Neutral SEC-GLO";
+                }
+
+                $model->estiloaprendizaje = $estiloAprendizaje;
+
+                if ($model->save()) {
+                    echo "Llegoooo";
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    echo strlen($model->estiloaprendizaje);
+                    var_dump($model->errors);
+                    echo "estamos en problema...";
+                }
+            } else {
+                echo "Hay preguntas a las que no respondio. No se puede determinar el estilo de aprendizaje.";
+            }
+        } else {
+
+            return $this->render('test-felder-silverman', [
+                        'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -129,12 +271,12 @@ class UsuariosController extends Controller
      * @return Usuarios the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Usuarios::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }
