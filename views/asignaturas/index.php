@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Crear Asignaturas', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Asignaturas', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?=
@@ -25,15 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            'id',
             'nombre',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete} {grupos} {practicos}',
+                'template' => '{view} {update} {delete} {grupos} {practicosg} {practicos_by_year}',
                 'buttons' => [
                     'grupos' => function($url, $model) {
                         return Html::a('Grupos', ['grupos/index', 'asigid' => $model->id]);
                     },
-                    'practicos' => function($url, $model) {
+                    'practicosg' => function($url, $model) {
+                        return Html::a('Practicos', ['tareas/index', 'asigid' => $model->id]);
+                    },
+                    'practicos_by_year' => function($url, $model) {
                         return Html::a('Practicos', ['tareas-year/index', 'asigid' => $model->id]);
                     },
                 ],

@@ -8,7 +8,8 @@ use Yii;
  * This is the model class for table "tareas".
  *
  * @property int $id
- * @property string $descripci贸n
+ * @property string $descripcion
+ * @property int $asignaturas_id
  *
  * @property TareasYear[] $tareasYears
  */
@@ -28,7 +29,9 @@ class Tareas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripci贸n'], 'string', 'max' => 255],
+            [['asignaturas_id'], 'required'],
+            [['asignaturas_id'], 'integer'],
+            [['descripcion'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,7 +42,8 @@ class Tareas extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'descripci贸n' => 'Descripci愠n',
+            'descripcion' => 'Descripci贸n',
+            'asignaturas_id' => 'Asignaturas ID',
         ];
     }
 

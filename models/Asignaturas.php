@@ -12,7 +12,6 @@ use Yii;
  *
  * @property AsignaturasDocentes[] $asignaturasDocentes
  * @property Grupos[] $grupos
- * @property TareasYear[] $tareasYears
  */
 class Asignaturas extends \yii\db\ActiveRecord {
 
@@ -54,13 +53,6 @@ class Asignaturas extends \yii\db\ActiveRecord {
      */
     public function getGrupos() {
         return $this->hasMany(Grupos::className(), ['asignaturas_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTareasYears() {
-        return $this->hasMany(TareasYear::className(), ['asignaturas_id' => 'id']);
     }
 
     public static function getListaAsignaturas() {

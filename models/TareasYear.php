@@ -8,11 +8,10 @@ use Yii;
  * This is the model class for table "tareas_year".
  *
  * @property int $id
- * @property int $asignaturas_id
+ * @property int $year
  * @property int $tareas_id
  *
  * @property Chats[] $chats
- * @property Asignaturas $asignaturas
  * @property Tareas $tareas
  */
 class TareasYear extends \yii\db\ActiveRecord
@@ -31,9 +30,9 @@ class TareasYear extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['asignaturas_id', 'tareas_id'], 'required'],
-            [['asignaturas_id', 'tareas_id'], 'integer'],
-            [['asignaturas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asignaturas::className(), 'targetAttribute' => ['asignaturas_id' => 'id']],
+            [['year', 'tareas_id'], 'required'],
+            [['tareas_id'], 'integer'],
+            [['year'], 'string', 'max' => 4],
             [['tareas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tareas::className(), 'targetAttribute' => ['tareas_id' => 'id']],
         ];
     }
@@ -45,7 +44,7 @@ class TareasYear extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'asignaturas_id' => 'Asignaturas ID',
+            'year' => 'Year',
             'tareas_id' => 'Tareas ID',
         ];
     }
@@ -56,14 +55,6 @@ class TareasYear extends \yii\db\ActiveRecord
     public function getChats()
     {
         return $this->hasMany(Chats::className(), ['tareas_year_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAsignaturas()
-    {
-        return $this->hasOne(Asignaturas::className(), ['id' => 'asignaturas_id']);
     }
 
     /**

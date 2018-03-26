@@ -18,7 +18,8 @@ class TareasYearSearch extends TareasYear
     public function rules()
     {
         return [
-            [['id', 'asignaturas_id', 'tareas_id'], 'integer'],
+            [['id', 'tareas_id'], 'integer'],
+            [['year'], 'safe'],
         ];
     }
 
@@ -59,9 +60,10 @@ class TareasYearSearch extends TareasYear
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'asignaturas_id' => $this->asignaturas_id,
             'tareas_id' => $this->tareas_id,
         ]);
+
+        $query->andFilterWhere(['like', 'year', $this->year]);
 
         return $dataProvider;
     }
