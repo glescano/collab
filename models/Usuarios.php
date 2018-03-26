@@ -14,14 +14,15 @@ use Yii;
  * @property string $apellido
  * @property bool $tipo
  * @property string $estiloaprendizaje
+ * @property string $auth_key
  *
  * @property AsignaturasDocentes[] $asignaturasDocentes
  * @property GruposAlumnos[] $gruposAlumnos
  * @property Sentencias[] $sentencias
  *
  */
-class Usuarios extends \yii\db\ActiveRecord {
-    
+class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
+
     //Variables para mantener las respuestas al test de Felder-Silverman
     public $preg1;
     public $preg2;
@@ -86,10 +87,10 @@ class Usuarios extends \yii\db\ActiveRecord {
             [['nombre', 'apellido'], 'string', 'max' => 150],
             [['estiloaprendizaje'], 'string', 'max' => 30],
             [['preg1', 'preg2', 'preg3', 'preg4', 'preg5', 'preg6', 'preg7', 'preg8', 'preg9', 'preg10',
-                'preg11', 'preg12', 'preg13', 'preg14', 'preg15', 'preg16', 'preg17', 'preg18', 'preg19', 'preg20',
-                'preg21', 'preg22', 'preg23', 'preg24', 'preg25', 'preg26', 'preg27', 'preg28', 'preg29', 'preg30',
-                'preg31', 'preg32', 'preg33', 'preg34', 'preg35', 'preg36', 'preg37', 'preg38', 'preg39', 'preg40',
-                'preg41', 'preg42', 'preg43', 'preg44', 'fecha'], 'safe'],
+            'preg11', 'preg12', 'preg13', 'preg14', 'preg15', 'preg16', 'preg17', 'preg18', 'preg19', 'preg20',
+            'preg21', 'preg22', 'preg23', 'preg24', 'preg25', 'preg26', 'preg27', 'preg28', 'preg29', 'preg30',
+            'preg31', 'preg32', 'preg33', 'preg34', 'preg35', 'preg36', 'preg37', 'preg38', 'preg39', 'preg40',
+            'preg41', 'preg42', 'preg43', 'preg44', 'fecha'], 'safe'],
         ];
     }
 
@@ -128,18 +129,52 @@ class Usuarios extends \yii\db\ActiveRecord {
     public function getSentencias() {
         return $this->hasMany(Sentencias::className(), ['usuarios_id' => 'id']);
     }
-    
-    public function getNombreCompleto(){
+
+    public function getNombreCompleto() {
         return $this->apellido . ', ' . $this->nombre;
     }
 
-    public static function getListaDocentes(){
+    public static function getListaDocentes() {
         return yii\helpers\ArrayHelper::map(Usuarios::find()->where(['tipo' => 1])->all(), 'id', 'nombrecompleto');
     }
-    
-     public static function getNombrePorId($id) {
+
+    public static function getNombrePorId($id) {
         $objUsuario = static::findOne(['id' => $id]);
         return $objUsuario->apellido . ', ' . $objUsuario->nombre;
     }
-            
+
+    public function getAuthKey(): string {
+        return $this->auth_key;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function validateAuthKey($authKey): bool {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    public static function findIdentity($id) {
+        $objUsuario = new Usuarios();
+        return $objUsuario->findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null): \yii\web\IdentityInterface {
+        throw new \yii\base\NotSupportedException("SÃ³lo se permite logueo por"
+        . " nombre de usuario y contraseÃ±a");
+    }
+
+    public function beforeSave($insert) {
+        $return = parent::beforeSave($insert);
+        if ($this->isNewRecord) {
+            $this->auth_key = Yii::$app->security->generateRandomString(255);
+        }
+        if ($this->isAttributeChanged("password")) {
+            $this->password = Yii::$app->security->
+                    generatePasswordHash($this->password);
+        }
+        return $return;
+    }
+
 }

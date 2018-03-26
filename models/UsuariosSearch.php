@@ -19,7 +19,7 @@ class UsuariosSearch extends Usuarios
     {
         return [
             [['id'], 'integer'],
-            [['username', 'password', 'nombre', 'apellido', 'estiloaprendizaje'], 'safe'],
+            [['username', 'nombre', 'apellido', 'estiloaprendizaje'], 'safe'],
             [['tipo'], 'boolean'],
         ];
     }
@@ -65,7 +65,6 @@ class UsuariosSearch extends Usuarios
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'apellido', $this->apellido])
             ->andFilterWhere(['like', 'estiloaprendizaje', $this->estiloaprendizaje]);

@@ -19,8 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'username') ?>
 
-    <?= $form->field($model, 'password') ?>
-
     <?= $form->field($model, 'nombre') ?>
 
     <?= $form->field($model, 'apellido') ?>
