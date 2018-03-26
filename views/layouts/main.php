@@ -44,6 +44,7 @@ AppAsset::register($this);
             ['label' => 'Docentes por Asignaturaa', 'url' => ['/asignaturas-docentes/index']],
             ['label' => 'Métodos Formación Grupos', 'url' => ['/metodos-formacion/index']],
             ['label' => 'Sentencias de Apertura', 'url' => ['/sentencias-apertura/index']],
+            ['label' => 'Test de Estilos de Aprendizaje', 'url' => ['/usuarios/test-felder-silverman']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

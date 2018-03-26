@@ -116,8 +116,9 @@ class UsuariosController extends Controller {
         return $this->redirect(['index']);
     }
 
-    public function actionTestFelderSilverman($id) {
-        $model = $this->findModel($id);
+    public function actionTestFelderSilverman() {
+           
+        $model = $this->findModel(Yii::$app->user->identity->id);
 
         if ($model->load(Yii::$app->request->post())) {
             $activo = 0;
@@ -246,7 +247,6 @@ class UsuariosController extends Controller {
                 $model->estiloaprendizaje = $estiloAprendizaje;
 
                 if ($model->save()) {
-                    echo "Llegoooo";
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     echo strlen($model->estiloaprendizaje);
