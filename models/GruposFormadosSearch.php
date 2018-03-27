@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\GruposAlumnos;
+use app\models\GruposFormados;
 
 /**
- * GruposAlumnosSearch represents the model behind the search form of `app\models\GruposAlumnos`.
+ * GruposFormadosSearch represents the model behind the search form of `app\models\GruposFormados`.
  */
-class GruposAlumnosSearch extends GruposAlumnos
+class GruposFormadosSearch extends GruposFormados
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class GruposAlumnosSearch extends GruposAlumnos
     public function rules()
     {
         return [
-            [['id', 'usuarios_id', 'grupos_formados_id'], 'integer'],
+            [['id', 'grupos_id'], 'integer'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class GruposAlumnosSearch extends GruposAlumnos
      */
     public function search($params)
     {
-        $query = GruposAlumnos::find();
+        $query = GruposFormados::find();
 
         // add conditions that should always apply here
 
@@ -59,9 +60,10 @@ class GruposAlumnosSearch extends GruposAlumnos
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'usuarios_id' => $this->usuarios_id,
-            'grupos_formados_id' => $this->grupos_formados_id,
+            'grupos_id' => $this->grupos_id,
         ]);
+
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

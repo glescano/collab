@@ -217,7 +217,7 @@ class UsuariosController extends Controller {
                 } elseif ($activo < $reflexivo) {
                     $estiloAprendizaje = "REF" . $reflexivo . " - ";
                 } else {
-                    $estiloAprendizaje = "Neutral ACT-REF" . " - ";
+                    $estiloAprendizaje = "NAR" . " - ";
                 }
 
                 if ($sensitivo > $intuitivo) {
@@ -225,7 +225,7 @@ class UsuariosController extends Controller {
                 } elseif ($sensitivo < $intuitivo) {
                     $estiloAprendizaje .= "INT" . $intuitivo . " - ";
                 } else {
-                    $estiloAprendizaje .= "Neutral SEN-INT" . " - ";
+                    $estiloAprendizaje .= "NSI" . " - ";
                 }
 
                 if ($visual > $verbal) {
@@ -233,7 +233,7 @@ class UsuariosController extends Controller {
                 } elseif ($visual < $verbal) {
                     $estiloAprendizaje .= "VER" . $verbal . " - ";
                 } else {
-                    $estiloAprendizaje .= "Neutral VIS-VER" . " - ";
+                    $estiloAprendizaje .= "NVV" . " - ";
                 }
 
                 if ($secuencial > $global) {
@@ -241,7 +241,7 @@ class UsuariosController extends Controller {
                 } elseif ($secuencial < $global) {
                     $estiloAprendizaje .= "GLO" . $global;
                 } else {
-                    $estiloAprendizaje .= "Neutral SEC-GLO";
+                    $estiloAprendizaje .= "NSG";
                 }
 
                 $model->estiloaprendizaje = $estiloAprendizaje;

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\GruposAlumnos */
+/* @var $model app\models\GruposFormados */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Grupos Alumnos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Grupos Formados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="grupos-alumnos-view">
+<div class="grupos-formados-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'usuarios_id',
-            'grupos_formados_id',
+            'nombre',
+            'grupos_id',
         ],
     ]) ?>
 

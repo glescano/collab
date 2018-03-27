@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\GruposAlumnosSearch */
+/* @var $searchModel app\models\GruposFormadosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Grupos Alumnos';
+$this->title = 'Grupos Formados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="grupos-alumnos-index">
+<div class="grupos-formados-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Grupos Alumnos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Grupos Formados', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'usuarios_id',
-            'grupos_formados_id',
+            'nombre',
+            'grupos_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

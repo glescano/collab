@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\GruposAlumnosSearch */
+/* @var $searchModel app\models\AsignaturasAlumnosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Grupos Alumnos';
+$this->title = 'Inscribir Alumnos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="grupos-alumnos-index">
+<div class="asignaturas-alumnos-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Grupos Alumnos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Inscribir Alumno', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,9 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'usuarios_id',
-            'grupos_formados_id',
+            [
+                'attribute' => 'usuarios_id',
+                'label' => 'Alumno',
+                'value' => function($data) {
+                    return app\models\Usuarios::getNombrePorId($data->usuarios_id);
+                },
+            ],
+            'year',            
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

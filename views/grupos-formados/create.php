@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Grupos */
+/* @var $model app\models\GruposFormados */
 
-$this->title = 'Creación de Grupos';
-$this->params['breadcrumbs'][] = ['label' => 'Grupos', 'url' => ['index']];
+$this->title = 'Create Grupos Formados';
+$this->params['breadcrumbs'][] = ['label' => 'Grupos Formados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="grupos-create">
+<div class="grupos-formados-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Grupos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Grupos', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,8 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'year',
-            'asignaturas_id',
-            'metodos_formacion_id',
+            [
+                'attribute' => 'metodos_formacion_id',
+                'label' => 'Método de Formación',
+                'value' => function($data) {
+                    return app\models\MetodosFormacion::getNombrePorId($data->metodos_formacion_id);
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

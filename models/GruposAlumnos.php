@@ -9,9 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property int $usuarios_id
- * @property int $grupos_id
+ * @property int $grupos_formados_id
  *
- * @property Grupos $grupos
+ * @property GruposFormados $gruposFormados
  * @property Usuarios $usuarios
  */
 class GruposAlumnos extends \yii\db\ActiveRecord
@@ -30,9 +30,9 @@ class GruposAlumnos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuarios_id', 'grupos_id'], 'required'],
-            [['usuarios_id', 'grupos_id'], 'integer'],
-            [['grupos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Grupos::className(), 'targetAttribute' => ['grupos_id' => 'id']],
+            [['usuarios_id', 'grupos_formados_id'], 'required'],
+            [['usuarios_id', 'grupos_formados_id'], 'integer'],
+            [['grupos_formados_id'], 'exist', 'skipOnError' => true, 'targetClass' => GruposFormados::className(), 'targetAttribute' => ['grupos_formados_id' => 'id']],
             [['usuarios_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuarios_id' => 'id']],
         ];
     }
@@ -45,16 +45,16 @@ class GruposAlumnos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'usuarios_id' => 'Usuarios ID',
-            'grupos_id' => 'Grupos ID',
+            'grupos_formados_id' => 'Grupos Formados ID',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGrupos()
+    public function getGruposFormados()
     {
-        return $this->hasOne(Grupos::className(), ['id' => 'grupos_id']);
+        return $this->hasOne(GruposFormados::className(), ['id' => 'grupos_formados_id']);
     }
 
     /**

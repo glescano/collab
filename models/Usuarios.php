@@ -137,6 +137,10 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
     public static function getListaDocentes() {
         return yii\helpers\ArrayHelper::map(Usuarios::find()->where(['tipo' => 1])->all(), 'id', 'nombrecompleto');
     }
+    
+    public static function getListaAlumnos() {
+        return yii\helpers\ArrayHelper::map(Usuarios::find()->where(['tipo' => 0])->all(), 'id', 'nombrecompleto');
+    }      
 
     public static function getNombrePorId($id) {
         $objUsuario = static::findOne(['id' => $id]);

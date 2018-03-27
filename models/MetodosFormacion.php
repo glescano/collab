@@ -50,4 +50,13 @@ class MetodosFormacion extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Grupos::className(), ['metodos_formacion_id' => 'id']);
     }
+    
+    public static function getListaMetodosFormacion() {
+        return yii\helpers\ArrayHelper::map(MetodosFormacion::find()->all(), 'id', 'descripcion');
+    }
+    
+    public static function getNombrePorId($id) {
+        $objMetodoFormacion = static::findOne(['id' => $id]);
+        return $objMetodoFormacion->descripcion;
+    }
 }

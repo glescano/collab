@@ -12,13 +12,12 @@ use yii\filters\VerbFilter;
 /**
  * GruposController implements the CRUD actions for Grupos model.
  */
-class GruposController extends Controller
-{
+class GruposController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,14 +32,15 @@ class GruposController extends Controller
      * Lists all Grupos models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex($asigid) {
         $searchModel = new GruposSearch();
+        $searchModel->asignaturas_id = $asigid;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'asigid' => $asigid,
         ]);
     }
 
@@ -50,11 +50,57 @@ class GruposController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
+    }
+
+    function getEstilo($estilo) {
+        $nestilo = '';
+        switch (substr(trim($estilo), 0, 3)) {
+            case 'ACT':
+                $nestilo = 'activo';
+                break;
+            case 'REF':
+                $nestilo = 'reflexivo';
+                break;
+            case 'NAR':
+                // Neutral Activo Reflexivo
+                $nestilo = 'neutral-ar';
+                break;
+            case 'SEN':
+                $nestilo = 'sensitivo';
+                break;
+            case 'INT':
+                $nestilo = 'intuitivo';
+                break;
+            case 'NSI':
+                // Neutral Sensitivo Intuitivo
+                $nestilo = 'neutral-is';
+                break;
+            case 'VIS':
+                $nestilo = 'visual';
+                break;
+            case 'VER':
+                $nestilo = 'verbal';
+                break;
+            case 'NVV':
+                // Neutral Visual Verbal
+                $nestilo = 'neutral-vv';
+                break;
+            case 'SEC':
+                $nestilo = 'secuencial';
+                break;
+            case 'GLO':
+                $nestilo = 'global';
+                break;
+            case 'NSG':
+                //Neutral Secuencial Global
+                $nestilo = 'neutral-sg';
+                break;
+        }
+        return $nestilo;
     }
 
     /**
@@ -62,16 +108,46 @@ class GruposController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate($asigid) {
         $model = new Grupos();
+        $model->asignaturas_id = $asigid;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            if ($model->metodos_formacion_id == 2) {
+                // Invocar al algoritmo genetico
+                $alumnosporyear = \app\models\AsignaturasAlumnos::getListaAlumnosPorYear($model->year, $model->asignaturas_id);
+                $alumnos = array();
+                $grupos = array();
+                foreach ($alumnosporyear as $alumnoInscripto) {
+                    list($e1, $e2, $e3, $e4) = explode('-', $alumnoInscripto->estiloaprendizaje);
+                    $estilo = $this->getEstilo($e1) . "," . $this->getEstilo($e2);
+                    $estilo .= "," . $this->getEstilo($e3) . "," . $this->getEstilo($e4);
+                    $alumnos[] = array('nombre' => $alumnoInscripto->id, 'ea' => $estilo);
+                }
+
+                $grupos = $model->optimizarAG($alumnos, $model->cantidadintegrantes)[0];
+                $cont = 1;
+                foreach ($grupos["grupos"] as $grupo) {
+                    $objGrupo = new \app\models\GruposFormados();
+                    $objGrupo->nombre = "Grupo $cont";
+                    $objGrupo->grupos_id = $model->id;
+                    $objGrupo->save();
+                    foreach ($grupo as $miembro) {
+                        $objAlumnoGrupo = new \app\models\GruposAlumnos();
+                        $objAlumnoGrupo->usuarios_id = $alumnos[$miembro]["nombre"];
+                        $objAlumnoGrupo->grupos_formados_id = $objGrupo->id;
+                        $objAlumnoGrupo->save();
+                    }
+                    $cont += 1;
+                }
+
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -82,8 +158,7 @@ class GruposController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -91,7 +166,7 @@ class GruposController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -102,8 +177,7 @@ class GruposController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -116,12 +190,12 @@ class GruposController extends Controller
      * @return Grupos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Grupos::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }
