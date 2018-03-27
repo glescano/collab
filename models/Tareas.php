@@ -9,9 +9,11 @@ use Yii;
  *
  * @property int $id
  * @property string $descripcion
+ * @property int $year
  * @property int $asignaturas_id
  *
- * @property TareasYear[] $tareasYears
+ * @property Chats[] $chats
+ * @property Asignaturas $asignaturas
  */
 class Tareas extends \yii\db\ActiveRecord
 {
@@ -29,9 +31,10 @@ class Tareas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['asignaturas_id'], 'required'],
-            [['asignaturas_id'], 'integer'],
+            [['descripcion', 'year', 'asignaturas_id'], 'required'],
+            [['year', 'asignaturas_id'], 'integer'],
             [['descripcion'], 'string', 'max' => 255],
+            [['asignaturas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asignaturas::className(), 'targetAttribute' => ['asignaturas_id' => 'id']],
         ];
     }
 
@@ -43,6 +46,7 @@ class Tareas extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'descripcion' => 'Descripción',
+            'year' => 'Año',
             'asignaturas_id' => 'Asignaturas ID',
         ];
     }
@@ -50,8 +54,16 @@ class Tareas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTareasYears()
+    public function getChats()
     {
-        return $this->hasMany(TareasYear::className(), ['tareas_id' => 'id']);
+        return $this->hasMany(Chats::className(), ['tareas_year_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAsignaturas()
+    {
+        return $this->hasOne(Asignaturas::className(), ['id' => 'asignaturas_id']);
     }
 }

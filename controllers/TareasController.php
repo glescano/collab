@@ -33,14 +33,16 @@ class TareasController extends Controller
      * Lists all Tareas models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($asigid)
     {
         $searchModel = new TareasSearch();
+        $searchModel->asignaturas_id = $asigid;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'asigid' => $asigid,
         ]);
     }
 

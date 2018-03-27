@@ -29,16 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombre',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete} {grupos} {practicosg} {practicos_by_year}',
+                'template' => '{view} | {update} | {delete} | {grupos} | {practicos}',
                 'buttons' => [
                     'grupos' => function($url, $model) {
                         return Html::a('Grupos', ['grupos/index', 'asigid' => $model->id]);
                     },
-                    'practicosg' => function($url, $model) {
+                    'practicos' => function($url, $model) {
                         return Html::a('Practicos', ['tareas/index', 'asigid' => $model->id]);
-                    },
-                    'practicos_by_year' => function($url, $model) {
-                        return Html::a('Practicos', ['tareas-year/index', 'asigid' => $model->id]);
                     },
                 ],
             ],

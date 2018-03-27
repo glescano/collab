@@ -18,7 +18,7 @@ class TareasSearch extends Tareas
     public function rules()
     {
         return [
-            [['id', 'asignaturas_id'], 'integer'],
+            [['id', 'year', 'asignaturas_id'], 'integer'],
             [['descripcion'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class TareasSearch extends Tareas
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'year' => $this->year,
             'asignaturas_id' => $this->asignaturas_id,
         ]);
 
