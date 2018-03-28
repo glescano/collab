@@ -10,8 +10,8 @@ use Yii;
  * @property int $id
  * @property string $descripcion
  * @property string $fecha
- * @property int $grupos_id
- * @property int $tareas_year_id
+ * @property int $grupos_formados_id
+ * @property int $tareas_id
  *
  * @property Grupos $grupos
  * @property TareasYear $tareasYear
@@ -34,11 +34,11 @@ class Chats extends \yii\db\ActiveRecord
     {
         return [
             [['fecha'], 'safe'],
-            [['grupos_id', 'tareas_year_id'], 'required'],
-            [['grupos_id', 'tareas_year_id'], 'integer'],
+            [['grupos_formados_id', 'tareas_id'], 'required'],
+            [['grupos_formados_id', 'tareas_id'], 'integer'],
             [['descripcion'], 'string', 'max' => 255],
-            [['grupos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Grupos::className(), 'targetAttribute' => ['grupos_id' => 'id']],
-            [['tareas_year_id'], 'exist', 'skipOnError' => true, 'targetClass' => TareasYear::className(), 'targetAttribute' => ['tareas_year_id' => 'id']],
+            [['grupos_formados_id'], 'exist', 'skipOnError' => true, 'targetClass' => GruposFormados::className(), 'targetAttribute' => ['grupos_formados_id' => 'id']],
+            [['tareas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tareas::className(), 'targetAttribute' => ['tareas_id' => 'id']],
         ];
     }
 
@@ -51,8 +51,8 @@ class Chats extends \yii\db\ActiveRecord
             'id' => 'ID',
             'descripcion' => 'Descripcion',
             'fecha' => 'Fecha',
-            'grupos_id' => 'Grupos ID',
-            'tareas_year_id' => 'Tareas Year ID',
+            'grupos_formados_id' => 'Grupos ID',
+            'tareas_id' => 'Tarea',
         ];
     }
 
@@ -61,7 +61,7 @@ class Chats extends \yii\db\ActiveRecord
      */
     public function getGrupos()
     {
-        return $this->hasOne(Grupos::className(), ['id' => 'grupos_id']);
+        return $this->hasOne(GruposFormados::className(), ['id' => 'grupos_formados_id']);
     }
 
     /**
@@ -69,7 +69,7 @@ class Chats extends \yii\db\ActiveRecord
      */
     public function getTareasYear()
     {
-        return $this->hasOne(TareasYear::className(), ['id' => 'tareas_year_id']);
+        return $this->hasOne(Tareas::className(), ['id' => 'tareas_id']);
     }
 
     /**

@@ -64,7 +64,9 @@ class SentenciasController extends Controller
      */
     public function actionCreate()
     {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $model = new Sentencias();
+        $model->fecha_hora = date('Y-m-d h:i:s', time());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -84,7 +86,9 @@ class SentenciasController extends Controller
      */
     public function actionUpdate($id)
     {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $model = $this->findModel($id);
+        $model->fecha_hora = date('Y-m-d h:i:s', time());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

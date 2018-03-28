@@ -25,9 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'fecha_hora',
+            [
+                'attribute' => 'usuarios_id',
+                'label' => 'Alumno',
+                'value' => function($data) {
+                    return app\models\Usuarios::getNombrePorId($data->usuarios_id);
+                },
+            ],
             'sentencia',
-            'usuarios_id',
+            
             'chats_id',
 
             ['class' => 'yii\grid\ActionColumn'],

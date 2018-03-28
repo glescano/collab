@@ -69,11 +69,13 @@ class AsignaturasAlumnos extends \yii\db\ActiveRecord
     }
     
     public static function getListaAlumnosPorYear($year, $asigid) {
-        return AsignaturasAlumnos::find()->select([
-                    '{{asignaturas_alumnos}}.*',
-                    'usuarios.estiloaprendizaje AS estiloaprendizaje'
-                ])
-                ->innerJoin('usuarios', 'asignaturas_alumnos.usuarios_id = usuarios.id')
-                ->where(['year' => $year, 'asignaturas_id' => $asigid])->all();
+        $query = $query = (new \yii\db\Query())
+                ->select(['aa.id', 'aa.year', 'aa.asignaturas_id', 'aa.usuarios_id', 'u.estiloaprendizaje'])
+                
+                ->from('asignaturas_alumnos as aa')
+                ->innerJoin('usuarios as u', 'aa.usuarios_id = u.id')
+                ->where(['year' => $year, 'asignaturas_id' => $asigid, 'u.tipo' => 0]);
+        //echo $query->createCommand()->sql; die();
+        return $query->all();
     }
 }

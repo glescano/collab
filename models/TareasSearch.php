@@ -18,7 +18,7 @@ class TareasSearch extends Tareas
     public function rules()
     {
         return [
-            [['id', 'year', 'asignaturas_id'], 'integer'],
+            [['id', 'year', 'asignaturas_id', 'grupos_id'], 'integer'],
             [['descripcion'], 'safe'],
         ];
     }
@@ -62,9 +62,12 @@ class TareasSearch extends Tareas
             'id' => $this->id,
             'year' => $this->year,
             'asignaturas_id' => $this->asignaturas_id,
+            'grupos_id' => $this->grupos_id,
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion]);
+        
+        //echo ($query->createCommand()->sql); die();
 
         return $dataProvider;
     }

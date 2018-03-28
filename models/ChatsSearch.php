@@ -18,7 +18,7 @@ class ChatsSearch extends Chats
     public function rules()
     {
         return [
-            [['id', 'grupos_id', 'tareas_year_id'], 'integer'],
+            [['id', 'grupos_id', 'tareas_id'], 'integer'],
             [['descripcion', 'fecha'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class ChatsSearch extends Chats
             'id' => $this->id,
             'fecha' => $this->fecha,
             'grupos_id' => $this->grupos_id,
-            'tareas_year_id' => $this->tareas_year_id,
+            'tareas_id' => $this->tareas_year_id,
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion]);

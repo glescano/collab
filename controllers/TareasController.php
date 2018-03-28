@@ -12,13 +12,12 @@ use yii\filters\VerbFilter;
 /**
  * TareasController implements the CRUD actions for Tareas model.
  */
-class TareasController extends Controller
-{
+class TareasController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,16 +32,28 @@ class TareasController extends Controller
      * Lists all Tareas models.
      * @return mixed
      */
-    public function actionIndex($asigid)
-    {
+    public function actionIndex($asigid) {
         $searchModel = new TareasSearch();
         $searchModel->asignaturas_id = $asigid;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'asigid' => $asigid,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'asigid' => $asigid,
+        ]);
+    }
+    
+    public function actionTareasAlumnos($asigid, $year) {
+        $searchModel = new TareasSearch();
+        $searchModel->asignaturas_id = $asigid;
+        $searchModel->year = $year;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                
+        return $this->render('tareas-alumnos', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'asigid' => $asigid,
         ]);
     }
 
@@ -52,10 +63,9 @@ class TareasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -64,17 +74,31 @@ class TareasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($asigid)
-    {
+    public function actionCreate($asigid) {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $model = new Tareas();
         $model->asignaturas_id = $asigid;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $grupos = \app\models\GruposFormados::getDetalleGrupos($model->grupos_id);
+            $titulo = "";
+
+            foreach ($grupos as $gr) {
+                if ($titulo != $gr["nombre"]) {
+                    $objChat = new \app\models\Chats();
+                    $objChat->descripcion = 'Chat correspondiente a la tarea ' . $model->descripcion . ' que emplea la configuración de grupos ' . $gr['codigo'];
+                    $objChat->fecha = date('Y-m-d h:i:s', time());
+                    $objChat->tareas_id = $model->id;
+                    $objChat->grupos_formados_id = $gr['id'];                    
+                    $objChat->save();                   
+                    $titulo = $gr["nombre"];
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -85,8 +109,7 @@ class TareasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -94,7 +117,7 @@ class TareasController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -105,8 +128,7 @@ class TareasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -119,12 +141,12 @@ class TareasController extends Controller
      * @return Tareas the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Tareas::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

@@ -458,4 +458,7 @@ class Grupos extends \yii\db\ActiveRecord {
         return $poblacion;
     }
 
+    public static function getListaGrupos() {
+        return yii\helpers\ArrayHelper::map(Grupos::find()->all(), 'id', 'codigo');
+    }
 }

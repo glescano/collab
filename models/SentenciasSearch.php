@@ -19,7 +19,7 @@ class SentenciasSearch extends Sentencias
     {
         return [
             [['id', 'usuarios_id', 'chats_id'], 'integer'],
-            [['sentencia'], 'safe'],
+            [['sentencia', 'fecha_hora'], 'safe'],
         ];
     }
 
@@ -61,6 +61,7 @@ class SentenciasSearch extends Sentencias
         $query->andFilterWhere([
             'id' => $this->id,
             'usuarios_id' => $this->usuarios_id,
+            'fecha_hora' => $this->fecha_hora,
             'chats_id' => $this->chats_id,
         ]);
 

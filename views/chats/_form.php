@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fecha')->textInput() ?>
 
-    <?= $form->field($model, 'grupos_id')->textInput() ?>
+    <?= $form->field($model, 'grupos_formados_id')->textInput() ?>
 
-    <?= $form->field($model, 'tareas_year_id')->textInput() ?>
+    <?= $form->field($model, 'tareas_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

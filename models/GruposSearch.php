@@ -19,7 +19,7 @@ class GruposSearch extends Grupos
     {
         return [
             [['id', 'asignaturas_id', 'metodos_formacion_id'], 'integer'],
-            [['year'], 'safe'],
+            [['year', 'codigo'], 'safe'],
         ];
     }
 
@@ -62,6 +62,7 @@ class GruposSearch extends Grupos
             'id' => $this->id,
             'asignaturas_id' => $this->asignaturas_id,
             'metodos_formacion_id' => $this->metodos_formacion_id,
+            'codigo' => $this->codigo,
         ]);
 
         $query->andFilterWhere(['like', 'year', $this->year]);

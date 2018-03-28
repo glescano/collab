@@ -11,6 +11,7 @@ use Yii;
  * @property string $descripcion
  * @property int $year
  * @property int $asignaturas_id
+ * @property int $grupos_id 
  *
  * @property Chats[] $chats
  * @property Asignaturas $asignaturas
@@ -31,10 +32,11 @@ class Tareas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripcion', 'year', 'asignaturas_id'], 'required'],
-            [['year', 'asignaturas_id'], 'integer'],
+            [['descripcion', 'year', 'asignaturas_id', 'grupos_id'], 'required'],
+            [['year', 'asignaturas_id', 'grupos_id'], 'integer'],
             [['descripcion'], 'string', 'max' => 255],
             [['asignaturas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asignaturas::className(), 'targetAttribute' => ['asignaturas_id' => 'id']],
+            [['grupos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Grupos::className(), 'targetAttribute' => ['grupos_id' => 'id']],
         ];
     }
 
@@ -48,6 +50,7 @@ class Tareas extends \yii\db\ActiveRecord
             'descripcion' => 'Descripción',
             'year' => 'Año',
             'asignaturas_id' => 'Asignaturas ID',
+            'grupos_id' => 'Cod. de Configuración de Grupo',
         ];
     }
 

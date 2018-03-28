@@ -41,6 +41,7 @@ AppAsset::register($this);
             ['label' => 'Alumnos', 'url' => ['/usuarios/index', 't' => 'a']],
             ['label' => 'Docentes', 'url' => ['/usuarios/index', 't' => 'd']],
             ['label' => 'Asignaturas', 'url' => ['/asignaturas/index']],
+            ['label' => 'Mis Asignaturas', 'url' => ['/asignaturas/asignaturas-alumnos']],
             ['label' => 'Docentes por Asignaturaa', 'url' => ['/asignaturas-docentes/index']],
             ['label' => 'Métodos Formación Grupos', 'url' => ['/metodos-formacion/index']],
             ['label' => 'Sentencias de Apertura', 'url' => ['/sentencias-apertura/index']],

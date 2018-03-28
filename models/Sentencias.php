@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $sentencia
+ * @property string $fecha_hora
  * @property int $usuarios_id
  * @property int $chats_id
  *
@@ -16,22 +17,21 @@ use Yii;
  * @property Usuarios $usuarios
  * @property SentenciasConSentenciasApertura[] $sentenciasConSentenciasAperturas
  */
-class Sentencias extends \yii\db\ActiveRecord
-{
+class Sentencias extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'sentencias';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
+            [['fecha_hora'], 'safe'],
             [['usuarios_id', 'chats_id'], 'required'],
             [['usuarios_id', 'chats_id'], 'integer'],
             [['sentencia'], 'string', 'max' => 255],
@@ -43,37 +43,35 @@ class Sentencias extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'sentencia' => 'Sentencia',
             'usuarios_id' => 'Usuarios ID',
             'chats_id' => 'Chats ID',
+            'fecha_hora' => 'Fecha y Hora',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getChats()
-    {
+    public function getChats() {
         return $this->hasOne(Chats::className(), ['id' => 'chats_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUsuarios()
-    {
+    public function getUsuarios() {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuarios_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSentenciasConSentenciasAperturas()
-    {
+    public function getSentenciasConSentenciasAperturas() {
         return $this->hasMany(SentenciasConSentenciasApertura::className(), ['sentencias_id' => 'id']);
     }
+
 }

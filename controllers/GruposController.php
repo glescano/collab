@@ -120,10 +120,10 @@ class GruposController extends Controller {
                 $alumnos = array();
                 $grupos = array();
                 foreach ($alumnosporyear as $alumnoInscripto) {
-                    list($e1, $e2, $e3, $e4) = explode('-', $alumnoInscripto->estiloaprendizaje);
+                    list($e1, $e2, $e3, $e4) = explode('-', $alumnoInscripto['estiloaprendizaje']);
                     $estilo = $this->getEstilo($e1) . "," . $this->getEstilo($e2);
                     $estilo .= "," . $this->getEstilo($e3) . "," . $this->getEstilo($e4);
-                    $alumnos[] = array('nombre' => $alumnoInscripto->id, 'ea' => $estilo);
+                    $alumnos[] = array('nombre' => $alumnoInscripto['usuarios_id'], 'ea' => $estilo);
                 }
 
                 $grupos = $model->optimizarAG($alumnos, $model->cantidadintegrantes)[0];

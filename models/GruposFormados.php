@@ -66,8 +66,9 @@ class GruposFormados extends \yii\db\ActiveRecord {
     public static function getDetalleGrupos($grupos_id) {
 
         $query = (new \yii\db\Query())
-                ->select(['gf.nombre', 'u.nombre as nombreAlumno', 'u.apellido as apellidoAlumno'])
+                ->select(['gf.id','gf.nombre', 'g.codigo', 'u.nombre as nombreAlumno', 'u.apellido as apellidoAlumno'])
                 ->from('grupos_formados as gf')
+                ->innerJoin('grupos as g', 'gf.grupos_id = g.id')
                 ->innerJoin('grupos_alumnos as ga', 'gf.id = ga.grupos_formados_id')
                 ->innerJoin('usuarios as u', 'ga.usuarios_id = u.id')
                 ->where(['gf.grupos_id' => $grupos_id])
