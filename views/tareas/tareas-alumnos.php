@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $idChat = $ch->id;
                             } 
                         }
-                        return Html::a('Chat del Práctico', ['sentencias/create', 'chatid' => $idChat]);
+                        return Html::a('Chat del Práctico', ['chats/grupo', 'chatid' => $idChat]);
                     },
                 ],
             ],

@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{practicos}',
                 'buttons' => [
                     'practicos' => function($url, $model) {
-                        return Html::a('Prácticos', ['tareas/tareas-alumnos', 'asigid' => $model->id, 'year' => $model->year]);
+                        return Html::a('Prácticos', ['tareas/tareas-alumnos', 'asigid' => $model->asignaturas_id, 'year' => $model->year]);
                     },
                 ],
             ],

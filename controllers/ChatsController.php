@@ -43,6 +43,25 @@ class ChatsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    public function actionGrupo($chatid)
+    {
+        $chat = \app\models\Sentencias::getSentenciasChat($chatid);
+
+        return $this->render('grupo', [
+            'chat' => $chat,
+            'chatid' => $chatid,
+        ]);
+    }
+    
+    public function actionRecuperarChat($chatid)
+    {
+        $chat = \app\models\Sentencias::getSentenciasChat($chatid);
+
+        return $this->renderAjax('recuperar-chat', [
+            'chat' => $chat,
+        ]);
+    }
 
     /**
      * Displays a single Chats model.

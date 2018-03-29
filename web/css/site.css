@@ -76,6 +76,10 @@ a.desc:after {
     white-space: nowrap;
 }
 
+.chat {
+    white-space: nowrap;
+}
+
 .hint-block {
     display: block;
     margin-top: 5px;

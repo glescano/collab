@@ -76,6 +76,18 @@ class SentenciasController extends Controller
             'model' => $model,
         ]);
     }
+    
+    public function actionCrearConAjax($usuarios_id, $chats_id, $sentencia)
+    {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        $model = new Sentencias();
+        $model->fecha_hora = date('Y-m-d h:i:s', time());
+        $model->usuarios_id = $usuarios_id;
+        $model->chats_id = $chats_id;
+        $model->sentencia = $sentencia;
+        $model->save();
+        return true;
+    }
 
     /**
      * Updates an existing Sentencias model.

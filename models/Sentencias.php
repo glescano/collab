@@ -73,5 +73,16 @@ class Sentencias extends \yii\db\ActiveRecord {
     public function getSentenciasConSentenciasAperturas() {
         return $this->hasMany(SentenciasConSentenciasApertura::className(), ['sentencias_id' => 'id']);
     }
+    
+    public static function getSentenciasChat($chatid){
+        $query = (new \yii\db\Query())
+                ->select(['s.sentencia','s.fecha_hora', 'u.username'])
+                ->from('sentencias as s')
+                ->innerJoin('usuarios as u', 's.usuarios_id = u.id')
+                ->where(['s.chats_id' => $chatid]);
+
+        //echo $query->createCommand()->sql; die();
+        return $query->all();
+    }
 
 }
