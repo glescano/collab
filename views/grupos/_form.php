@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'codigo')->textInput() ?>
     
-    <?= $form->field($model, 'cantidadintegrantes')->textInput() ?>
+    <?= $form->field($model, 'cantidadintegrantes')->textInput() ?>        
 
     <?= $form->field($model, 'metodos_formacion_id')->dropDownList(app\models\MetodosFormacion::getListaMetodosFormacion()); ?>
 

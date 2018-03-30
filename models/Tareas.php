@@ -10,6 +10,9 @@ use Yii;
  * @property int $id
  * @property string $descripcion
  * @property int $year
+ * @property int $usar_sentencias_apertura
+ * @property int $reportar_estado_animo
+ * @property int $reportar_conflicto
  * @property int $asignaturas_id
  * @property int $grupos_id 
  *
@@ -33,7 +36,7 @@ class Tareas extends \yii\db\ActiveRecord
     {
         return [
             [['descripcion', 'year', 'asignaturas_id', 'grupos_id'], 'required'],
-            [['year', 'asignaturas_id', 'grupos_id'], 'integer'],
+            [['year', 'asignaturas_id', 'grupos_id', 'usar_sentencias_apertura', 'reportar_estado_animo', 'reportar_conflicto'], 'integer'],
             [['descripcion'], 'string', 'max' => 255],
             [['asignaturas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asignaturas::className(), 'targetAttribute' => ['asignaturas_id' => 'id']],
             [['grupos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Grupos::className(), 'targetAttribute' => ['grupos_id' => 'id']],
@@ -49,6 +52,9 @@ class Tareas extends \yii\db\ActiveRecord
             'id' => 'ID',
             'descripcion' => 'Descripción',
             'year' => 'Año',
+            'usar_sentencias_apertura' => 'Emplear Sentencias de Apertura',
+            'reportar_estado_animo' => 'Permitir Reportar Estado de Ánimo',
+            'reportar_conflicto' => 'Permitir Reportar Conflicto',
             'asignaturas_id' => 'Asignaturas ID',
             'grupos_id' => 'Cod. de Configuración de Grupo',
         ];

@@ -43,6 +43,14 @@ class SentenciasAperturaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    public function actionRecuperarSentencias($idsubhab){
+        $objSentenciaApertura = new SentenciasApertura();
+        $sentencias = $objSentenciaApertura->getSentenciasAperturaPorSubhabilidad($idsubhab);
+        return $this->renderAjax('recuperar-sentencias', [
+            'sentencias' => $sentencias,
+        ]);
+    }
 
     /**
      * Displays a single SentenciasApertura model.

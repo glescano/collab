@@ -47,10 +47,13 @@ class ChatsController extends Controller
     public function actionGrupo($chatid)
     {
         $chat = \app\models\Sentencias::getSentenciasChat($chatid);
+        $datosChat = Chats::findOne(['id' => $chatid]);
+        $tarea = \app\models\Tareas::findOne(['id' => $datosChat->tareas_id]);
 
         return $this->render('grupo', [
             'chat' => $chat,
             'chatid' => $chatid,
+            'tarea' => $tarea,
         ]);
     }
     
