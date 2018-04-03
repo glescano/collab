@@ -4,17 +4,21 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SentenciasConSentenciasApertura */
+/* @var $model app\models\Emociones */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="sentencias-con-sentencias-apertura-form">
+<div class="emociones-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'sentencias_id')->textInput() ?>
+    <?= $form->field($model, 'valencia')->textInput() ?>
 
-    <?= $form->field($model, 'sentencias_apertura_id')->textInput() ?>
+    <?= $form->field($model, 'activacion')->textInput() ?>
+
+    <?= $form->field($model, 'dominancia')->textInput() ?>
+
+    <?= $form->field($model, 'sentencias_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

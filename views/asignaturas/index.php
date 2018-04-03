@@ -9,6 +9,7 @@ use yii\grid\GridView;
 
 $this->title = 'Asignaturas';
 $this->params['breadcrumbs'][] = $this->title;
+$rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
 ?>
 <div class="asignaturas-index">
 
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Asignaturas', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= (array_key_exists('administrador', $rolesUsuario)) ? Html::a('Crear Asignatura', ['create'], ['class' => 'btn btn-success']) : '' ?>
     </p>
 
     <?=

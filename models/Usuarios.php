@@ -12,7 +12,7 @@ use Yii;
  * @property string $password
  * @property string $nombre
  * @property string $apellido
- * @property bool $tipo
+ * @property integer $tipo
  * @property string $estiloaprendizaje
  * @property string $auth_key
  *
@@ -81,7 +81,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
      */
     public function rules() {
         return [
-            [['tipo'], 'boolean'],
+            [['tipo'], 'integer'],
             [['username'], 'string', 'max' => 45],
             [['password'], 'string', 'max' => 255],
             [['nombre', 'apellido'], 'string', 'max' => 150],

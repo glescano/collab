@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\SentenciasConSentenciasAperturaSearch */
+/* @var $searchModel app\models\EmocionesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sentencias Con Sentencias Aperturas';
+$this->title = 'Emociones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sentencias-con-sentencias-apertura-index">
+<div class="emociones-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Sentencias Con Sentencias Apertura', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Emociones', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,8 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            'valencia',
+            'activacion',
+            'dominancia',
             'sentencias_id',
-            'sentencias_apertura_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Sentencias;
-use app\models\SentenciasSearch;
+use app\models\Emociones;
+use app\models\EmocionesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * SentenciasController implements the CRUD actions for Sentencias model.
+ * EmocionesController implements the CRUD actions for Emociones model.
  */
-class SentenciasController extends Controller
+class EmocionesController extends Controller
 {
     /**
      * @inheritdoc
@@ -23,7 +23,7 @@ class SentenciasController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'update', 'delete', 'create', 'crear-con-ajax'],
+                'only' => ['index', 'view', 'update', 'delete', 'create','crear-con-ajax'],
                 'rules' => [
                     [
                         'actions' => ['crear-con-ajax'],
@@ -47,12 +47,12 @@ class SentenciasController extends Controller
     }
 
     /**
-     * Lists all Sentencias models.
+     * Lists all Emociones models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SentenciasSearch();
+        $searchModel = new EmocionesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,7 +62,7 @@ class SentenciasController extends Controller
     }
 
     /**
-     * Displays a single Sentencias model.
+     * Displays a single Emociones model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -75,15 +75,13 @@ class SentenciasController extends Controller
     }
 
     /**
-     * Creates a new Sentencias model.
+     * Creates a new Emociones model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $model = new Sentencias();
-        $model->fecha_hora = date('Y-m-d h:i:s', time());
+        $model = new Emociones();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -94,20 +92,19 @@ class SentenciasController extends Controller
         ]);
     }
     
-    public function actionCrearConAjax($usuarios_id, $chats_id, $sentencia)
+    public function actionCrearConAjax($id, $valence, $arousal, $dominance)
     {
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $model = new Sentencias();
-        $model->fecha_hora = date('Y-m-d h:i:s', time());
-        $model->usuarios_id = $usuarios_id;
-        $model->chats_id = $chats_id;
-        $model->sentencia = $sentencia;
+        $model = new Emociones();
+        $model->sentencias_id = $id;
+        $model->valencia = $valence;
+        $model->activacion = $arousal;
+        $model->dominancia = $dominance;
         $model->save();
-        return $model->id;
+        return true;
     }
 
     /**
-     * Updates an existing Sentencias model.
+     * Updates an existing Emociones model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -115,9 +112,7 @@ class SentenciasController extends Controller
      */
     public function actionUpdate($id)
     {
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $model = $this->findModel($id);
-        $model->fecha_hora = date('Y-m-d h:i:s', time());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -129,7 +124,7 @@ class SentenciasController extends Controller
     }
 
     /**
-     * Deletes an existing Sentencias model.
+     * Deletes an existing Emociones model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -143,15 +138,15 @@ class SentenciasController extends Controller
     }
 
     /**
-     * Finds the Sentencias model based on its primary key value.
+     * Finds the Emociones model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Sentencias the loaded model
+     * @return Emociones the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Sentencias::findOne($id)) !== null) {
+        if (($model = Emociones::findOne($id)) !== null) {
             return $model;
         }
 

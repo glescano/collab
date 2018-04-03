@@ -12,11 +12,53 @@ $this->params['breadcrumbs'][] = $this->title;
 $usuarioid = Yii::$app->user->identity->id;
 $recuperarChat = Yii::$app->urlManager->createUrl(['chats/recuperar-chat', 'chatid' => $chatid]);
 $enviarSentencia = Yii::$app->urlManager->createUrl(['sentencias/crear-con-ajax']);
+$enviarReporteEstadoAnimo = Yii::$app->urlManager->createUrl(['emociones/crear-con-ajax']);
 $sentenciasApertura = Yii::$app->urlManager->createUrl(['sentencias-apertura/recuperar-sentencias']);
+$rEstadoAnimo = ($tarea->reportar_estado_animo) ? 1 : 0;
+$rConflicto = ($tarea->reportar_conflicto) ? 1 : 0;
+$enviarCuestionario= Yii::$app->urlManager->createUrl(['cuestionarios-conflicto/crear-con-ajax']);
+
+$this->registerJsFile(Yii::$app->request->baseUrl . '/js/jquery.ui.affectbutton.js', ['depends' => [
+        \yii\jui\JuiAsset::className(),
+]]);
+$this->registerJsFile(Yii::$app->request->baseUrl . '/js/jquery.rateyo.min.js', ['depends' => [
+        \yii\jui\JuiAsset::className(),
+]]);
 
 $script = <<< JS
     $(function () {
         var bSeleccionSentencia = 0;
+        var rEstadoAnimo = $rEstadoAnimo;
+        var rConflicto = $rConflicto;
+        var presenciaConflicto = 0;
+        var cuestionario = {
+            nc1:0,
+            nc2:0,
+            nc3:0,
+            nc4:0,
+            nc5:0,
+            cc1:0,
+            cc2:0,
+            cc3:0,
+            cc4:0,
+            cc5:0,
+            cc6:0,
+            cc7:0,
+            cc8:0,
+            cc9:0,
+            cc10:0,
+            cc11:0,
+            cc12:0,
+            cc13:0,
+            cc14:0,
+            cc15:0,
+            cc16:0,
+            cc17:0,
+            cc18:0,
+            cc19:0,
+            cc20:0
+        };
+        
         var interval = setInterval(function(){
             $.ajax({
                 url: "$recuperarChat",
@@ -48,20 +90,165 @@ $script = <<< JS
         
         $('#frmChat').submit(function (e) {
             e.preventDefault();    
-            var sentenciaApertura = '';
-            if (bSeleccionSentencia == 1){
-                sentenciaApertura = '<b>' + $('#cbxSentencias :selected').text() + '</b> ';
+            if ($('#txtSentencia').val().length != 0){
+                var sentenciaApertura = '';
+                if (bSeleccionSentencia == 1){
+                    sentenciaApertura = '<b>' + $('#cbxSentencias :selected').text() + '</b> ';
+                }
+                var sentenciaEnviar = sentenciaApertura + $('#txtSentencia').val();
+
+                // Se envia el mensaje
+                $.ajax({
+                    method: 'GET',
+                    url: "$enviarSentencia",
+                    data: {sentencia: sentenciaEnviar, usuarios_id:$usuarioid, chats_id:$chatid},
+                }).done(function (data) {
+                    $('#txtSentencia').val('');
+                    
+                    // Se reporta el estado de animo
+                    if (rEstadoAnimo == 1){
+                        $.ajax({
+                            method: 'GET',
+                            url: "$enviarReporteEstadoAnimo",
+                            data: {id: data,valence: $('#pleasure').val(), arousal:$('#arousal').val(), dominance:$('#dominance').val()},
+                        }).done(function () {
+                            return true;
+                        });
+                    }  
+                       
+                    if (rConflicto == 1){
+                        opcionSeleccionada = $('input[name=conflicto]:checked').val();
+                        if (opcionSeleccionada == 'yes'){
+                            presenciaConflicto = 1;
+                        } else {
+                            if (opcionSeleccionada == 'no' && presenciaConflicto == 1){                                
+                                presenciaConflicto = 0;
+                                $("#frmNC").data('sentenciaid', data).dialog("open");
+                            }
+                        }
+                    }
+                    return true;
+                });        
+            }        
+        });
+        
+        if (rEstadoAnimo == 1){
+            $(this).find('#affect').affectbutton({
+            }).bind('affectchanged', function (e, a) {
+                // ... so we can update the input element of each component
+                $.each(a, function (c, v) {
+                    $('#' + c).val(v);
+                });
+            }); 
+                
+            $(this).find('#affect').mouseout(function () {
+                $('#affect').affectbutton('affect', 'pleasure', $('#pleasure').val());
+                $('#affect').affectbutton('affect', 'arousal', $('#arousal').val());
+                $('#affect').affectbutton('affect', 'dominance', $('#dominance').val());                
+            });                 
+        }   
+        
+        if (rConflicto == 1){
+            var i = 1;
+            var j = 1;
+            while(i <= 8){
+                $('#ncp' + i).rateYo({
+                    precision: 0,
+                });
+                i = i + 1;
             }
-            var sentenciaEnviar = sentenciaApertura + $('#txtSentencia').val();
-            $.ajax({
-                method: 'GET',
-                url: "$enviarSentencia",
-                data: {sentencia: sentenciaEnviar, usuarios_id:$usuarioid, chats_id:$chatid},
-            }).done(function () {
-                $('#txtSentencia').val('')
+        
+            while(j <= 20){
+                $('#ccp' + j).rateYo({
+                    precision: 0,
+                });
+                j = j + 1;
+            }
+        
+            function enviarRespuestasNaturalezaConflicto(){
+                cuestionario.nc1 = parseFloat($('#ncp1').rateYo("rating")); 
+                cuestionario.nc2 = parseFloat($('#ncp2').rateYo("rating")); 
+                cuestionario.nc3 = parseFloat($('#ncp3').rateYo("rating")); 
+                cuestionario.nc4 = parseFloat($('#ncp4').rateYo("rating")); 
+                cuestionario.nc5 = parseFloat($('#ncp5').rateYo("rating")); 
+                cuestionario.nc6 = parseFloat($('#ncp6').rateYo("rating")); 
+                cuestionario.nc7 = parseFloat($('#ncp7').rateYo("rating")); 
+                cuestionario.nc8 = parseFloat($('#ncp8').rateYo("rating")); 
+                $('#frmNC').dialog("close");
+                $('#frmCC').data('sentenciaid', $('#frmNC').data('sentenciaid'));
                 return true;
-            });
-        });           
+            }
+        
+            function enviarRespuestasComportamientoConflicto(){
+                cuestionario.cc1 = parseFloat($('#ccp1').rateYo("rating")); 
+                cuestionario.cc2 = parseFloat($('#ccp2').rateYo("rating")); 
+                cuestionario.cc3 = parseFloat($('#ccp3').rateYo("rating")); 
+                cuestionario.cc4 = parseFloat($('#ccp4').rateYo("rating")); 
+                cuestionario.cc5 = parseFloat($('#ccp5').rateYo("rating")); 
+                cuestionario.cc6 = parseFloat($('#ccp6').rateYo("rating")); 
+                cuestionario.cc7 = parseFloat($('#ccp7').rateYo("rating")); 
+                cuestionario.cc8 = parseFloat($('#ccp8').rateYo("rating")); 
+                cuestionario.cc9 = parseFloat($('#ccp9').rateYo("rating")); 
+                cuestionario.cc10 = parseFloat($('#ccp10').rateYo("rating")); 
+                cuestionario.cc11 = parseFloat($('#ccp11').rateYo("rating")); 
+                cuestionario.cc12 = parseFloat($('#ccp12').rateYo("rating")); 
+                cuestionario.cc13 = parseFloat($('#ccp13').rateYo("rating")); 
+                cuestionario.cc14 = parseFloat($('#ccp14').rateYo("rating")); 
+                cuestionario.cc15 = parseFloat($('#ccp15').rateYo("rating")); 
+                cuestionario.cc16 = parseFloat($('#ccp16').rateYo("rating")); 
+                cuestionario.cc17 = parseFloat($('#ccp17').rateYo("rating")); 
+                cuestionario.cc18 = parseFloat($('#ccp18').rateYo("rating")); 
+                cuestionario.cc19 = parseFloat($('#ccp19').rateYo("rating")); 
+                cuestionario.cc20 = parseFloat($('#ccp20').rateYo("rating")); 
+                datac = JSON.stringify(cuestionario);
+                $('#frmPC').dialog("close");
+                $.ajax({
+                    method: 'POST',
+                    url: "$enviarCuestionario",
+                    data: {sentenciaid: $('#frmNC').data('sentenciaid'), datacuestionario:datac},
+                }).done(function () {
+                    return true;
+                });
+                return true;
+            }
+
+            dialog = $("#frmNC").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 350,
+                modal: true,
+                buttons: {
+                    "Responder": enviarRespuestasNaturalezaConflicto
+                },
+                close: function () {                    
+                    $('#frmPC').dialog("open");
+                }
+            });        
+        
+            dialog = $("#frmPC").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 350,
+                modal: true,
+                buttons: {
+                    "Responder": enviarRespuestasComportamientoConflicto
+                },
+                close: function () {   
+                    var i = 1;
+                    var j = 1;
+                    while(i <= 8){
+                        $('#ncp' + i).rateYo("option", "rating", 0);
+                        i = i + 1;
+                    }
+
+                    while(j <= 20){
+                        $('#ccp' + j).rateYo("option", "rating", 0);
+                        j = j + 1;
+                    }                    
+                    return true;
+                }
+            });         
+        }
     });                             
 JS;
 $this->registerJs($script, yii\web\View::POS_END);
@@ -72,8 +259,29 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div id='divChat' style="width: 900px; height: 400px; overflow-y: scroll;"></div>
-    <div>
+    <div id='divChat' style="width: 900px; height: 400px; overflow-y: scroll; float:left;"></div>
+
+
+    <div style=" width:200px; margin:0 20px; float:left;">
+        <?php if ($tarea->reportar_estado_animo == 1): ?>
+            <b>Me siento...</b><br/>
+            <canvas id="affect" width="100px" height="100px" style="border:0; padding:0;"></canvas>
+            <input id="pleasure" type="hidden" value="0" min="-1" max="1" step="0.05" size="4" />
+            <input id="arousal" type="hidden" value="0" min="-1" max="1" step="0.05" />
+            <input id="dominance" type="hidden" value="0" min="-1" max="1" step="0.05" />
+            <br/><br/>
+        <?php endif; ?>
+
+        <?php if ($tarea->reportar_conflicto == 1): ?>
+            <div style="border: black 1px solid;padding: 10px;">
+                <input type="radio" name="conflicto" value="no" checked="checked"> No hay diferencias en el grupo<br>
+                <input type="radio" name="conflicto" value="yes"> Siento que estamos con diferencias en el grupo<br>                            
+            </div>
+        <?php endif; ?>
+    </div>
+
+
+    <div style="clear:both;">
         <form id="frmChat">
             <?php if ($tarea->usar_sentencias_apertura == 1): ?>
                 <label><b>Empeza tu aporte con alguna de estas frases:</b></label><br/>
@@ -89,9 +297,91 @@ $sentenciaApertura = new app\models\SentenciasApertura();
                 <select id="cbxSentencias" name="cbxSentencias">                    
                 </select><br/>
             <?php endif; ?>
-            <input id="txtSentencia" name="txtSentencia" value="" <?php echo ($tarea->usar_sentencias_apertura == 1) ? 'disabled="disabled"' : '';?> style=" width: 600px;height: 60px;"/><br/>            
+            <input id="txtSentencia" name="txtSentencia" value="" <?php echo ($tarea->usar_sentencias_apertura == 1) ? 'disabled="disabled"' : ''; ?> style=" width: 600px;height: 60px;"/><br/>            
             <input type="submit" id="btnEnviar" name="btnEnviar" value="Enviar"/>
         </form>
     </div>
 
+    <?php if ($tarea->reportar_conflicto == 1): ?>
+        <div id="frmNC" title="Naturaleza del Conflicto" sentencia-id="">
+
+            ¿En qu&eacute; grado hay diferencias de opini&oacute;n en su grupo?
+            <div id="ncp1"></div>
+
+            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestan desacuerdo respecto a c&oacute;mo deberían ser hechas las cosas?
+            <div id="ncp2"></div>
+
+
+            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestan desacuerdo sobre cu&aacute;les procedimientos deber&iacute;an ser usados para realizar el trabajo?
+            <div id="ncp3"></div>
+
+
+            ¿En qu&eacute; grado estos argumentos est&aacute;n relacionados a la tarea?
+            <div id="ncp4"></div>
+
+
+            ¿En qu&eacute; medida son evidentes los choques de personalidad en tu equipo?
+            <div id="ncp5"></div>
+
+
+            ¿Cu&aacute;nta tensi&oacute;n hay entre los miembros de su equipo?
+            <div id="ncp6"></div>
+
+
+            ¿Cu&aacute;n frecuente los miembros de su grupo se ponen enojados mientras trabajan en grupo?
+            <div id="ncp7"></div>
+
+
+            ¿Cu&aacute;nta rivalidad existe entre los miembros de su grupo?
+            <div id="ncp8"></div>
+        </div>
+
+        <div id="frmPC" title="Comportamientos ante el Conflicto" sentencia-id="">
+            <b>Flexible</b><br/>
+            1.	Me rindo a los deseos de la otra parte  
+            <div id="ccp1"></div>
+            2.	Estoy de acuerdo con la otra parte  
+            <div id="ccp2"></div>
+            3.	Intento acomodar a la otra parte  
+            <div id="ccp3"></div>
+            4.	Me adapto a los intereses y objetivos de la otra parte  
+            <div id="ccp4"></div>
+            <b>Comprometido</b><br/>
+            1.	Trat&eacute; de darme cuenta de una soluci&oacute;n a mitad de camino. 
+            <div id="ccp5"></div>
+            2.	Enfatizo que tenemos que encontrar una soluci&oacute;n de compromiso.  
+            <div id="ccp6"></div>
+            3.	Insisto en que ambos cedamos un poco.  
+            <div id="ccp7"></div>
+            4.	Me esfuerzo cuando sea posible hacia un compromiso del cincuenta y cincuenta.  
+            <div id="ccp8"></div>
+            <b>Violento – Dominante</b><br/>
+            1.	Yo empujo mi propio punto de vista.  
+            <div id="ccp9"></div>
+            2.	Busco ganancias.  
+            <div id="ccp10"></div>
+            3.	Lucho por un buen resultado para m&iacute;.
+            <div id="ccp11"></div>
+            4.	Hago todo por ganar.  
+            <div id="ccp12"></div>
+            <b>Revolvedor de problema - Colaborador</b><br/>
+            1.	Examino los problemas hasta que encuentre una soluci&oacute;n que realmente me satisfaga a m&iacute; y a la otra parte.  
+            <div id="ccp13"></div>
+            2.	Defiendo los objetivos e intereses propios y ajenos.
+            <div id="ccp14"></div>
+            3.	Examino ideas de ambas partes para encontrar una soluci&oacute;n mutua &oacute;ptima.
+            <div id="ccp15"></div>
+            4.	Elaboro una soluci&oacute;n que sirve tanto a m&iacute; como a los intereses de los dem&aacute;s lo mejor posible.  
+            <div id="ccp16"></div>
+            <b>Evasor</b><br/>
+            1.	Evito una confrontaci&oacute;n sobre nuestras diferencias.
+            <div id="ccp17"></div>
+            2.	Evito diferencias de opini&oacute;n tanto como sea posible.  
+            <div id="ccp18"></div>
+            3.	Intento hacer que las diferencias sean menos severas.  
+            <div id="ccp19"></div>
+            4.	Intento evitar una confrontaci&oacute;n con el otro.  
+            <div id="ccp20"></div>
+        </div>
+    <?php endif; ?>
 </div>

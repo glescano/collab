@@ -3,14 +3,14 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SentenciasConSentenciasApertura */
+/* @var $model app\models\Cuestionariosconflicto */
 
-$this->title = 'Update Sentencias Con Sentencias Apertura: {nameAttribute}';
-$this->params['breadcrumbs'][] = ['label' => 'Sentencias Con Sentencias Aperturas', 'url' => ['index']];
+$this->title = 'Update Cuestionariosconflicto: {nameAttribute}';
+$this->params['breadcrumbs'][] = ['label' => 'Cuestionariosconflictos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="sentencias-con-sentencias-apertura-update">
+<div class="cuestionariosconflicto-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

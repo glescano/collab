@@ -8,6 +8,7 @@ use app\models\SentenciasAperturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SentenciasAperturaController implements the CRUD actions for SentenciasApertura model.
@@ -20,6 +21,22 @@ class SentenciasAperturaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'recuperar-sentencias'],
+                'rules' => [
+                    [
+                        'actions' => ['recuperar-sentencias'],
+                        'allow' => true,
+                        'roles' => ['estudiante'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['administrador'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -8,8 +8,9 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->params['breadcrumbs'][] = $this->title;
-$tipoUsuario = ($tipo == 'a') ? 'Alumnos' : 'Docentes';
+$tipoUsuario = ($tipo == 'a') ? 'Alumnos' : (($tipo == 'd') ? 'Docentes' : (($tipo == 'm') ? 'Administradores' : 'Usuarios'));
 $this->title = $tipoUsuario;
+$rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
 ?>
 <div class="usuarios-index">
 
@@ -32,6 +33,7 @@ $this->title = $tipoUsuario;
             'nombre',
             'apellido',
             //'tipo:boolean',
+            (array_key_exists('administrador', $rolesUsuario)) ? 'tipo' : 
             'estiloaprendizaje',
 
             ['class' => 'yii\grid\ActionColumn'],

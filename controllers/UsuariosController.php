@@ -8,6 +8,7 @@ use app\models\UsuariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UsuariosController implements the CRUD actions for Usuarios model.
@@ -19,6 +20,27 @@ class UsuariosController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'update', 'delete', 'create'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        'roles' => ['administrador'],
+                    ],
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['?', 'administrador', 'profesor'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,8 +58,10 @@ class UsuariosController extends Controller {
         $searchModel = new UsuariosSearch();
         if ($t == 'a') {
             $searchModel->tipo = 0;
-        } else {
+        } elseif ($t == 'd') {
             $searchModel->tipo = 1;
+        } elseif ($t == 'm') {
+            $searchModel->tipo = 2;
         }
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -70,11 +94,24 @@ class UsuariosController extends Controller {
         $model = new Usuarios();
         if ($t == 'a') {
             $model->tipo = 0;
-        } else {
+        } elseif ($t == 'd') {
             $model->tipo = 1;
-        }
+        } else {
+            $model->tipo = 2;
+        }        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $rbac = Yii::$app->authManager;
+            if ($t == 'a') {
+                $estudiante = $rbac->getRole('estudiante');
+                $rbac->assign($estudiante, $model->id);
+            } elseif ($t == 'd') {
+                $profesor = $rbac->getRole('profesor');
+                $rbac->assign($profesor, $model->id);
+            } else {
+                $administrador = $rbac->getRole('administrador');
+                $rbac->assign($administrador, $model->id);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -117,7 +154,7 @@ class UsuariosController extends Controller {
     }
 
     public function actionTestFelderSilverman() {
-           
+
         $model = $this->findModel(Yii::$app->user->identity->id);
 
         if ($model->load(Yii::$app->request->post())) {

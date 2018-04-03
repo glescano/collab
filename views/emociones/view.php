@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SentenciasConSentenciasApertura */
+/* @var $model app\models\Emociones */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Sentencias Con Sentencias Aperturas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Emociones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sentencias-con-sentencias-apertura-view">
+<div class="emociones-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,8 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'valencia',
+            'activacion',
+            'dominancia',
             'sentencias_id',
-            'sentencias_apertura_id',
         ],
     ]) ?>
 

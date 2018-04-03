@@ -3,16 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\SentenciasConSentenciasApertura;
-use app\models\SentenciasConSentenciasAperturaSearch;
+use app\models\Cuestionariosconflicto;
+use app\models\CuestionariosconflictoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
- * SentenciasConSentenciasAperturaController implements the CRUD actions for SentenciasConSentenciasApertura model.
+ * CuestionariosConflictoController implements the CRUD actions for Cuestionariosconflicto model.
  */
-class SentenciasConSentenciasAperturaController extends Controller
+class CuestionariosConflictoController extends Controller
 {
     /**
      * @inheritdoc
@@ -20,6 +21,22 @@ class SentenciasConSentenciasAperturaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'crear-con-ajax'],
+                'rules' => [
+                    [
+                        'actions' => ['crear-con-ajax'],
+                        'allow' => true,
+                        'roles' => ['estudiante'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['profesor'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -30,12 +47,12 @@ class SentenciasConSentenciasAperturaController extends Controller
     }
 
     /**
-     * Lists all SentenciasConSentenciasApertura models.
+     * Lists all Cuestionariosconflicto models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SentenciasConSentenciasAperturaSearch();
+        $searchModel = new CuestionariosconflictoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +62,7 @@ class SentenciasConSentenciasAperturaController extends Controller
     }
 
     /**
-     * Displays a single SentenciasConSentenciasApertura model.
+     * Displays a single Cuestionariosconflicto model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +75,13 @@ class SentenciasConSentenciasAperturaController extends Controller
     }
 
     /**
-     * Creates a new SentenciasConSentenciasApertura model.
+     * Creates a new Cuestionariosconflicto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new SentenciasConSentenciasApertura();
+        $model = new Cuestionariosconflicto();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,9 +91,32 @@ class SentenciasConSentenciasAperturaController extends Controller
             'model' => $model,
         ]);
     }
+    
+    public function actionCrearConAjax()
+    {
+        if (isset($_POST)){
+            $idsentencia = $_POST["sentenciaid"];
+            $cuestionario = json_decode($_POST['datacuestionario']);
+            $oCuestionario = new Cuestionariosconflicto();
+            
+            for($i=1; $i <= 8; $i++){
+                $indice = "nc$i";
+                $oCuestionario->$indice = $cuestionario->$indice;
+            }
+            
+            for($i=1; $i <= 20; $i++){
+                $indice = "cc$i";
+                $oCuestionario->$indice = $cuestionario->$indice;
+            }
+            
+            $oCuestionario->sentencias_id = $idsentencia;
+            $oCuestionario->save();
+        }
+        return true;
+    }    
 
     /**
-     * Updates an existing SentenciasConSentenciasApertura model.
+     * Updates an existing Cuestionariosconflicto model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +136,7 @@ class SentenciasConSentenciasAperturaController extends Controller
     }
 
     /**
-     * Deletes an existing SentenciasConSentenciasApertura model.
+     * Deletes an existing Cuestionariosconflicto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +150,15 @@ class SentenciasConSentenciasAperturaController extends Controller
     }
 
     /**
-     * Finds the SentenciasConSentenciasApertura model based on its primary key value.
+     * Finds the Cuestionariosconflicto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SentenciasConSentenciasApertura the loaded model
+     * @return Cuestionariosconflicto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SentenciasConSentenciasApertura::findOne($id)) !== null) {
+        if (($model = Cuestionariosconflicto::findOne($id)) !== null) {
             return $model;
         }
 

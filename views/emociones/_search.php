@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SentenciasConSentenciasAperturaSearch */
+/* @var $model app\models\EmocionesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="sentencias-con-sentencias-apertura-search">
+<div class="emociones-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,9 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'sentencias_id') ?>
+    <?= $form->field($model, 'valencia') ?>
 
-    <?= $form->field($model, 'sentencias_apertura_id') ?>
+    <?= $form->field($model, 'activacion') ?>
+
+    <?= $form->field($model, 'dominancia') ?>
+
+    <?= $form->field($model, 'sentencias_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

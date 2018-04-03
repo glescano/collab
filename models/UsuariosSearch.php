@@ -18,9 +18,8 @@ class UsuariosSearch extends Usuarios
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'tipo'], 'integer'],
             [['username', 'nombre', 'apellido', 'estiloaprendizaje'], 'safe'],
-            [['tipo'], 'boolean'],
         ];
     }
 

@@ -8,6 +8,7 @@ use app\models\ChatsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ChatsController implements the CRUD actions for Chats model.
@@ -20,6 +21,22 @@ class ChatsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'grupo', 'recuperar-chat'],
+                'rules' => [
+                    [
+                        'actions' => ['grupo', 'recuperar-chat'],
+                        'allow' => true,
+                        'roles' => ['estudiante'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['profesor'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
