@@ -16,7 +16,10 @@ $enviarReporteEstadoAnimo = Yii::$app->urlManager->createUrl(['emociones/crear-c
 $sentenciasApertura = Yii::$app->urlManager->createUrl(['sentencias-apertura/recuperar-sentencias']);
 $rEstadoAnimo = ($tarea->reportar_estado_animo) ? 1 : 0;
 $rConflicto = ($tarea->reportar_conflicto) ? 1 : 0;
-$enviarCuestionario= Yii::$app->urlManager->createUrl(['cuestionarios-conflicto/crear-con-ajax']);
+$enviarCuestionario = Yii::$app->urlManager->createUrl(['cuestionarios-conflicto/crear-con-ajax']);
+
+/* $this->registerCssFile("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+  $this->registerCssFile(Yii::$app->request->baseUrl . "/emoji-picker/css/emoji.css"); */
 
 $this->registerJsFile(Yii::$app->request->baseUrl . '/js/jquery.ui.affectbutton.js', ['depends' => [
         \yii\jui\JuiAsset::className(),
@@ -25,6 +28,23 @@ $this->registerJsFile(Yii::$app->request->baseUrl . '/js/jquery.rateyo.min.js', 
         \yii\jui\JuiAsset::className(),
 ]]);
 
+$this->registerJsFile(Yii::$app->request->baseUrl . '/emoji-picker/js/config.js', ['depends' => [
+        \yii\web\JqueryAsset::className(),
+]]);
+
+$this->registerJsFile(Yii::$app->request->baseUrl . '/emoji-picker/js/util.js', ['depends' => [
+        \yii\web\JqueryAsset::className(),
+]]);
+
+$this->registerJsFile(Yii::$app->request->baseUrl . '/emoji-picker/js/jquery.emojiarea.js', ['depends' => [
+        \yii\web\JqueryAsset::className(),
+]]);
+
+$this->registerJsFile(Yii::$app->request->baseUrl . '/emoji-picker/js/emoji-picker.js', ['depends' => [
+        \yii\web\JqueryAsset::className(),
+]]);
+
+$base = Yii::$app->request->baseUrl;
 $script = <<< JS
     $(function () {
         var bSeleccionSentencia = 0;
@@ -86,16 +106,19 @@ $script = <<< JS
         $('#cbxSentencias').change(function(){
             bSeleccionSentencia = 1;
             $('#txtSentencia').prop('disabled', false);
-        });        
+        });      
         
         $('#frmChat').submit(function (e) {
-            e.preventDefault();    
+            e.preventDefault();                
+        
             if ($('#txtSentencia').val().length != 0){
                 var sentenciaApertura = '';
-                if (bSeleccionSentencia == 1){
+                if (bSeleccionSentencia == 1){                    
                     sentenciaApertura = '<b>' + $('#cbxSentencias :selected').text() + '</b> ';
                 }
-                var sentenciaEnviar = sentenciaApertura + $('#txtSentencia').val();
+                var idhidden = $('#txtSentencia').data('id');
+                var raw = ($("*[data-id=" + idhidden + "]").val());        
+                var sentenciaEnviar = sentenciaApertura + raw;
 
                 // Se envia el mensaje
                 $.ajax({
@@ -104,7 +127,8 @@ $script = <<< JS
                     data: {sentencia: sentenciaEnviar, usuarios_id:$usuarioid, chats_id:$chatid},
                 }).done(function (data) {
                     $('#txtSentencia').val('');
-                    
+                    $('.emoji-wysiwyg-editor').html("");
+        
                     // Se reporta el estado de animo
                     if (rEstadoAnimo == 1){
                         $.ajax({
@@ -249,6 +273,17 @@ $script = <<< JS
                 }
             });         
         }
+        
+        // Initializes and creates emoji set from sprite sheet
+        window.emojiPicker = new EmojiPicker({
+          emojiable_selector: '[data-emojiable=true]',
+          assetsPath: '$base/emoji-picker/img/',
+          popupButtonClasses: 'fa fa-smile-o'
+        });
+        // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+        // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+        // It can be called as many times as necessary; previously converted input fields will not be converted again
+        window.emojiPicker.discover();
     });                             
 JS;
 $this->registerJs($script, yii\web\View::POS_END);
@@ -297,7 +332,10 @@ $sentenciaApertura = new app\models\SentenciasApertura();
                 <select id="cbxSentencias" name="cbxSentencias">                    
                 </select><br/>
             <?php endif; ?>
-            <input id="txtSentencia" name="txtSentencia" value="" <?php echo ($tarea->usar_sentencias_apertura == 1) ? 'disabled="disabled"' : ''; ?> style=" width: 600px;height: 60px;"/><br/>            
+            <p class="lead emoji-picker-container">
+                <input id="txtSentencia" name="txtSentencia" value="" <?php echo ($tarea->usar_sentencias_apertura == 1) ? 'disabled="disabled"' : ''; ?> class="form-control" style="height: 60px; width: 100px important!;" data-emojiable="true" />
+            </p>
+
             <input type="submit" id="btnEnviar" name="btnEnviar" value="Enviar"/>
         </form>
     </div>

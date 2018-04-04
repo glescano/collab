@@ -8,14 +8,15 @@ use Yii;
  * This is the model class for table "sentencias".
  *
  * @property int $id
- * @property string $sentencia
+ * @property resource $sentencia
  * @property string $fecha_hora
  * @property int $usuarios_id
  * @property int $chats_id
  *
  * @property Chats $chats
  * @property Usuarios $usuarios
- * @property SentenciasConSentenciasApertura[] $sentenciasConSentenciasAperturas
+ * @property Cuestionariosconflicto[] $cuestionariosconflictos
+ * @property Emociones[] $emociones
  */
 class Sentencias extends \yii\db\ActiveRecord {
 
@@ -31,10 +32,10 @@ class Sentencias extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            [['sentencia'], 'string'],
+            [['fecha_hora', 'usuarios_id', 'chats_id'], 'required'],
             [['fecha_hora'], 'safe'],
-            [['usuarios_id', 'chats_id'], 'required'],
             [['usuarios_id', 'chats_id'], 'integer'],
-            [['sentencia'], 'string', 'max' => 255],
             [['chats_id'], 'exist', 'skipOnError' => true, 'targetClass' => Chats::className(), 'targetAttribute' => ['chats_id' => 'id']],
             [['usuarios_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuarios_id' => 'id']],
         ];
@@ -70,9 +71,18 @@ class Sentencias extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSentenciasConSentenciasAperturas() {
-        return $this->hasMany(SentenciasConSentenciasApertura::className(), ['sentencias_id' => 'id']);
+    public function getCuestionariosconflictos()
+    {
+        return $this->hasMany(Cuestionariosconflicto::className(), ['sentencias_id' => 'id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmociones()
+    {
+        return $this->hasMany(Emociones::className(), ['sentencias_id' => 'id']);
+    }    
     
     public static function getSentenciasChat($chatid){
         $query = (new \yii\db\Query())
