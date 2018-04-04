@@ -22,7 +22,7 @@ class SiteController extends Controller {
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'administrador'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
