@@ -52,6 +52,7 @@ $script = <<< JS
         var rConflicto = $rConflicto;
         var presenciaConflicto = 0;
         var scrollTopBefore = 0;
+        var cargaInicial = 0;
         var cuestionario = {
             nc1:0,
             nc2:0,
@@ -91,12 +92,17 @@ $script = <<< JS
             }).done(function (data) {
                 $('#divChat').html(data);
                 var objDiv = document.getElementById("divChat");
-                var diferencia = objDiv.scrollHeight - scrollTopBefore;
-                if( diferencia > 400 && diferencia < 490 ){
-                    objDiv.scrollTop = objDiv.scrollHeight;                    
-                } else {
-                    objDiv.scrollTop = scrollTopBefore;
-                }                
+                if (cargaInicial == 0){
+                    objDiv.scrollTop = objDiv.scrollHeight; 
+                    cargaInicial = 1;
+                } else{
+                    diferencia = objDiv.scrollHeight - scrollTopBefore;
+                    if( diferencia > 400 && diferencia < 490 ){
+                        objDiv.scrollTop = objDiv.scrollHeight;                    
+                    } else {
+                        objDiv.scrollTop = scrollTopBefore;
+                    }          
+                }              
             });
         }, 1000);  
         
