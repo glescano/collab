@@ -53,6 +53,7 @@ $script = <<< JS
         var presenciaConflicto = 0;
         var scrollTopBefore = 0;
         var cargaInicial = 0;
+        var lastScrollHeight = 0;
         var cuestionario = {
             nc1:0,
             nc2:0,
@@ -86,6 +87,13 @@ $script = <<< JS
             scrollTopBefore = objDiv.scrollTop;
         });
         
+        $('#btnGoBottom').click(function(){
+            var objDiv = document.getElementById("divChat");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            lastScrollHeight = objDiv.scrollHeight;
+            $('#goBottom').hide();
+        });
+        
         var interval = setInterval(function(){
             $.ajax({
                 url: "$recuperarChat",
@@ -94,13 +102,18 @@ $script = <<< JS
                 var objDiv = document.getElementById("divChat");
                 if (cargaInicial == 0){
                     objDiv.scrollTop = objDiv.scrollHeight; 
+                    lastScrollHeight = objDiv.scrollHeight;
                     cargaInicial = 1;
                 } else{
                     diferencia = objDiv.scrollHeight - scrollTopBefore;
                     if( diferencia > 400 && diferencia < 490 ){
                         objDiv.scrollTop = objDiv.scrollHeight;                    
+                        lastScrollHeight = objDiv.scrollHeight;
                     } else {
                         objDiv.scrollTop = scrollTopBefore;
+                        if (lastScrollHeight < objDiv.scrollHeight){
+                            $('#goBottom').show();
+                        }                        
                     }          
                 }              
             });
@@ -311,7 +324,14 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div id='divChat' style="width: 900px; height: 400px; overflow-y: scroll; float:left;"></div>
+    <div style="float:left; margin: 0px auto 10px auto;">
+        <div id='divChat' style="width: 900px; height: 400px; overflow-y: scroll;"></div>
+        <br/>
+        <div id="goBottom" style="margin: 0 auto; width: 200px; display: none;">
+            <input id="btnGoBottom" type="button" style="background-color: #FEE300;  text-align: center; padding: 5px;" value="Tienes nuevos mensajes"/>            
+        </div>
+    </div>
+    
 
 
     <div style=" width:200px; margin:0 20px; float:left;">

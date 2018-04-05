@@ -86,10 +86,11 @@ class Sentencias extends \yii\db\ActiveRecord {
     
     public static function getSentenciasChat($chatid){
         $query = (new \yii\db\Query())
-                ->select(['s.sentencia','s.fecha_hora', 'u.username'])
+                ->select(['s.id', 's.sentencia','s.fecha_hora', 's.chats_id', 'u.username'])
                 ->from('sentencias as s')
                 ->innerJoin('usuarios as u', 's.usuarios_id = u.id')
-                ->where(['s.chats_id' => $chatid]);
+                ->where(['s.chats_id' => $chatid])
+                ->orderBy('s.fecha_hora ASC');
 
         //echo $query->createCommand()->sql; die();
         return $query->all();

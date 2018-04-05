@@ -75,7 +75,7 @@ class ChatsController extends Controller
     }
     
     public function actionRecuperarChat($chatid)
-    {
+    {        
         $chat = \app\models\Sentencias::getSentenciasChat($chatid);
 
         return $this->renderAjax('recuperar-chat', [
