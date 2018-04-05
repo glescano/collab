@@ -90,7 +90,7 @@ class Sentencias extends \yii\db\ActiveRecord {
                 ->from('sentencias as s')
                 ->innerJoin('usuarios as u', 's.usuarios_id = u.id')
                 ->where(['s.chats_id' => $chatid])
-                ->orderBy('s.fecha_hora ASC');
+                ->orderBy('s.id ASC');
 
         //echo $query->createCommand()->sql; die();
         return $query->all();

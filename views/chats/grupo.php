@@ -110,10 +110,11 @@ $script = <<< JS
                     cargaInicial = 1;
                 } else{
                     diferencia = objDiv.scrollHeight - scrollTopBefore;
-                    if( diferencia > 400 && diferencia < 490 ){
+                    if( diferencia > 300 && diferencia < 490 ){
                         objDiv.scrollTop = objDiv.scrollHeight;                    
                         lastScrollHeight = objDiv.scrollHeight;
                     } else {
+                        
                         objDiv.scrollTop = scrollTopBefore;
                         if (lastScrollHeight < objDiv.scrollHeight){
                             $('#goBottom').show();
