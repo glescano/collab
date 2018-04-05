@@ -7,9 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ChatsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Chats';
+$asignatura = app\models\Asignaturas::findOne(['id' => $tarea->asignaturas_id])->nombre;
+
+$this->title = 'Chat - ' . $tarea->descripcion;
 $this->params['breadcrumbs'][] = $this->title;
 $usuarioid = Yii::$app->user->identity->id;
+
+// urls para hacer llamados AJAX
 $recuperarChat = Yii::$app->urlManager->createUrl(['chats/recuperar-chat', 'chatid' => $chatid]);
 $enviarSentencia = Yii::$app->urlManager->createUrl(['sentencias/crear-con-ajax']);
 $enviarReporteEstadoAnimo = Yii::$app->urlManager->createUrl(['emociones/crear-con-ajax']);
@@ -321,17 +325,17 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 ?>
 
 <div class="chats-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($asignatura) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <div style="float:left; margin: 0px auto 10px auto;">
-        <div id='divChat' style="width: 900px; height: 400px; overflow-y: scroll;"></div>
+        <div id='divChat' style="width: 900px; height: 350px; overflow-y: scroll;"></div>
         <br/>
         <div id="goBottom" style="margin: 0 auto; width: 200px; display: none;">
             <input id="btnGoBottom" type="button" style="background-color: #FEE300;  text-align: center; padding: 5px;" value="Tienes nuevos mensajes"/>            
         </div>
     </div>
-    
+
 
 
     <div style=" width:200px; margin:0 20px; float:left;">

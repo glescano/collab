@@ -7,12 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TareasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tareas';
+$asignatura = app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
+$this->title = "Actividades";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tareas-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($asignatura) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?=
@@ -36,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $idChat = $ch->id;
                             } 
                         }
-                        return Html::a('Chat del Práctico', ['chats/grupo', 'chatid' => $idChat]);
+                        return Html::a('Chat', ['chats/grupo', 'chatid' => $idChat]);
                     },
                 ],
             ],
