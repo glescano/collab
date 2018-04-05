@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Grupos';
+$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupos-index">

@@ -34,7 +34,6 @@ class AsignaturasController extends Controller {
                         'allow' => true,
                         'roles' => ['profesor'],
                     ],
-                    
                 ],
             ],
             'verbs' => [
@@ -51,7 +50,9 @@ class AsignaturasController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $searchModel = new AsignaturasSearch();
+        $docente = Yii::$app->user->identity->id;
+        $searchModel = new \app\models\AsignaturasDocentesSearch();
+        $searchModel->usuarios_id = $docente;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

@@ -7,7 +7,8 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AsignaturasAlumnosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Inscribir Alumnos';
+$this->title = 'Asociar Alumnos en ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
+$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="asignaturas-alumnos-index">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Inscribir Alumno', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Asociar Alumno', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

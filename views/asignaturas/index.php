@@ -26,20 +26,25 @@ $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'nombre',
+            [
+                'attribute' => 'asignaturas_id',
+                'label' => 'Nombre',
+                'value' => function($data) {
+                    return app\models\Asignaturas::getNombrePorId($data->asignaturas_id);
+                },
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} | {update} | {delete} | {alumnos} | {grupos} | {practicos}',
                 'buttons' => [
                     'alumnos' => function($url, $model) {
-                        return Html::a('Inscribir Alumnos', ['asignaturas-alumnos/index', 'asigid' => $model->id]);
+                        return Html::a('Asociar Alumnos', ['asignaturas-alumnos/index', 'asigid' => $model->id]);
                     },
                     'grupos' => function($url, $model) {
                         return Html::a('Grupos', ['grupos/index', 'asigid' => $model->id]);
                     },
                     'practicos' => function($url, $model) {
-                        return Html::a('Practicos', ['tareas/index', 'asigid' => $model->id]);
+                        return Html::a('Actividades', ['tareas/index', 'asigid' => $model->id]);
                     },
                 ],
             ],

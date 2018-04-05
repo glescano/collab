@@ -88,6 +88,7 @@ class AsignaturasAlumnosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'asigid' => $asigid,
         ]);
     }
 

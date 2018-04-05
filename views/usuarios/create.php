@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 $tipoUsuario = ($tipo == 'a') ? 'Alumnos' : (($tipo == 'd') ?'Docentes' : 'Administradores');
 $this->title = "Crear $tipoUsuario";
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index', 't' => $tipo]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuarios-create">

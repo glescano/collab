@@ -7,7 +7,8 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TareasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tareas';
+$this->title = 'Actividades';
+$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tareas-index">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Crear Tareas', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Actividad', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
