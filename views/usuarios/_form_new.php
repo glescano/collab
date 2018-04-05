@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     
     <h2>Instrucciones</h2>
-    <p>Responda cada pregunta seleccionando la opciÃ³n "a" o "b". Por favor seleccione solamente una respuesta para cada pregunta. Si tanto "a" como "b" parecen aplicarse a usted, entonces seleccione aquella con la que se sienta mÃ¡s identificado.</p> 
+    <p>Responda cada pregunta seleccionando la opci&oacute;n "a" o "b". Por favor seleccione solamente una respuesta para cada pregunta. Si tanto "a" como "b" parecen aplicarse a usted, entonces seleccione aquella con la que se sienta m&aacute;s identificado.</p> 
 
     <div class="item-test">
         <?=
@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg3')->radioList(
                 array('a' => 'a) una imagen.', 'b' => 'b) palabras.')
-        )->label('3. Cuando pienso acerca de lo que hice ayer, es mÃ¡s probable que lo haga sobre la base de:')
+        )->label('3. Cuando pienso acerca de lo que hice ayer, es m&aacute;s probable que lo haga sobre la base de:')
         ?>
     </div>
 
@@ -72,16 +72,16 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg6')->radioList(
-                array('a' => 'a) que trate sobre hechos y situaciones reales de la vida.', 'b' => 'b) que trate con ideas y teorÃ­as.')
-        )->label('6. Si yo fuera profesor, yo preferirÃ­a dar un curso:')
+                array('a' => 'a) que trate sobre hechos y situaciones reales de la vida.', 'b' => 'b) que trate con ideas y teor&iacute;as.')
+        )->label('6. Si yo fuera profesor, yo preferir&iacute;a dar un curso:')
         ?>
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg7')->radioList(
-                array('a' => 'a) imÃ¡genes, diagramas, grÃ¡ficas o mapas.', 'b' => 'b) instrucciones escritas o informaciÃ³n verbal.')
-        )->label('7. Prefiero obtener informaciÃ³n nueva de:')
+                array('a' => html_entity_decode('a) im&aacute;genes, diagramas, gr&aacute;ficas o mapas.'), 'b' => html_entity_decode('b) instrucciones escritas o informaci&oacute;n verbal.'))
+        )->label('7. Prefiero obtener informaci&oacute;n nueva de:')
         ?>
     </div>
 
@@ -97,7 +97,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg9')->radioList(
                 array('a' => 'a) participe y contribuya con ideas.', 'b' => 'b) no participe y solo escuche.')
-        )->label('9. En un grupo de estudio que trabaja con un material difÃ­cil, es mÃ¡s probable que:')
+        )->label('9. En un grupo de estudio que trabaja con un material dif&iacute;cil, es m&aacute;s probable que:')
         ?> 
     </div>
 
@@ -105,23 +105,23 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg10')->radioList(
                 array('a' => 'a) aprender hechos.', 'b' => 'b) aprender conceptos.')
-        )->label('10.Es mÃ¡s fÃ¡cil para mÃ­:')
+        )->label('10.Es m&aacute;s f&aacute;cil para m&iacute;:')
         ?> 
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg11')->radioList(
-                array('a' => 'a) revise cuidadosamente las imÃ¡genes y las grÃ¡ficas.', 'b' => 'b) me concentre en el texto escrito.')
-        )->label('11.En un libro con muchas imÃ¡genes y grÃ¡ficas es mÃ¡s probable que:')
+                array('a' => html_entity_decode('a) revise cuidadosamente las im&aacute;genes y las gr&aacute;ficas.'), 'b' => 'b) me concentre en el texto escrito.')
+        )->label('11.En un libro con muchas im&aacute;genes y gr&aacute;ficas es m&aacute;s probable que:')
         ?> 
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg12')->radioList(
-                array('a' => 'a) generalmente trabajo sobre las soluciones con un paso a la vez.', 'b' => 'b) frecuentemente sÃ© cuales son las soluciones, pero luego tengo dificultad para imaginarme los pasos para llegar a ellas.')
-        )->label('12.Cuando resuelvo problemas de matemÃ¡ticas:')
+                array('a' => 'a) generalmente trabajo sobre las soluciones con un paso a la vez.', 'b' => html_entity_decode('b) frecuentemente s&eacute; cu&aacute;les son las soluciones, pero luego tengo dificultad para imaginarme los pasos para llegar a ellas.'))
+        )->label('12.Cuando resuelvo problemas de matem&aacute;ticas:')
         ?> 
     </div>
 
@@ -136,15 +136,15 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg14')->radioList(
-                array('a' => 'a) algo que me enseÃ±e nuevos hechos o me diga como hacer algo.', 'b' => 'b) algo que me dÃ© nuevas ideas en que pensar.')
-        )->label('14.Cuando leo temas que no son de ficciÃ³n, prefiero:')
+                array('a' => html_entity_decode('a) algo que me ense&ntilde;e nuevos hechos o me diga como hacer algo.'), 'b' => html_entity_decode('b) algo que me d&eacute; nuevas ideas en que pensar.'))
+        )->label('14.Cuando leo temas que no son de ficci&oacute;n, prefiero:')
         ?> 
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg15')->radioList(
-                array('a' => 'a) que utilizan muchos esquemas en el pizarrÃ³n.', 'b' => 'b) que toman mucho tiempo para explicar.')
+                array('a' => html_entity_decode('a) que utilizan muchos esquemas en el pizarr&oacute;n.'), 'b' => 'b) que toman mucho tiempo para explicar.')
         )->label('15.Me gustan los maestros:')
         ?> 
     </div>
@@ -160,15 +160,15 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg17')->radioList(
-                array('a' => 'a) comience a trabajar en su soluciÃ³n inmediatamente.', 'b' => 'b) primero trate de entender completamente el problema.')
-        )->label('17.Cuando comienzo a resolver un problema de tarea, es mÃ¡s probable que:')
+                array('a' => html_entity_decode('a) comience a trabajar en su soluci&oacute;n inmediatamente.'), 'b' => 'b) primero trate de entender completamente el problema.')
+        )->label('17.Cuando comienzo a resolver un problema de tarea, es m&aacute;s probable que:')
         ?> 
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg18')->radioList(
-                array('a' => 'a) certeza.', 'b' => 'b) teorÃ­a.')
+                array('a' => 'a) certeza.', 'b' => html_entity_decode('b) teor&iacute;a.'))
         )->label('18.Prefiero la idea de:')
         ?> 
     </div>
@@ -184,8 +184,8 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg20')->radioList(
-                array('a' => 'a) exponga el material en pasos secuenciales claros.', 'b' => 'b) me dÃ© un panorama general y relacione el material con otros temas.')
-        )->label('20.Es mÃ¡s importante para mÃ­ que un profesor:')
+                array('a' => 'a) exponga el material en pasos secuenciales claros.', 'b' => html_entity_decode('b) me d&eacute; un panorama general y relacione el material con otros temas.'))
+        )->label('20.Es m&aacute;s importante para m&iacute; que un profesor:')
         ?> 
     </div>
 
@@ -216,7 +216,7 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg24')->radioList(
-                array('a' => 'a) a un paso constante. Si estudio con ahÃ­nco consigo lo que deseo.', 'b' => 'b) en inicios y pausas. Me llego a confundir y sÃºbitamente lo entiendo.')
+                array('a' => html_entity_decode('a) a un paso constante. Si estudio con ah&iacute;nco consigo lo que deseo.'), 'b' => html_entity_decode('b) en inicios y pausas. Me llego a confundir y s&uacute;bitamente lo entiendo.'))
         )->label('24.Aprendo: ')
         ?>
     </div>
@@ -233,7 +233,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg26')->radioList(
                 array('a' => 'a) dicen claramente los que desean dar a entender.', 'b' => 'b) dicen las cosas en forma creativa e interesante.')
-        )->label('26.Cuando leo por diversiÃ³n, me gustan los escritores que: ')
+        )->label('26.Cuando leo por diversi&oacute;n, me gustan los escritores que: ')
         ?>
     </div>
 
@@ -241,7 +241,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg27')->radioList(
                 array('a' => 'a) la imagen.', 'b' => 'b) lo que el profesor dijo acerca de ella.')
-        )->label('27.Cuando veo un esquema o bosquejo en clase, es mÃ¡s probable que recuerde: ')
+        )->label('27.Cuando veo un esquema o bosquejo en clase, es m&aacute;s probable que recuerde: ')
         ?>
     </div>
 
@@ -249,7 +249,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg28')->radioList(
                 array('a' => 'a) me concentro en los detalles y pierdo de vista el total de la misma.', 'b' => 'b) trato de entender el todo antes de ir a los detalles.')
-        )->label('28.Cuando me enfrento a un cuerpo de informaciÃ³n: ')
+        )->label('28.Cuando me enfrento a un cuerpo de informaci&oacute;n: ')
         ?>
     </div>
 
@@ -257,7 +257,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg29')->radioList(
                 array('a' => 'a) algo que he hecho.', 'b' => 'b) algo en lo que he pensado mucho.')
-        )->label('29.Recuerdo mÃ¡s fÃ¡cilmente: ')
+        )->label('29.Recuerdo m&aacute;s f&aacute;cilmente: ')
         ?>
     </div>
 
@@ -272,8 +272,8 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg31')->radioList(
-                array('a' => 'a) grÃ¡ficas.', 'b' => 'b) resÃºmenes con texto.')
-        )->label('31.Cuando alguien me enseÃ±a datos, prefiero: ')
+                array('a' => html_entity_decode('a) gr&aacute;ficas.'), 'b' => html_entity_decode('b) res&uacute;menes con texto.'))
+        )->label('31.Cuando alguien me ense&ntilde;a datos, prefiero: ')
         ?>
     </div>
 
@@ -281,7 +281,7 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg32')->radioList(
                 array('a' => 'a) lo haga (piense o escriba) desde el principio y avance.', 'b' => 'b) lo haga (piense o escriba) en diferentes partes y luego las ordene.')
-        )->label('32.Cuando escribo un trabajo, es mÃ¡s probable que:')
+        )->label('32.Cuando escribo un trabajo, es m&aacute;s probable que:')
         ?>
     </div>
 
@@ -304,15 +304,15 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg35')->radioList(
-                array('a' => 'a) cÃ³mo es su apariencia.', 'b' => 'b) lo que dicen de sÃ­ mismos.')
-        )->label('35.Cuando conozco gente en una fiesta, es mÃ¡s probable que recuerde: ')
+                array('a' => html_entity_decode('a) c&oacute;mo es su apariencia.'), 'b' => html_entity_decode('b) lo que dicen de s&iacute; mismos.'))
+        )->label('35.Cuando conozco gente en una fiesta, es m&aacute;s probable que recuerde: ')
         ?>
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg36')->radioList(
-                array('a' => 'a) mantenerme concentrado en ese tema, aprendiendo lo mÃ¡s que pueda de Ã©l.', 'b' => 'b) hacer conexiones entre ese tema y temas relacionados.')
+                array('a' => html_entity_decode('a) mantenerme concentrado en ese tema, aprendiendo lo m&aacute;s que pueda de &eacute;l.'), 'b' => 'b) hacer conexiones entre ese tema y temas relacionados.')
         )->label('36.Cuando estoy aprendiendo un tema, prefiero: ')
         ?>
     </div>
@@ -328,15 +328,15 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg38')->radioList(
-                array('a' => 'a) material concreto (hechos, datos).', 'b' => 'b) material abstracto (conceptos, teorÃ­as).')
-        )->label('38.Prefiero cursos que dan mÃ¡s importancia a: ')
+                array('a' => 'a) material concreto (hechos, datos).', 'b' => html_entity_decode('b) material abstracto (conceptos, teor&iacute;as).'))
+        )->label('38.Prefiero cursos que dan m&aacute;s importancia a: ')
         ?>
     </div>            
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg39')->radioList(
-                array('a' => 'a) ver televisiÃ³n.', 'b' => 'b) leer un libro.')
+                array('a' => html_entity_decode('a) ver televisi&oacute;n.'), 'b' => 'b) leer un libro.')
         )->label('39.Para divertirme, prefiero: ')
         ?>
     </div>
@@ -344,8 +344,8 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg40')->radioList(
-                array('a' => 'a) algo Ãºtiles para mÃ­.', 'b' => 'b) muy Ãºtiles para mÃ­.')
-        )->label('40.Algunos profesores inician sus clases haciendo un bosquejo de lo que enseÃ±arÃ¡n. Esos bosquejos son: ')
+                array('a' => html_entity_decode('a) algo &uacute;tiles para m&iacute;.'), 'b' => html_entity_decode('b) muy &uacute;tiles para m&iacute;.'))
+        )->label('40.Algunos profesores inician sus clases haciendo un bosquejo de lo que ense&ntilde;ar&aacute;n. Esos bosquejos son: ')
         ?>
     </div>
 
@@ -353,22 +353,22 @@ use yii\widgets\ActiveForm;
         <?=
         $form->field($model, 'preg41')->radioList(
                 array('a' => 'a) me parece bien.', 'b' => 'b) no me parece bien.')
-        )->label('41.La idea de hacer una tarea en grupo con una sola calificaciÃ³n para todos: ')
+        )->label('41.La idea de hacer una tarea en grupo con una sola calificaci&oacute;n para todos: ')
         ?>
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg42')->radioList(
-                array('a' => 'a) tiendo a repetir todos mis pasos y revisar cuidadosamente mi trabajo.', 'b' => 'b) me cansa hacer su revisiÃ³n y tengo que esforzarme para hacerlo.')
-        )->label('42.Cuando hago grandes cÃ¡lculos: ')
+                array('a' => 'a) tiendo a repetir todos mis pasos y revisar cuidadosamente mi trabajo.', 'b' => html_entity_decode('b) me cansa hacer su revisi&oacute;n y tengo que esforzarme para hacerlo.'))
+        )->label('42.Cuando hago grandes c&aacute;lculos: ')
         ?>
     </div>
 
     <div class="item-test">
         <?=
         $form->field($model, 'preg43')->radioList(
-                array('a' => 'a) fÃ¡cilmente y con bastante exactitud.', 'b' => 'b) con dificultad y sin mucho detalle.')
+                array('a' => html_entity_decode('a) f&aacute;cilmente y con bastante exactitud.'), 'b' => 'b) con dificultad y sin mucho detalle.')
         )->label('43.Tiendo a recordar lugares en los que he estado: ')
         ?>
     </div>
@@ -376,8 +376,8 @@ use yii\widgets\ActiveForm;
     <div class="item-test">
         <?=
         $form->field($model, 'preg44')->radioList(
-                array('a' => 'a) piense en los pasos para la soluciÃ³n de los problemas.', 'b' => 'b) piense en las posibles consecuencias o aplicaciones de la soluciÃ³n en un amplio rango de campos.')
-        )->label('44.Cuando resuelvo problemas en grupo, es mÃ¡s probable que yo: ')
+                array('a' => html_entity_decode('a) piense en los pasos para la soluci&oacute;n de los problemas.'), 'b' => html_entity_decode('b) piense en las posibles consecuencias o aplicaciones de la soluci&oacute;n en un amplio rango de campos.'))
+        )->label('44.Cuando resuelvo problemas en grupo, es m&aacute;s probable que yo: ')
         ?>
     </div>
 

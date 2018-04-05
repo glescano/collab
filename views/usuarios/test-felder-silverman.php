@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
 
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <p>Este cuestionario ha sido diseÃ±ado para identificar su Estilo de Aprendizaje acorde con las categorÃ­as establecidas por Felder y Silverman. No es un test de inteligencia, ni de personalidad. Si bien no hay lÃ­mite de tiempo para contestar, no le ocuparÃ¡ mÃ¡s de 15 minutos hacerlo. Tenga en cuenta que no hay respuestas correctas o errÃ³neas, y que el resultado serÃ¡ Ãºtil en la medida en que Ud. sea sincero/a en sus respuestas.</p>
+    <p>Este cuestionario ha sido dise&ntilde;ado para identificar su Estilo de Aprendizaje acorde con las categor&iacute;as establecidas por Felder y Silverman. No es un test de inteligencia, ni de personalidad. Si bien no hay l&iacute;mite de tiempo para contestar, no le ocupar&aacute; m&aacute;s de 15 minutos hacerlo. Tenga en cuenta que no hay respuestas correctas o err&oacute;neas, y que el resultado ser&aacute; &uacute;til en la medida en que Ud. sea sincero/a en sus respuestas.</p>
 
     <?= $this->render('_form_new', [
         'model' => $model,

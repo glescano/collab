@@ -1,51 +1,45 @@
 <?php
-
 /* @var $this yii\web\View */
+use yii\helpers\Html;
 
-$this->title = 'My Yii Application';
+$this->title = 'COLLAB';
+$completarEstiloAprendizaje = false;
+
+if (isset(Yii::$app->user->identity->id)) {
+    $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
+} else {
+    $rolesUsuario = [];
+}
+
+if (array_key_exists('estudiante', $rolesUsuario)) {
+    // Se verifica si el usuario completo el test de estilos de aprendizaje
+    $objEstudiante = \app\models\Usuarios::findOne(['id', Yii::$app->user->identity->id]);
+    if (empty($objEstudiante->estiloaprendizaje)) {
+        $completarEstiloAprendizaje = true;
+    }
+}
 ?>
+
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>COLLAB</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Una herramienta para soportar la comunicación en entornos de Aprendizaje Colaborativo Soportado por Computadora (ACSC).</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-12">
+                <?php if ($completarEstiloAprendizaje): ?>
+                    <div style='margin: 0px auto 20px auto; width: 35%; text-align: center;padding: 10px; border:#FDD900 1px solid; background-color: #FEFEB4'>
+                        <p>Recuerda completar el test de estilos de aprendizaje para tener un perfil completo en el sistema.</p>
+                        <?= Html::a('Completar ahora...', ['usuarios/test-felder-silverman'], ['class' => 'btn btn-success'])?>
+                    </div>
+                <?php endif; ?>
+                <img src="<?= Yii::$app->request->baseUrl . "/images/colab.png" ?>" style="display: block;margin: 0 auto;"/>            
             </div>
         </div>
 

@@ -5,7 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'UNSE-COLLAB',
+    'language' => 'es', // Set the language here
+    'name' => 'COLLAB',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
