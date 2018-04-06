@@ -80,6 +80,10 @@ class AsignaturasController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
+        
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -110,6 +114,10 @@ class AsignaturasController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -129,6 +137,10 @@ class AsignaturasController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

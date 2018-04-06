@@ -6,9 +6,10 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AsignaturasAlumnosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+$usuario = Yii::$app->user->identity->id;
+$oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
 $this->title = 'Asociar Alumnos en ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
-$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
+$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="asignaturas-alumnos-index">
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Asociar Alumno', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Asociar Alumno', ['create', 'asigid' => Yii::$app->security->encryptByPassword($asigid, $oUser->password)], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

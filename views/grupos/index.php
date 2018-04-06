@@ -6,9 +6,11 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\GruposSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$usuario = Yii::$app->user->identity->id;
+$oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
 
 $this->title = 'Grupos Formados en ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
-$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
+$this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupos-index">
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Crear Grupos', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Grupos', ['create', 'asigid' => Yii::$app->security->encryptByPassword($asigid, $oUser->password)], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?=

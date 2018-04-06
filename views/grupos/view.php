@@ -5,10 +5,12 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Grupos */
+$usuario = Yii::$app->user->identity->id;
+$oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
 
 $asignatura = app\models\Asignaturas::findOne(['id' => $model->asignaturas_id])->nombre;
 $this->title = "Grupos Formados en $asignatura";
-$this->params['breadcrumbs'][] = ['label' => 'Grupos', 'url' => ['index', 'asigid' => $model->asignaturas_id]];
+$this->params['breadcrumbs'][] = ['label' => 'Grupos', 'url' => ['index', 'asigid' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupos-view">

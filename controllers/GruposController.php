@@ -45,6 +45,10 @@ class GruposController extends Controller {
      * @return mixed
      */
     public function actionIndex($asigid) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $asigid = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
+        
         $searchModel = new GruposSearch();
         $searchModel->asignaturas_id = $asigid;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -121,6 +125,10 @@ class GruposController extends Controller {
      * @return mixed
      */
     public function actionCreate($asigid) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $asigid = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
+        
         $model = new Grupos();
         $model->asignaturas_id = $asigid;
 
