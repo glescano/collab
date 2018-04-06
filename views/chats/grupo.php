@@ -25,9 +25,7 @@ $enviarCuestionario = Yii::$app->urlManager->createUrl(['cuestionarios-conflicto
 /* $this->registerCssFile("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
   $this->registerCssFile(Yii::$app->request->baseUrl . "/emoji-picker/css/emoji.css"); */
 
-$this->registerJsFile(Yii::$app->request->baseUrl . '/js/jquery.ui.affectbutton.js', ['depends' => [
-        \yii\jui\JuiAsset::className(),
-]]);
+
 $this->registerJsFile(Yii::$app->request->baseUrl . '/js/jquery.rateyo.min.js', ['depends' => [
         \yii\jui\JuiAsset::className(),
 ]]);
@@ -192,19 +190,13 @@ $script = <<< JS
         });
         
         if (rEstadoAnimo == 1){
-            $(this).find('#affect').affectbutton({
-            }).bind('affectchanged', function (e, a) {
-                // ... so we can update the input element of each component
-                $.each(a, function (c, v) {
-                    $('#' + c).val(v);
-                });
-            }); 
-                
-            $(this).find('#affect').mouseout(function () {
-                $('#affect').affectbutton('affect', 'pleasure', $('#pleasure').val());
-                $('#affect').affectbutton('affect', 'arousal', $('#arousal').val());
-                $('#affect').affectbutton('affect', 'dominance', $('#dominance').val());                
-            });                 
+            $('input[type="button"].btnEmociones').click(function(){
+                $('#pleasure').val($(this).data('pleasure'));
+                $('#arousal').val($(this).data('arousal'));
+                $('#dominance').val($(this).data('dominance'));
+                $('#imgEmocionSeleccionada').attr('class', $(this).attr('class'));
+                $('#lblEmocionSeleccionada').html($(this).data('emocion'));
+            });                
         }   
         
         if (rConflicto == 1){
@@ -330,7 +322,7 @@ $sentenciaApertura = new app\models\SentenciasApertura();
     <h2><?= Html::encode($this->title) ?></h2>
 
     <div style="float:left; margin: 0px auto 10px auto;">
-        <div id='divChat' style="width: 900px; height: 350px; overflow-y: scroll;"></div>
+        <div id='divChat' style="width: 700px; height: 350px; overflow-y: scroll;"></div>
         <br/>
         <div id="goBottom" style="margin: 0 auto; width: 200px; display: none;">
             <input id="btnGoBottom" type="button" style="background-color: #FEE300;  text-align: center; padding: 5px;" value="Tienes nuevos mensajes"/>            
@@ -339,10 +331,15 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
 
 
-    <div style=" width:200px; margin:0 20px; float:left;">
+    <div style=" width:360px; margin:0 20px; float:left;">
         <?php if ($tarea->reportar_estado_animo == 1): ?>
+            <p>Estado de &aacute;nimo seleccionado: <br/><img id='imgEmocionSeleccionada'/> <label id='lblEmocionSeleccionada'></label></p>
             <b>Me siento...</b><br/>
-            <canvas id="affect" width="100px" height="100px" style="border:0; padding:0;"></canvas>
+            <input type="button" id="btnAngry" class='btnEmociones angry' data-arousal="0.59" data-pleasure="-0.51" data-dominance="0.25" data-emocion='Enojado'/>
+            <input type="button" id="btnFear" class='btnEmociones fear' data-arousal="0.60" data-pleasure="-0.64" data-dominance="-0.43" data-emocion='Preocupado'/>
+            <input type="button" id="btnJoy" class='btnEmociones joy' data-arousal="0.2" data-pleasure="0.4" data-dominance=0.1 data-emocion='Alegre'/>
+            <input type="button" id="btnSadness" class='btnEmociones sadness' data-arousal="-0.2" data-pleasure="-0.4" data-dominance="-0.1" data-emocion='Cansado'/>
+            <input type="button" id="btnSurprise" class='btnEmociones surprise' data-arousal="0.59" data-pleasure="0.87" data-dominance="-0.87" data-emocion='Sorprendido'/>
             <input id="pleasure" type="hidden" value="0" min="-1" max="1" step="0.05" size="4" />
             <input id="arousal" type="hidden" value="0" min="-1" max="1" step="0.05" />
             <input id="dominance" type="hidden" value="0" min="-1" max="1" step="0.05" />
@@ -375,7 +372,7 @@ $sentenciaApertura = new app\models\SentenciasApertura();
                 </select><br/>
             <?php endif; ?>
             <p class="lead emoji-picker-container">
-                <input id="txtSentencia" name="txtSentencia" value="" <?php echo ($tarea->usar_sentencias_apertura == 1) ? 'disabled="disabled"' : ''; ?> class="form-control" style="height: 60px; width: 100px important!;" data-emojiable="true" />
+                <input id="txtSentencia" name="txtSentencia" value="" <?php echo ($tarea->usar_sentencias_apertura == 1) ? 'disabled="disabled"' : ''; ?> class="form-control" style="height: 60px; width: 100px;" data-emojiable="true" />
             </p>
 
             <input type="submit" id="btnEnviar" name="btnEnviar" value="Enviar"/>

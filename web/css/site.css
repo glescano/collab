@@ -117,3 +117,48 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.angry {
+  background: url("../images/anger.png") no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
+
+.fear {
+  background: url("../images/fear.png") no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
+
+.joy {
+  background: url("../images/joy.png") no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
+
+.sadness {
+  background: url("../images/sadness.png") no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
+
+.surprise{
+  background: url("../images/surprise.png") no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
