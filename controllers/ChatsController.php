@@ -63,6 +63,13 @@ class ChatsController extends Controller
     
     public function actionGrupo($chatid)
     {
+        $userid = Yii::$app->user->identity->id;     
+        $oChat = Chats::findOne(['id' => $chatid]);
+        $grupo = \app\models\GruposAlumnos::findOne(['grupos_formados_id' => $oChat->grupos_formados_id, 'usuarios_id' => $userid]);
+        if (!$grupo){
+            throw new \yii\web\ForbiddenHttpException("No puede acceder a esta página");
+        }
+        
         $chat = \app\models\Sentencias::getSentenciasChat($chatid);
         $datosChat = Chats::findOne(['id' => $chatid]);
         $tarea = \app\models\Tareas::findOne(['id' => $datosChat->tareas_id]);
