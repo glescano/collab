@@ -55,6 +55,17 @@ class UsuariosController extends Controller {
      * @return mixed
      */
     public function actionIndex($t) {
+        // Se controla si el usuario alumno intenta ingresar a esta acción
+        if (isset(Yii::$app->user->identity->id)) {
+            $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
+        } else {
+            $rolesUsuario = [];
+        }
+        
+        if (array_key_exists('estudiante', $rolesUsuario)){
+            return $this->redirect(['site/index']);
+        }
+
         $searchModel = new UsuariosSearch();
         if ($t == 'a') {
             $searchModel->tipo = 0;
@@ -98,7 +109,7 @@ class UsuariosController extends Controller {
             $model->tipo = 1;
         } else {
             $model->tipo = 2;
-        }        
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $rbac = Yii::$app->authManager;
@@ -112,13 +123,22 @@ class UsuariosController extends Controller {
                 $administrador = $rbac->getRole('administrador');
                 $rbac->assign($administrador, $model->id);
             }
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            if (!isset(Yii::$app->user->identity->id)) {
+                return $this->redirect(['alta-exitosa']);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
                     'model' => $model,
                     'tipo' => $t,
         ]);
+    }
+
+    public function actionAltaExitosa() {
+        return $this->render('alta-exitosa');
     }
 
     /**

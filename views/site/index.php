@@ -26,6 +26,8 @@ if (array_key_exists('estudiante', $rolesUsuario)) {
         <h1>COLLAB</h1>
 
         <p class="lead">Una herramienta para soportar la comunicación en entornos de Aprendizaje Colaborativo Soportado por Computadora (ACSC).</p>
+        
+        <?= !(isset(Yii::$app->user->identity->id)) ? "<h2>¿Sos estudiante?</h2>" . Html::a('Create una Cuenta', ['usuarios/create', 't' => 'a'], ['class' => 'btn btn-success']) : '';?>
 
     </div>
 
