@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'year')->textInput() ?>
     
-    <?= $form->field($model, 'usar_sentencias_apertura')->radioList(array('1'=>'Sí',0=>'No')) ?>
+    <?= $form->field($model, 'usar_sentencias_apertura')->radioList(array('1'=>'Sí','0'=>'No')) ?>
     
-    <?= $form->field($model, 'reportar_estado_animo')->radioList(array('1'=>'Sí',0=>'No')) ?>
+    <?= $form->field($model, 'reportar_estado_animo')->radioList(array('1'=>'Sí','0'=>'No')) ?>
     
-    <?= $form->field($model, 'reportar_conflicto')->radioList(array('1'=>'Sí',0=>'No')) ?>
+    <?= $form->field($model, 'reportar_conflicto')->radioList(array('1'=>'Sí','0'=>'No')) ?>
     
     <?= $form->field($model, 'grupos_id')->dropDownList(app\models\Grupos::getListaGrupos()) ?>
 

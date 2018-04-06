@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\AsignaturasAlumnos */
 
-$this->title = '';
-$this->params['breadcrumbs'][] = ['label' => 'Asignaturas Alumnos', 'url' => ['index']];
+$this->title = 'Detalle de Alumno Asociado a ' . \app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
+$this->params['breadcrumbs'][] = ['label' => 'Asociar Alumnos', 'url' => ['index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="asignaturas-alumnos-view">

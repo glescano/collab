@@ -95,7 +95,7 @@ AppAsset::register($this);
 
         <footer class="footer">
             <div class="container">
-                <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+                <p class="pull-left">&copy; Universidad Nacional de Santiago del Estero<br/> Facultad de Ciencias Exactas y Tecnolog&iacute;as<br/>Instituto de Investigaci&oacute;n en Inform&aacue;tica y Sistemas de Informaci&oacute;n<br/> <?= date('Y') ?></p>
 
                 <p class="pull-right"><?= Yii::powered() ?></p>
             </div>

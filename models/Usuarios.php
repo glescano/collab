@@ -81,6 +81,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
      */
     public function rules() {
         return [
+            [['username', 'password'], 'required'],
             [['tipo'], 'integer'],
             [['username'], 'string', 'max' => 45],
             [['password'], 'string', 'max' => 255],

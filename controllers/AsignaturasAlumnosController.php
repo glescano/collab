@@ -64,10 +64,12 @@ class AsignaturasAlumnosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id, $asigid)
+    public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $asigid = $model->asignaturas_id;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'asigid' => $asigid,
         ]);
     }

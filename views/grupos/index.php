@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\GruposSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Grupos';
+$this->title = 'Grupos Formados en ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,13 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Crear Grupos', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'codigo',
             'year',
             [
@@ -36,8 +35,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     return app\models\MetodosFormacion::getNombrePorId($data->metodos_formacion_id);
                 },
             ],
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons' => [
+                    'view' => function($url, $model) {
+                        $contenido = '<span class="glyphicon glyphicon-eye-open"></span>';
+                        return Html::a($contenido, ['grupos/view', 'id' => $model->id], ['title' => 'Ver']);
+                    },
+                ],
+            ],
         ],
-    ]); ?>
+    ]);
+    ?>
 </div>
