@@ -159,7 +159,7 @@ $script = <<< JS
                 $.ajax({
                     method: 'GET',
                     url: "$enviarSentencia",
-                    data: {sentencia: sentenciaEnviar, usuarios_id:$usuarioid, chats_id:$chatid},
+                    data: {sentencia: sentenciaEnviar, usuarios_id:$usuarioid, chats_id: $chatid},
                 }).done(function (data) {
                     $('#txtSentencia').val('');
                     $('.emoji-wysiwyg-editor').html("");

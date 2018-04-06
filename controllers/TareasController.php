@@ -55,17 +55,23 @@ class TareasController extends Controller {
                     'asigid' => $asigid,
         ]);
     }
-    
-    public function actionTareasAlumnos($asigid, $year) {
+
+    public function actionTareasAlumnos($asigid, $year) {      
+        $userid = Yii::$app->user->identity->id;   
+        $oUser = \app\models\Usuarios::findOne(['id' => $userid]);
+        $asigid_decoded = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
+        $year_decoded = Yii::$app->security->decryptByPassword($year, $oUser->password);
+        
+        
         $searchModel = new TareasSearch();
-        $searchModel->asignaturas_id = $asigid;
-        $searchModel->year = $year;
+        $searchModel->asignaturas_id = $asigid_decoded;
+        $searchModel->year = $year_decoded;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                
+
         return $this->render('tareas-alumnos', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'asigid' => $asigid,
+                    'asigid' => $asigid_decoded,
         ]);
     }
 
@@ -101,8 +107,8 @@ class TareasController extends Controller {
                     $objChat->descripcion = 'Chat correspondiente a la tarea ' . $model->descripcion . ' que emplea la configuración de grupos ' . $gr['codigo'];
                     $objChat->fecha = date('Y-m-d h:i:s', time());
                     $objChat->tareas_id = $model->id;
-                    $objChat->grupos_formados_id = $gr['id'];                    
-                    $objChat->save();                   
+                    $objChat->grupos_formados_id = $gr['id'];
+                    $objChat->save();
                     $titulo = $gr["nombre"];
                 }
             }

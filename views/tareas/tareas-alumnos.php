@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'chat' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
+                        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+                        
                         $chats = \app\models\Chats::find()->where(['tareas_id' => $model->id])->all();
                         $idChat = 0;
                         foreach ($chats as $ch) {                            
@@ -38,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $idChat = $ch->id;
                             } 
                         }
-                        return Html::a('Chat', ['chats/grupo', 'chatid' => $idChat]);
+                        return Html::a('Chat', ['chats/grupo', 'chatid' => Yii::$app->security->encryptByPassword($idChat, $oUser->password)]);
                     },
                 ],
             ],

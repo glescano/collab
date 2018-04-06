@@ -35,7 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{practicos}',
                 'buttons' => [
                     'practicos' => function($url, $model) {
-                        return Html::a('Actividades', ['tareas/tareas-alumnos', 'asigid' => $model->asignaturas_id, 'year' => $model->year]);
+                        $usuario = Yii::$app->user->identity->id;
+                        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+                        return Html::a('Actividades', ['tareas/tareas-alumnos', 'asigid' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password), 'year' => Yii::$app->security->encryptByPassword($model->year, $oUser->password)]);
                     },
                 ],
             ],
