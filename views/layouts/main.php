@@ -50,7 +50,6 @@ AppAsset::register($this);
                     ['label' => 'Usuarios', 'url' => ['/usuarios/index', 't' => 'u']],
                     ['label' => 'Asignaturas', 'url' => ['/asignaturas/index']],
                     ['label' => 'Docentes por Asignaturaa', 'url' => ['/asignaturas-docentes/index']],
-                    ['label' => 'Métodos Formación Grupos', 'url' => ['/metodos-formacion/index']],
                     ['label' => 'Sentencias de Apertura', 'url' => ['/sentencias-apertura/index']]];
             } elseif (array_key_exists('profesor', $rolesUsuario)) {
                 $opciones = [

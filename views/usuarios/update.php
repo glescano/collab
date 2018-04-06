@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
 $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
-$parametrot = array_key_exists('profesor', $rolesUsuario) ? 'a' :'a';
+$parametrot = array_key_exists('profesor', $rolesUsuario) ? 'a' :'u';
 
 $this->title = 'Actualización de datos';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index', 't' => $parametrot]];
