@@ -40,6 +40,15 @@ class AsignaturasAlumnosController extends Controller
             ],
         ];
     }
+    
+    public function actionRecuperarAlumnos($asigid, $year)
+    {               
+        $alumnos = \app\models\AsignaturasAlumnos::getListaAlumnosPorYear($year, $asigid);
+
+        return $this->renderAjax('recuperar-alumnos', [
+            'alumnos' => $alumnos,
+        ]);
+    }
 
     /**
      * Lists all AsignaturasAlumnos models.

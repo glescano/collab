@@ -48,7 +48,7 @@ class GruposController extends Controller {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $asigid = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
-        
+
         $searchModel = new GruposSearch();
         $searchModel->asignaturas_id = $asigid;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -128,13 +128,27 @@ class GruposController extends Controller {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $asigid = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
-        
+
         $model = new Grupos();
         $model->asignaturas_id = $asigid;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if ($model->metodos_formacion_id == 2) {
+            if ($model->metodos_formacion_id == 1) {
+                $grupos = json_decode($model->alumnosPorGrupo);
+                foreach ($grupos as $id => $alumnosGrupo) {
+                    $objGrupo = new \app\models\GruposFormados();
+                    $objGrupo->nombre = "Grupo " . ($id + 1);
+                    $objGrupo->grupos_id = $model->id;
+                    $objGrupo->save();
+                    foreach ($alumnosGrupo as $indice => $miembro) {
+                        $objAlumnoGrupo = new \app\models\GruposAlumnos();
+                        $objAlumnoGrupo->usuarios_id = $miembro;
+                        $objAlumnoGrupo->grupos_formados_id = $objGrupo->id;
+                        $objAlumnoGrupo->save();
+                    }
+                }
+            } elseif ($model->metodos_formacion_id == 2) {
                 // Invocar al algoritmo genetico
                 $alumnosporyear = \app\models\AsignaturasAlumnos::getListaAlumnosPorYear($model->year, $model->asignaturas_id);
                 $alumnos = array();
@@ -161,13 +175,13 @@ class GruposController extends Controller {
                     }
                     $cont += 1;
                 }
-
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
                     'model' => $model,
+                    'asigid' => $asigid,
         ]);
     }
 

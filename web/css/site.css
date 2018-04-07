@@ -162,3 +162,17 @@ a.desc:after {
   height: 60px;
   width: 60px;
 }
+.contenedorGrupos{
+    border:black dotted 1px;
+    width: 150px;
+    height: 300px;
+    margin: 20px;
+    float:left;
+}
+
+.divAlumno{
+    border:#FDA939 solid 1px;
+    background-color: #FFE15F;
+    padding: 5px;
+    margin: 2px;
+}

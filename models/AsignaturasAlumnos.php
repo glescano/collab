@@ -70,7 +70,7 @@ class AsignaturasAlumnos extends \yii\db\ActiveRecord
     
     public static function getListaAlumnosPorYear($year, $asigid) {
         $query = $query = (new \yii\db\Query())
-                ->select(['aa.id', 'aa.year', 'aa.asignaturas_id', 'aa.usuarios_id', 'u.estiloaprendizaje'])
+                ->select(['aa.id', 'aa.year', 'aa.asignaturas_id', 'aa.usuarios_id', 'u.estiloaprendizaje', 'u.nombre', 'u.apellido', 'u.id as idUsuario'])
                 
                 ->from('asignaturas_alumnos as aa')
                 ->innerJoin('usuarios as u', 'aa.usuarios_id = u.id')

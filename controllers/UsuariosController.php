@@ -48,7 +48,7 @@ class UsuariosController extends Controller {
                 ],
             ],
         ];
-    }
+    }       
 
     /**
      * Lists all Usuarios models.

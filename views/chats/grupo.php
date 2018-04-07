@@ -333,7 +333,7 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
     <div style=" width:360px; margin:0 20px; float:left;">
         <?php if ($tarea->reportar_estado_animo == 1): ?>
-            <p>Estado de &aacute;nimo seleccionado: <br/><img id='imgEmocionSeleccionada'/> <label id='lblEmocionSeleccionada'></label></p>
+            <p>Estado de &aacute;nimo seleccionado: <br/><img id='imgEmocionSeleccionada' style="border:0px;"/> <label id='lblEmocionSeleccionada'></label></p>
             <b>Me siento...</b><br/>
             <input type="button" id="btnAngry" class='btnEmociones angry' data-arousal="0.59" data-pleasure="-0.51" data-dominance="0.25" data-emocion='Enojado'/>
             <input type="button" id="btnFear" class='btnEmociones fear' data-arousal="0.60" data-pleasure="-0.64" data-dominance="-0.43" data-emocion='Preocupado'/>

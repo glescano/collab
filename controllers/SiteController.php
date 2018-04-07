@@ -82,30 +82,46 @@ class SiteController extends Controller {
         ]);
     }
 
-    public function actionCrearRoles() {
-        $rbac = Yii::$app->authManager;
+    public function actionInstalar() {
+        $roles = $query = (new \yii\db\Query())
+                        ->select(['name', 'type'])
+                        ->from('auth_item')->all();
 
-        $guest = $rbac->createRole("guest");
-        $guest->description = "Usuario invitado";
-        $rbac->add($guest);
-        
-        $administrador = $rbac->createRole("administrador");
-        $administrador->description = "Administrador";
-        $rbac->add($administrador);
-        
-        $profesor = $rbac->createRole("profesor");
-        $profesor->description = "Profesor";
-        $rbac->add($profesor);
-        
-        $estudiante = $rbac->createRole("estudiante");
-        $estudiante->description = "Estudiante";
-        $rbac->add($estudiante);
-        
-        $rbac->addChild($administrador, $profesor);
-        $rbac->addChild($profesor, $estudiante);
-        $rbac->addChild($estudiante, $guest);                
-        
-        return $this->render('crear-roles', [
+        if (count($roles) == 0) {
+            $rbac = Yii::$app->authManager;
+
+            $guest = $rbac->createRole("guest");
+            $guest->description = "Usuario invitado";
+            $rbac->add($guest);
+
+            $administrador = $rbac->createRole("administrador");
+            $administrador->description = "Administrador";
+            $rbac->add($administrador);
+
+            $profesor = $rbac->createRole("profesor");
+            $profesor->description = "Profesor";
+            $rbac->add($profesor);
+
+            $estudiante = $rbac->createRole("estudiante");
+            $estudiante->description = "Estudiante";
+            $rbac->add($estudiante);
+
+            $rbac->addChild($administrador, $profesor);
+            $rbac->addChild($profesor, $estudiante);
+            $rbac->addChild($estudiante, $guest);
+            
+            $usuario = new \app\models\Usuarios();
+            $usuario->nombre = "Administrador";
+            $usuario->apellido = "General";
+            $usuario->username = "admin";
+            $usuario->password = "123456";
+            $usuario->tipo = 2;
+            $usuario->save();
+            
+            $rbac->assign($administrador, $usuario->id);
+        }
+
+        return $this->render('instalar', [
         ]);
     }
 

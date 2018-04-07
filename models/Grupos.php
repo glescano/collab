@@ -22,6 +22,8 @@ use Yii;
  * @property GruposAlumnos[] $gruposAlumnos
  */
 class Grupos extends \yii\db\ActiveRecord {
+    
+    public $alumnosPorGrupo;
 
     /**
      * @inheritdoc
@@ -35,6 +37,7 @@ class Grupos extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            [['alumnosPorGrupo'], 'safe'],
             [['asignaturas_id', 'metodos_formacion_id', 'codigo', 'cantidadintegrantes'], 'required'],
             [['asignaturas_id', 'metodos_formacion_id', 'cantidadintegrantes'], 'integer'],
             [['year'], 'string', 'max' => 4],
