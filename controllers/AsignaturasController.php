@@ -57,7 +57,11 @@ class AsignaturasController extends Controller {
     public function actionIndex() {
         $docente = Yii::$app->user->identity->id;
         $searchModel = new \app\models\AsignaturasDocentesSearch();
-        $searchModel->usuarios_id = $docente;
+        $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
+        if (!array_key_exists('administrador', $rolesUsuario)){
+            $searchModel->usuarios_id = $docente;
+        } 
+        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
