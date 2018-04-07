@@ -34,6 +34,11 @@ class AsignaturasController extends Controller {
                         'allow' => true,
                         'roles' => ['profesor'],
                     ],
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create', 'asignaturas-alumnos'],
+                        'allow' => true,
+                        'roles' => ['administrador'],
+                    ],
                 ],
             ],
             'verbs' => [
