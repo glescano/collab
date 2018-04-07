@@ -58,6 +58,7 @@ class AsignaturasController extends Controller {
         $docente = Yii::$app->user->identity->id;
         $searchModel = new \app\models\AsignaturasDocentesSearch();
         $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
+        
         if (!array_key_exists('administrador', $rolesUsuario)){
             $searchModel->usuarios_id = $docente;
         } 
