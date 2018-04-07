@@ -48,6 +48,7 @@ AppAsset::register($this);
             if (array_key_exists('administrador', $rolesUsuario)) {
                 $opciones = [
                     ['label' => 'Usuarios', 'url' => ['/usuarios/index', 't' => 'u']],
+                    ['label' => 'Docentes', 'url' => ['/usuarios/index', 't' => 'd']],
                     ['label' => 'Asignaturas', 'url' => ['/asignaturas/index']],
                     ['label' => 'Docentes por Asignaturaa', 'url' => ['/asignaturas-docentes/index']],
                     ['label' => 'Sentencias de Apertura', 'url' => ['/sentencias-apertura/index']]];
