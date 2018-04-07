@@ -26,13 +26,15 @@ $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
+            ($esAdministrador) ?
+                    'nombre' :
+                    [
                 'attribute' => 'asignaturas_id',
                 'label' => 'Nombre',
                 'value' => function($data) {
                     return app\models\Asignaturas::getNombrePorId($data->asignaturas_id);
                 },
-            ],
+                    ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} | {update} | {delete} | {alumnos} | {grupos} | {practicos}',

@@ -56,19 +56,23 @@ class AsignaturasController extends Controller {
      */
     public function actionIndex() {
         $docente = Yii::$app->user->identity->id;
-        $searchModel = new \app\models\AsignaturasDocentesSearch();
-        
         $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
-        
-        if (!array_key_exists('administrador', $rolesUsuario)){
+        $esAdministrador = false;
+
+        if (!array_key_exists('administrador', $rolesUsuario)) {
+            $searchModel = new \app\models\AsignaturasDocentesSearch();
             $searchModel->usuarios_id = $docente;
-        }                
-        
+        } else {
+            $esAdministrador = true;
+            $searchModel = new \app\models\AsignaturasSearch();
+        }
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
+                    'esAdministrador' => $esAdministrador,
         ]);
     }
 
@@ -94,7 +98,7 @@ class AsignaturasController extends Controller {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
-        
+
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -128,7 +132,7 @@ class AsignaturasController extends Controller {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
-        
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -151,7 +155,7 @@ class AsignaturasController extends Controller {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
-        
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
