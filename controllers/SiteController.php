@@ -119,6 +119,14 @@ class SiteController extends Controller {
             $usuario->save();
             
             $rbac->assign($administrador, $usuario->id);
+            
+            $mFormacionGrupos = new \app\models\MetodosFormacion();
+            $mFormacionGrupos->descripcion = "Manual";
+            $mFormacionGrupos->save();
+            
+            $mFormacionGrupos1 = new \app\models\MetodosFormacion();
+            $mFormacionGrupos1->descripcion = "Algoritmo Genético";
+            $mFormacionGrupos1->save();            
         }
 
         return $this->render('instalar', [
