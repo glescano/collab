@@ -382,83 +382,79 @@ $sentenciaApertura = new app\models\SentenciasApertura();
     <?php if ($tarea->reportar_conflicto == 1): ?>
         <div id="frmNC" title="Naturaleza del Conflicto" sentencia-id="">
 
-            ¿En qu&eacute; grado hay diferencias de opini&oacute;n en su grupo?
+            ¿En qu&eacute; grado hubo diferencias de opini&oacute;n en su grupo?
             <div id="ncp1"></div>
 
-            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestan desacuerdo respecto a c&oacute;mo deberían ser hechas las cosas?
+            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestaron desacuerdo respecto a c&oacute;mo debeían ser hechas las cosas?
             <div id="ncp2"></div>
 
 
-            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestan desacuerdo sobre cu&aacute;les procedimientos deber&iacute;an ser usados para realizar el trabajo?
+            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestaron desacuerdo sobre cu&aacute;les procedimientos debe&iacute;an ser usados para realizar el trabajo?
             <div id="ncp3"></div>
 
 
-            ¿En qu&eacute; grado estos argumentos est&aacute;n relacionados a la tarea?
+            ¿En qu&eacute; grado estos argumentos estuvieron relacionados a la tarea?
             <div id="ncp4"></div>
 
 
-            ¿En qu&eacute; medida son evidentes los choques de personalidad en tu equipo?
+            ¿En qu&eacute; medida son evidentes los choques de personalidad en tu grupo?
             <div id="ncp5"></div>
 
 
-            ¿Cu&aacute;nta tensi&oacute;n hay entre los miembros de su equipo?
+            ¿Cu&aacute;nta tensi&oacute;n hay entre los miembros de tu grupo?
             <div id="ncp6"></div>
 
 
-            ¿Cu&aacute;n frecuente los miembros de su grupo se ponen enojados mientras trabajan en grupo?
+            ¿Cu&aacute;n frecuente los miembros de tu grupo se pusieron enojados mientras trabajan en grupo?
             <div id="ncp7"></div>
 
 
-            ¿Cu&aacute;nta rivalidad existe entre los miembros de su grupo?
+            ¿Cu&aacute;nta rivalidad existe entre los miembros de tu grupo?
             <div id="ncp8"></div>
         </div>
 
         <div id="frmPC" title="Comportamientos ante el Conflicto" sentencia-id="">
-            <b>Flexible</b><br/>
-            1.	Me rindo a los deseos de la otra parte  
+            <p>En la situaci&oacute;n de conflicto anterior...</p>
+            1.	Me rend&iacute; a los deseos de la otra parte  
             <div id="ccp1"></div>
-            2.	Estoy de acuerdo con la otra parte  
-            <div id="ccp2"></div>
-            3.	Intento acomodar a la otra parte  
-            <div id="ccp3"></div>
-            4.	Me adapto a los intereses y objetivos de la otra parte  
-            <div id="ccp4"></div>
-            <b>Comprometido</b><br/>
-            1.	Trat&eacute; de darme cuenta de una soluci&oacute;n a mitad de camino. 
+            2.	Trat&eacute; de darme cuenta de una soluci&oacute;n a mitad de camino. 
             <div id="ccp5"></div>
-            2.	Enfatizo que tenemos que encontrar una soluci&oacute;n de compromiso.  
-            <div id="ccp6"></div>
-            3.	Insisto en que ambos cedamos un poco.  
-            <div id="ccp7"></div>
-            4.	Me esfuerzo cuando sea posible hacia un compromiso del cincuenta y cincuenta.  
-            <div id="ccp8"></div>
-            <b>Violento – Dominante</b><br/>
-            1.	Yo empujo mi propio punto de vista.  
+            3.	Empuje por mi propio punto de vista.  
             <div id="ccp9"></div>
-            2.	Busco ganancias.  
-            <div id="ccp10"></div>
-            3.	Lucho por un buen resultado para m&iacute;.
-            <div id="ccp11"></div>
-            4.	Hago todo por ganar.  
-            <div id="ccp12"></div>
-            <b>Revolvedor de problema - Colaborador</b><br/>
-            1.	Examino los problemas hasta que encuentre una soluci&oacute;n que realmente me satisfaga a m&iacute; y a la otra parte.  
+            4.	Examine los problemas hasta que encontr&eacute; una soluci&oacute;n que realmente me satisfaci&oacute; a m&iacute; y a mis compa&ntilde;eros.  
             <div id="ccp13"></div>
-            2.	Defiendo los objetivos e intereses propios y ajenos.
-            <div id="ccp14"></div>
-            3.	Examino ideas de ambas partes para encontrar una soluci&oacute;n mutua &oacute;ptima.
-            <div id="ccp15"></div>
-            4.	Elaboro una soluci&oacute;n que sirve tanto a m&iacute; como a los intereses de los dem&aacute;s lo mejor posible.  
-            <div id="ccp16"></div>
-            <b>Evasor</b><br/>
-            1.	Evito una confrontaci&oacute;n sobre nuestras diferencias.
+            5.	Evite una confrontaci&oacute;n por diferencias con mis compa&ntilde;eros.
             <div id="ccp17"></div>
-            2.	Evito diferencias de opini&oacute;n tanto como sea posible.  
-            <div id="ccp18"></div>
-            3.	Intento hacer que las diferencias sean menos severas.  
+            6.	Estuve de acuerdo con mis compa&ntilde;eros.
+            <div id="ccp2"></div>
+            7.	Intent&eacute; acomodarme a mis compa&ntilde;eros. 
+            <div id="ccp3"></div>
+            8.	Me esforc&eacute; para comprometerme a los deseos de mis compa&ntilde;eros as&iacute; como buscar que ellos se comprometan a los m&iacute;os.  
+            <div id="ccp8"></div>
+            9.	Elabor&eacute; una soluci&oacute;n que sirvi&oacute; tanto a m&iacute; como a los intereses de mis compa&ntilde;eros lo mejor posible.  
+            <div id="ccp16"></div>
+            10.	Me adapt&eacute; a los intereses y objetivos de mis compa&ntilde;eros.  
+            <div id="ccp4"></div>
+            11.	Enfatic&eacute; que ten&iacute;amos que encontrar una soluci&oacute;n de compromiso.  
+            <div id="ccp6"></div>
+            12.	Intent&eacute; hacer que las diferencias sean menos severas.  
             <div id="ccp19"></div>
-            4.	Intento evitar una confrontaci&oacute;n con el otro.  
+            13.	Hice todo por ganar.  
+            <div id="ccp12"></div>
+            14.	Insist&iacute; en que entre todos deb&iacute;mos ceder un poco.  
+            <div id="ccp7"></div>
+            15.	Examin&eacute; ideas de mis compa&ntilde;eros para encontrar una soluci&oacute;n mutua &oacute;ptima.
+            <div id="ccp15"></div>
+            16.	Luch&eacute; por un buen resultado para m&iacute;.
+            <div id="ccp11"></div>
+            17.	Intent&eacute; evitar una confrontaci&oacute;n con mis compa&ntilde;eros.  
             <div id="ccp20"></div>
+            18.	Buscqu&eacute; obtener ganancias.  
+            <div id="ccp10"></div>                        
+            19.	Evit&eacute; diferencias de opini&oacute;n tanto como sea posible.  
+            <div id="ccp18"></div>
+            20.	Defend&iacute; los objetivos e intereses propios y de mis compa&ntilde;eros.
+            <div id="ccp14"></div>
         </div>
     <?php endif; ?>
 </div>
