@@ -190,6 +190,15 @@ $script = <<< JS
         });
         
         if (rEstadoAnimo == 1){
+            // Se establece una emoción por defecto
+            if ($('#lblEmocionSeleccionada').html().length == 0){
+                $('#pleasure').val('0.000');
+                $('#arousal').val('0.000');
+                $('#dominance').val('0.000');
+                $('#imgEmocionSeleccionada').attr('class', 'neutral');
+                $('#lblEmocionSeleccionada').html('Neutral');
+            }
+        
             $('input[type="button"].btnEmociones').click(function(){
                 $('#pleasure').val($(this).data('pleasure'));
                 $('#arousal').val($(this).data('arousal'));
@@ -216,7 +225,18 @@ $script = <<< JS
                 j = j + 1;
             }
         
+            function validarCampo(valor, etiqueta){
+                if (parseFloat(valor) == 0){
+                    $('#lbl' + etiqueta).text('Proporcione una valoración');
+                    return true;
+                } else {
+                    $('#lbl' + etiqueta).text('');
+                    return false;
+                }
+            }
+        
             function enviarRespuestasNaturalezaConflicto(){
+                var error = false;
                 cuestionario.nc1 = parseFloat($('#ncp1').rateYo("rating")); 
                 cuestionario.nc2 = parseFloat($('#ncp2').rateYo("rating")); 
                 cuestionario.nc3 = parseFloat($('#ncp3').rateYo("rating")); 
@@ -225,12 +245,29 @@ $script = <<< JS
                 cuestionario.nc6 = parseFloat($('#ncp6').rateYo("rating")); 
                 cuestionario.nc7 = parseFloat($('#ncp7').rateYo("rating")); 
                 cuestionario.nc8 = parseFloat($('#ncp8').rateYo("rating")); 
-                $('#frmNC').dialog("close");
-                $('#frmCC').data('sentenciaid', $('#frmNC').data('sentenciaid'));
-                return true;
+        
+                // Se valida que el usuario haya seleccionado alguna opción en las estrellitas
+                error = validarCampo(cuestionario.nc1, 'ncp1') || error;
+                error = validarCampo(cuestionario.nc2, 'ncp2') || error;
+                error = validarCampo(cuestionario.nc3, 'ncp3') || error;
+                error = validarCampo(cuestionario.nc4, 'ncp4') || error;
+                error = validarCampo(cuestionario.nc5, 'ncp5') || error;
+                error = validarCampo(cuestionario.nc6, 'ncp6') || error;
+                error = validarCampo(cuestionario.nc7, 'ncp7') || error;
+                error = validarCampo(cuestionario.nc8, 'ncp8') || error;
+                
+                if (!error){
+                    $('#frmNC').dialog("close");
+                    $('#frmCC').data('sentenciaid', $('#frmNC').data('sentenciaid'));
+                    return true;
+                } else {
+                    return false;
+                }
+                
             }
         
             function enviarRespuestasComportamientoConflicto(){
+                var error = false;
                 cuestionario.cc1 = parseFloat($('#ccp1').rateYo("rating")); 
                 cuestionario.cc2 = parseFloat($('#ccp2').rateYo("rating")); 
                 cuestionario.cc3 = parseFloat($('#ccp3').rateYo("rating")); 
@@ -251,25 +288,56 @@ $script = <<< JS
                 cuestionario.cc18 = parseFloat($('#ccp18').rateYo("rating")); 
                 cuestionario.cc19 = parseFloat($('#ccp19').rateYo("rating")); 
                 cuestionario.cc20 = parseFloat($('#ccp20').rateYo("rating")); 
-                datac = JSON.stringify(cuestionario);
-                $('#frmPC').dialog("close");
-                $.ajax({
-                    method: 'POST',
-                    url: "$enviarCuestionario",
-                    data: {sentenciaid: $('#frmNC').data('sentenciaid'), datacuestionario:datac},
-                }).done(function () {
-                    return true;
-                });
-                return true;
+                // Se valida que el usuario haya seleccionado alguna opción en las estrellitas        
+                error = validarCampo(cuestionario.cc1, 'ccp1') || error;
+                error = validarCampo(cuestionario.cc2, 'ccp2') || error;
+                error = validarCampo(cuestionario.cc3, 'ccp3') || error;
+                error = validarCampo(cuestionario.cc4, 'ccp4') || error;
+                error = validarCampo(cuestionario.cc5, 'ccp5') || error;
+                error = validarCampo(cuestionario.cc6, 'ccp6') || error;
+                error = validarCampo(cuestionario.cc7, 'ccp7') || error;
+                error = validarCampo(cuestionario.cc8, 'ccp8') || error;
+                error = validarCampo(cuestionario.cc9, 'ccp9') || error;
+                error = validarCampo(cuestionario.cc10, 'ccp10') || error;
+                error = validarCampo(cuestionario.cc11, 'ccp11') || error;
+                error = validarCampo(cuestionario.cc12, 'ccp12') || error;  
+                error = validarCampo(cuestionario.cc13, 'ccp13') || error;
+                error = validarCampo(cuestionario.cc14, 'ccp14') || error;
+                error = validarCampo(cuestionario.cc15, 'ccp15') || error;
+                error = validarCampo(cuestionario.cc16, 'ccp16') || error;
+                error = validarCampo(cuestionario.cc17, 'ccp17') || error;
+                error = validarCampo(cuestionario.cc18, 'ccp18') || error;
+                error = validarCampo(cuestionario.cc19, 'ccp19') || error;
+                error = validarCampo(cuestionario.cc20, 'ccp20') || error;
+        
+                if (!error){
+                    datac = JSON.stringify(cuestionario);
+                    $('#frmPC').dialog("close");
+                    $.ajax({
+                        method: 'POST',
+                        url: "$enviarCuestionario",
+                        data: {sentenciaid: $('#frmNC').data('sentenciaid'), datacuestionario:datac},
+                    }).done(function () {
+                        return true;
+                    });
+                    return true;        
+                } else {
+                    return false;
+                }
+
             }
 
             dialog = $("#frmNC").dialog({
+                closeOnEscape: false,
                 autoOpen: false,
-                height: 400,
-                width: 350,
+                height: 550,
+                width: 750,
                 modal: true,
                 buttons: {
                     "Responder": enviarRespuestasNaturalezaConflicto
+                },
+                open: function(event, ui) {
+                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
                 },
                 close: function () {                    
                     $('#frmPC').dialog("open");
@@ -277,12 +345,16 @@ $script = <<< JS
             });        
         
             dialog = $("#frmPC").dialog({
+                closeOnEscape: false,
                 autoOpen: false,
-                height: 400,
-                width: 350,
+                height: 550,
+                width: 750,
                 modal: true,
                 buttons: {
                     "Responder": enviarRespuestasComportamientoConflicto
+                },
+                open: function(event, ui) {
+                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
                 },
                 close: function () {   
                     var i = 1;
@@ -299,7 +371,7 @@ $script = <<< JS
                     return true;
                 }
             });         
-        }
+        }        
         
         // Initializes and creates emoji set from sprite sheet
         window.emojiPicker = new EmojiPicker({
@@ -331,15 +403,16 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
 
 
-    <div style=" width:360px; margin:0 20px; float:left;">
+    <div style=" width:400px; margin:0 20px; float:left;">
         <?php if ($tarea->reportar_estado_animo == 1): ?>
             <p>Estado de &aacute;nimo seleccionado: <br/><img id='imgEmocionSeleccionada' style="border:0px;"/> <label id='lblEmocionSeleccionada'></label></p>
             <b>Me siento...</b><br/>
-            <input type="button" id="btnAngry" class='btnEmociones angry' data-arousal="0.59" data-pleasure="-0.51" data-dominance="0.25" data-emocion='Enojado'/>
-            <input type="button" id="btnFear" class='btnEmociones fear' data-arousal="0.60" data-pleasure="-0.64" data-dominance="-0.43" data-emocion='Preocupado'/>
-            <input type="button" id="btnJoy" class='btnEmociones joy' data-arousal="0.2" data-pleasure="0.4" data-dominance=0.1 data-emocion='Alegre'/>
-            <input type="button" id="btnSadness" class='btnEmociones sadness' data-arousal="-0.2" data-pleasure="-0.4" data-dominance="-0.1" data-emocion='Cansado'/>
-            <input type="button" id="btnSurprise" class='btnEmociones surprise' data-arousal="0.59" data-pleasure="0.87" data-dominance="-0.87" data-emocion='Sorprendido'/>
+            <input type="button" id="btnNeutral" class='btnEmociones neutral' data-arousal="0" data-pleasure="0" data-dominance="0" data-emocion='Neutral' title="Neutral"/>
+            <input type="button" id="btnAngry" class='btnEmociones angry' data-arousal="0.59" data-pleasure="-0.51" data-dominance="0.25" data-emocion='Enojado' title="Enojado"/>
+            <input type="button" id="btnFear" class='btnEmociones fear' data-arousal="0.60" data-pleasure="-0.64" data-dominance="-0.43" data-emocion='Preocupado' title="Preocupado"/>
+            <input type="button" id="btnJoy" class='btnEmociones joy' data-arousal="0.2" data-pleasure="0.4" data-dominance=0.1 data-emocion='Alegre' title="Alegre"/>
+            <input type="button" id="btnSadness" class='btnEmociones sadness' data-arousal="-0.2" data-pleasure="-0.4" data-dominance="-0.1" data-emocion='Cansado' title="Cansado"/>
+            <input type="button" id="btnSurprise" class='btnEmociones surprise' data-arousal="0.59" data-pleasure="0.87" data-dominance="-0.87" data-emocion='Sorprendido' title="Sorprendido"/>
             <input id="pleasure" type="hidden" value="0" min="-1" max="1" step="0.05" size="4" />
             <input id="arousal" type="hidden" value="0" min="-1" max="1" step="0.05" />
             <input id="dominance" type="hidden" value="0" min="-1" max="1" step="0.05" />
@@ -348,8 +421,10 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
         <?php if ($tarea->reportar_conflicto == 1): ?>
             <div style="border: black 1px solid;padding: 10px;">
-                <input type="radio" name="conflicto" value="no" checked="checked"> No hay diferencias en el grupo<br>
-                <input type="radio" name="conflicto" value="yes"> Siento que estamos con diferencias en el grupo<br>                            
+                <input type="radio" name="conflicto" value="no" checked="checked" id="ropno"/> 
+                <label for="ropno">No hay diferencias en el grupo</label><br>
+                <input type="radio" name="conflicto" value="yes" id="ropsi"/> 
+                <label for="ropsi">Siento que estamos con diferencias en el grupo</label><br>                            
             </div>
         <?php endif; ?>
     </div>
@@ -382,79 +457,149 @@ $sentenciaApertura = new app\models\SentenciasApertura();
     <?php if ($tarea->reportar_conflicto == 1): ?>
         <div id="frmNC" title="Naturaleza del Conflicto" sentencia-id="">
 
-            ¿En qu&eacute; grado hubo diferencias de opini&oacute;n en su grupo?
-            <div id="ncp1"></div>
+            <p>¿En qu&eacute; grado hubo diferencias de opini&oacute;n en su grupo? </p>                       
+            <div id="ncp1" style="float:left;"></div>
+            <label id="lblncp1" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
-            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestaron desacuerdo respecto a c&oacute;mo debeían ser hechas las cosas?
-            <div id="ncp2"></div>
+            <p>¿Cu&aacute;n frecuente los miembros de su grupo manifiestaron desacuerdo respecto a c&oacute;mo debeían ser hechas las cosas?</p>
+            <div id="ncp2" style="float:left;"></div>
+            <label id="lblncp2" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
+            <p>¿Cu&aacute;n frecuente los miembros de su grupo manifiestaron desacuerdo sobre cu&aacute;les procedimientos deb&iacute;an ser usados para realizar el trabajo?</p>
+            <div id="ncp3" style="float:left;"></div>
+            <label id="lblncp3" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
-            ¿Cu&aacute;n frecuente los miembros de su grupo manifiestaron desacuerdo sobre cu&aacute;les procedimientos debe&iacute;an ser usados para realizar el trabajo?
-            <div id="ncp3"></div>
+            <p>¿En qu&eacute; grado estos argumentos estuvieron relacionados a la tarea?</p>
+            <div id="ncp4" style="float:left;"></div>
+            <label id="lblncp4" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
+            <p>¿En qu&eacute; medida fueron evidentes los choques de personalidad en tu grupo?</p>
+            <div id="ncp5" style="float:left;"></div>
+            <label id="lblncp5" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
-            ¿En qu&eacute; grado estos argumentos estuvieron relacionados a la tarea?
-            <div id="ncp4"></div>
+            <p>¿Cu&aacute;nta tensi&oacute;n hubo entre los miembros de tu grupo?</p>
+            <div id="ncp6" style="float:left;"></div>
+            <label id="lblncp6" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
+            <p>¿Cu&aacute;n frecuente los miembros de tu grupo se pusieron enojados mientras trabajan en grupo?</p>
+            <div id="ncp7" style="float:left;"></div>
+            <label id="lblncp7" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
 
-            ¿En qu&eacute; medida son evidentes los choques de personalidad en tu grupo?
-            <div id="ncp5"></div>
-
-
-            ¿Cu&aacute;nta tensi&oacute;n hay entre los miembros de tu grupo?
-            <div id="ncp6"></div>
-
-
-            ¿Cu&aacute;n frecuente los miembros de tu grupo se pusieron enojados mientras trabajan en grupo?
-            <div id="ncp7"></div>
-
-
-            ¿Cu&aacute;nta rivalidad existe entre los miembros de tu grupo?
-            <div id="ncp8"></div>
+            <p>¿Cu&aacute;nta rivalidad hubo entre los miembros de tu grupo?</p>
+            <div id="ncp8" style="float:left;"></div>
+            <label id="lblncp8" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
         </div>
 
         <div id="frmPC" title="Comportamientos ante el Conflicto" sentencia-id="">
             <p>En la situaci&oacute;n de conflicto anterior...</p>
-            1.	Me rend&iacute; a los deseos de la otra parte  
-            <div id="ccp1"></div>
-            2.	Trat&eacute; de darme cuenta de una soluci&oacute;n a mitad de camino. 
-            <div id="ccp5"></div>
-            3.	Empuje por mi propio punto de vista.  
-            <div id="ccp9"></div>
-            4.	Examine los problemas hasta que encontr&eacute; una soluci&oacute;n que realmente me satisfaci&oacute; a m&iacute; y a mis compa&ntilde;eros.  
-            <div id="ccp13"></div>
-            5.	Evite una confrontaci&oacute;n por diferencias con mis compa&ntilde;eros.
-            <div id="ccp17"></div>
-            6.	Estuve de acuerdo con mis compa&ntilde;eros.
-            <div id="ccp2"></div>
-            7.	Intent&eacute; acomodarme a mis compa&ntilde;eros. 
-            <div id="ccp3"></div>
-            8.	Me esforc&eacute; para comprometerme a los deseos de mis compa&ntilde;eros as&iacute; como buscar que ellos se comprometan a los m&iacute;os.  
-            <div id="ccp8"></div>
-            9.	Elabor&eacute; una soluci&oacute;n que sirvi&oacute; tanto a m&iacute; como a los intereses de mis compa&ntilde;eros lo mejor posible.  
-            <div id="ccp16"></div>
-            10.	Me adapt&eacute; a los intereses y objetivos de mis compa&ntilde;eros.  
-            <div id="ccp4"></div>
-            11.	Enfatic&eacute; que ten&iacute;amos que encontrar una soluci&oacute;n de compromiso.  
-            <div id="ccp6"></div>
-            12.	Intent&eacute; hacer que las diferencias sean menos severas.  
-            <div id="ccp19"></div>
-            13.	Hice todo por ganar.  
-            <div id="ccp12"></div>
-            14.	Insist&iacute; en que entre todos deb&iacute;mos ceder un poco.  
-            <div id="ccp7"></div>
-            15.	Examin&eacute; ideas de mis compa&ntilde;eros para encontrar una soluci&oacute;n mutua &oacute;ptima.
-            <div id="ccp15"></div>
-            16.	Luch&eacute; por un buen resultado para m&iacute;.
-            <div id="ccp11"></div>
-            17.	Intent&eacute; evitar una confrontaci&oacute;n con mis compa&ntilde;eros.  
-            <div id="ccp20"></div>
-            18.	Buscqu&eacute; obtener ganancias.  
-            <div id="ccp10"></div>                        
-            19.	Evit&eacute; diferencias de opini&oacute;n tanto como sea posible.  
-            <div id="ccp18"></div>
-            20.	Defend&iacute; los objetivos e intereses propios y de mis compa&ntilde;eros.
-            <div id="ccp14"></div>
+            <p>1.	Me rend&iacute; a los deseos de la otra parte.</p>
+            <div id="ccp1" style="float:left;"></div>
+            <label id="lblccp1" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>2.	Trat&eacute; de darme cuenta de una soluci&oacute;n a mitad de camino.</p> 
+            <div id="ccp5" style="float:left;"></div>
+            <label id="lblccp5" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>3.	Empuje por mi propio punto de vista.</p>
+            <div id="ccp9" style="float:left;"></div>
+            <label id="lblccp9" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>4.	Examine los problemas hasta que encontr&eacute; una soluci&oacute;n que realmente me satisfizo a m&iacute; y a mis compa&ntilde;eros.</p>
+            <div id="ccp13" style="float:left;"></div>
+            <label id="lblccp13" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>5.	Evite una confrontaci&oacute;n por diferencias con mis compa&ntilde;eros.</p>
+            <div id="ccp17" style="float:left;"></div>
+            <label id="lblccp17" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>6.	Estuve de acuerdo con mis compa&ntilde;eros.</p>
+            <div id="ccp2" style="float:left;"></div>
+            <label id="lblccp2" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>7.	Intent&eacute; acomodarme a mis compa&ntilde;eros.</p>
+            <div id="ccp3" style="float:left;"></div>
+            <label id="lblccp3" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>8.	Me esforc&eacute; para comprometerme a los deseos de mis compa&ntilde;eros as&iacute; como buscar que ellos se comprometan a los m&iacute;os.</p>
+            <div id="ccp8" style="float:left;"></div>
+            <label id="lblccp8" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>9.	Elabor&eacute; una soluci&oacute;n que sirvi&oacute; tanto a m&iacute; como a los intereses de mis compa&ntilde;eros lo mejor posible.</p>
+            <div id="ccp16" style="float:left;"></div>
+            <label id="lblccp16" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>10.	Me adapt&eacute; a los intereses y objetivos de mis compa&ntilde;eros.</p>
+            <div id="ccp4" style="float:left;"></div>
+            <label id="lblccp4" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>11.	Enfatic&eacute; que ten&iacute;amos que encontrar una soluci&oacute;n de compromiso.</p>
+            <div id="ccp6" style="float:left;"></div>
+            <label id="lblccp6" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>12.	Intent&eacute; hacer que las diferencias sean menos severas.</p>
+            <div id="ccp19" style="float:left;"></div>
+            <label id="lblccp19" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>13.	Hice todo por ganar.</p>
+            <div id="ccp12" style="float:left;"></div>
+            <label id="lblccp12" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>14.	Insist&iacute; en que entre todos deb&iacute;mos ceder un poco.</p>
+            <div id="ccp7" style="float:left;"></div>
+            <label id="lblccp7" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>15.	Examin&eacute; ideas de mis compa&ntilde;eros para encontrar una soluci&oacute;n mutua &oacute;ptima.</p>
+            <div id="ccp15" style="float:left;"></div>
+            <label id="lblccp15" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>16.	Luch&eacute; por un buen resultado para m&iacute;.</p>
+            <div id="ccp11" style="float:left;"></div>
+            <label id="lblccp11" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>17.	Intent&eacute; evitar una confrontaci&oacute;n con mis compa&ntilde;eros.</p>
+            <div id="ccp20" style="float:left;"></div>
+            <label id="lblccp20" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>18.	Buscqu&eacute; obtener ganancias.</p>
+            <div id="ccp10" style="float:left;"></div>  
+            <label id="lblccp10" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>19.	Evit&eacute; diferencias de opini&oacute;n tanto como sea posible.</p>
+            <div id="ccp18" style="float:left;"></div>
+            <label id="lblccp18" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
+            <p>20.	Defend&iacute; los objetivos e intereses propios y de mis compa&ntilde;eros.</p>
+            <div id="ccp14" style="float:left;"></div>
+            <label id="lblccp14" style="color: red;float:left;margin-left: 5px;font-weight: lighter;"></label>
+            <br style="clear: both;"/><br/>
+            
         </div>
     <?php endif; ?>
 </div>

@@ -79,4 +79,19 @@ class Chats extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Sentencias::className(), ['chats_id' => 'id']);
     }
+    
+    public static function getChatsGrupos($tarea_id) {
+
+        $query = (new \yii\db\Query())
+                ->select(['ch.id', 'ch.grupos_formados_id', 'GROUP_CONCAT(apellido) as alumnos'])
+                ->from('chats as ch')
+                ->innerJoin('grupos_alumnos as ga', 'ch.grupos_formados_id = ga.grupos_formados_id')
+                ->innerJoin('usuarios as u', 'ga.usuarios_id = u.id')
+                ->where(['tareas_id' => $tarea_id])
+                ->groupBy('ch.grupos_formados_id');
+
+        //echo $query->createCommand()->sql; die();
+        return $query->all();
+        ;
+    }
 }

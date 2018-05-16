@@ -42,17 +42,17 @@ $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity
                     'view' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('View', ['asignaturas/view', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Ver', ['asignaturas/view', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
                     },
                     'update' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Edit', ['asignaturas/update', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Editar', ['asignaturas/update', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
                     },
                     'delete' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Delete', ['asignaturas/delete', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Eliminar', ['asignaturas/delete', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
                     },
                     'alumnos' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;

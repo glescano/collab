@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TareasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Actividades';
+$this->title = 'Actividades de ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

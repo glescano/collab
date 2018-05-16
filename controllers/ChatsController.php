@@ -69,7 +69,7 @@ class ChatsController extends Controller
         
         $oChat = Chats::findOne(['id' => $chatiddecoded]);
         $grupo = \app\models\GruposAlumnos::findOne(['grupos_formados_id' => $oChat->grupos_formados_id, 'usuarios_id' => $userid]);
-        if (!$grupo){
+        if (!$grupo && $oUser->tipo != 1){
             throw new \yii\web\ForbiddenHttpException("No puede acceder a esta página");
         }
         
