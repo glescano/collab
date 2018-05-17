@@ -34,7 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'descripcion',
+            [
+                'attribute' => 'nombre_t',
+                'label' => 'Actividad',
+            ],
+            'consigna',
+            'descripcion',            
             'year',
             [
                 'attribute' => 'usar_sentencias_apertura',

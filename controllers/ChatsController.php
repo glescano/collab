@@ -81,6 +81,7 @@ class ChatsController extends Controller
             'chat' => $chat,
             'chatid' => $chatiddecoded,
             'tarea' => $tarea,
+            'grupo_id' => $oChat->grupos_formados_id,
         ]);
     }
     

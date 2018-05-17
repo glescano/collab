@@ -94,4 +94,18 @@ class Chats extends \yii\db\ActiveRecord
         return $query->all();
         ;
     }
+    
+    public static function getMiembrosChat($grupo_id) {
+
+        $query = (new \yii\db\Query())
+                ->select(['grupos_formados_id', 'GROUP_CONCAT(apellido) as alumnos'])
+                ->from('usuarios as u')
+                ->innerJoin('grupos_alumnos as ga', 'ga.usuarios_id = u.id')
+                ->where(['grupos_formados_id' => $grupo_id])
+                ->groupBy('grupos_formados_id');
+
+        //echo $query->createCommand()->sql; die();
+        return $query->all();
+        ;
+    }
 }

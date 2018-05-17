@@ -8,8 +8,9 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $asignatura = app\models\Asignaturas::findOne(['id' => $tarea->asignaturas_id])->nombre;
+$miembrosChat = app\models\Chats::getMiembrosChat($grupo_id);
 
-$this->title = 'Chat - ' . $tarea->descripcion;
+$this->title = $tarea->nombre_t;
 $this->params['breadcrumbs'][] = $this->title;
 $usuarioid = Yii::$app->user->identity->id;
 
@@ -390,8 +391,9 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 ?>
 
 <div class="chats-index">
-    <h1><?= Html::encode($asignatura) ?></h1>
-    <h2><?= Html::encode($this->title) ?></h2>
+    <h1><?= Html::encode($asignatura) ?></h1>    
+    <h2><?= Html::encode($this->title) ?> / Grupo <?= $miembrosChat[0]["grupos_formados_id"] . " - " .$miembrosChat[0]["alumnos"] ?></h2>
+    <p><?= $tarea->consigna?></p>
 
     <div style="float:left; margin: 0px auto 10px auto;">
         <div id='divChat' style="width: 700px; height: 350px; overflow-y: scroll;"></div>

@@ -11,12 +11,16 @@ use yii\widgets\ActiveForm;
 <div class="tareas-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <?= $form->field($model, 'nombre_t')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'consigna')->textarea() ?>
 
-    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'descripcion')->textarea() ?>
 
     <?= $form->field($model, 'year')->textInput() ?>
     
-    <?= $form->field($model, 'usar_sentencias_apertura')->radioList(array('1'=>'Sí','0'=>'No')) ?>
+    <?= $form->field($model, 'usar_sentencias_apertura')->radioList(array('1'=>'Sí', '0'=>'No')) ?>
     
     <?= $form->field($model, 'reportar_estado_animo')->radioList(array('1'=>'Sí','0'=>'No')) ?>
     
