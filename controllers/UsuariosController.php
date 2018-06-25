@@ -22,10 +22,10 @@ class UsuariosController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'update', 'delete', 'create'],
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'test-felder-silverman'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'actualizar-perfil'],
+                        'actions' => ['index', 'view', 'actualizar-perfil', 'test-felder-silverman'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
