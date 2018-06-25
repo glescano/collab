@@ -15,6 +15,8 @@ use Yii;
  * @property integer $tipo
  * @property string $estiloaprendizaje
  * @property string $auth_key
+ * @property string $fechanacimiento
+ * @property string $email
  *
  * @property AsignaturasDocentes[] $asignaturasDocentes
  * @property GruposAlumnos[] $gruposAlumnos
@@ -87,6 +89,9 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
             [['password'], 'string', 'max' => 255],
             [['nombre', 'apellido'], 'string', 'max' => 150],
             [['estiloaprendizaje'], 'string', 'max' => 30],
+            [['fechanacimiento'], 'string', 'max' => 30],
+            [['fechanacimiento'], 'default', 'value' => null],
+            [['email'], 'string', 'max' => 100],
             [['preg1', 'preg2', 'preg3', 'preg4', 'preg5', 'preg6', 'preg7', 'preg8', 'preg9', 'preg10',
             'preg11', 'preg12', 'preg13', 'preg14', 'preg15', 'preg16', 'preg17', 'preg18', 'preg19', 'preg20',
             'preg21', 'preg22', 'preg23', 'preg24', 'preg25', 'preg26', 'preg27', 'preg28', 'preg29', 'preg30',
@@ -106,7 +111,9 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
             'tipo' => 'Tipo',
-            'estiloaprendizaje' => 'Estiloaprendizaje',
+            'estiloaprendizaje' => 'Estilo de Aprendizaje',
+            'fechanacimiento' => 'Fecha de Nacimiento',
+            'email' => 'E-mail',
         ];
     }
 
@@ -178,6 +185,11 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
         if ($this->isAttributeChanged("password")) {
             $this->password = Yii::$app->security->
                     generatePasswordHash($this->password);
+        }
+        if ($this->isAttributeChanged("fechanacimiento")) {
+            list($dia, $mes, $year) = explode("/", $this->fechanacimiento);
+            $this->fechanacimiento = "$year-$mes-$dia 00:00:00"; 
+            
         }
         return $return;
     }

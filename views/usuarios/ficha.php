@@ -18,26 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => '¿Seguro que quiere eliminar este usuario?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'username',
             'nombre',
             'apellido',
-            'fechanacimiento',
-            'tipo:boolean',
+            [
+                'attribute' => 'fechanacimiento',
+                'label' => 'Fecha de Nacimiento',
+                'value' => function($data) {
+                    list($year, $mes, $dia) = explode("-", $data->fechanacimiento);
+                    return substr($dia, 0, 2) . "/$mes/$year";
+                },
+            ],
             'estiloaprendizaje',
             'email',            
         ],

@@ -25,9 +25,14 @@ class TareasController extends Controller {
                 'only' => ['index', 'view', 'update', 'delete', 'create'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'actions' => ['index', 'view', 'update', 'create'],
                         'allow' => true,
                         'roles' => ['profesor'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['administrador'],
                     ],
                 ],
             ],
@@ -154,7 +159,7 @@ class TareasController extends Controller {
     public function actionDelete($id) {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['asignaturas/index']);
     }
 
     /**

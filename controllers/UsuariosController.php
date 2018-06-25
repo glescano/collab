@@ -25,7 +25,7 @@ class UsuariosController extends Controller {
                 'only' => ['index', 'view', 'update', 'delete', 'create'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'update'],
+                        'actions' => ['index', 'view', 'actualizar-perfil'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -35,7 +35,7 @@ class UsuariosController extends Controller {
                         'roles' => ['administrador'],
                     ],
                     [
-                        'actions' => ['create'],
+                        'actions' => ['create', 'update'],
                         'allow' => true,
                         'roles' => ['?', 'administrador', 'profesor'],
                     ],
@@ -48,7 +48,7 @@ class UsuariosController extends Controller {
                 ],
             ],
         ];
-    }       
+    }
 
     /**
      * Lists all Usuarios models.
@@ -61,8 +61,8 @@ class UsuariosController extends Controller {
         } else {
             $rolesUsuario = [];
         }
-        
-        if (array_key_exists('estudiante', $rolesUsuario)){
+
+        if (array_key_exists('estudiante', $rolesUsuario)) {
             return $this->redirect(['site/index']);
         }
 
@@ -93,6 +93,16 @@ class UsuariosController extends Controller {
     public function actionView($id) {
         return $this->render('view', [
                     'model' => $this->findModel($id),
+        ]);
+    }
+    
+    public function actionFicha($id) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $idUsuario = Yii::$app->security->decryptByPassword($id, $oUser->password);
+        
+        return $this->render('ficha', [
+                    'model' => $this->findModel($idUsuario),
         ]);
     }
 
@@ -156,6 +166,23 @@ class UsuariosController extends Controller {
         }
 
         return $this->render('update', [
+                    'model' => $model,
+        ]);
+    }
+
+    public function actionActualizarPerfil($id) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $idUsuario = Yii::$app->security->decryptByPassword($id, $oUser->password);
+
+
+        $model = $this->findModel($idUsuario);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['ficha', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+        }
+
+        return $this->render('actualizar-perfil', [
                     'model' => $model,
         ]);
     }

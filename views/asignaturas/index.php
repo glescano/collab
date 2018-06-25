@@ -42,32 +42,32 @@ $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity
                     'view' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Ver', ['asignaturas/view', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Ver', ['asignaturas/view', 'id' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]);
                     },
                     'update' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Editar', ['asignaturas/update', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Editar', ['asignaturas/update', 'id' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]);
                     },
                     'delete' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Eliminar', ['asignaturas/delete', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Eliminar', ['asignaturas/delete', 'id' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]);
                     },
                     'alumnos' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Asociar Alumnos', ['asignaturas-alumnos/index', 'asigid' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Asociar Alumnos', ['asignaturas-alumnos/index', 'asigid' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]);
                     },
                     'grupos' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Grupos', ['grupos/index', 'asigid' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Grupos', ['grupos/index', 'asigid' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]);
                     },
                     'practicos' => function($url, $model) {
                         $usuario = Yii::$app->user->identity->id;
                         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-                        return Html::a('Actividades', ['tareas/index', 'asigid' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
+                        return Html::a('Actividades', ['tareas/index', 'asigid' => Yii::$app->security->encryptByPassword($model->asignaturas_id, $oUser->password)]);
                     },
                 ],
             ],

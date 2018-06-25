@@ -392,8 +392,8 @@ $sentenciaApertura = new app\models\SentenciasApertura();
 
 <div class="chats-index">
     <h1><?= Html::encode($asignatura) ?></h1>    
-    <h2><?= Html::encode($this->title) ?> / Grupo <?= $miembrosChat[0]["grupos_formados_id"] . " - " .$miembrosChat[0]["alumnos"] ?></h2>
-    <p><?= $tarea->consigna?></p>
+    <h3><?= Html::encode($this->title) ?> / Grupo <?= $miembrosChat[0]["grupos_formados_id"] . " - " .$miembrosChat[0]["alumnos"] ?></h3>
+    <p style="background-color: #BEF7F8; padding: 10px; font-size: 1.3em;"><b>Consigna:</b><br/><?= $tarea->consigna?></p>
 
     <div style="float:left; margin: 0px auto 10px auto;">
         <div id='divChat' style="width: 700px; height: 350px; overflow-y: scroll;"></div>
