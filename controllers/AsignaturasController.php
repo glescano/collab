@@ -44,7 +44,11 @@ class AsignaturasController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+<<<<<<< HEAD
                     'delete' => ['POST', 'GET'],
+=======
+                    'delete' => ['POST'],
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 ],
             ],
         ];
@@ -54,6 +58,7 @@ class AsignaturasController extends Controller {
      * Lists all Asignaturas models.
      * @return mixed
      */
+<<<<<<< HEAD
     public function actionIndex()
     {
         $docente = Yii::$app->user->identity->id;
@@ -81,6 +86,29 @@ class AsignaturasController extends Controller {
     }
     
     
+=======
+    public function actionIndex() {
+        $docente = Yii::$app->user->identity->id;
+        $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
+        $esAdministrador = false;
+
+        if (!array_key_exists('administrador', $rolesUsuario)) {
+            $searchModel = new \app\models\AsignaturasDocentesSearch();
+            $searchModel->usuarios_id = $docente;
+        } else {
+            $esAdministrador = true;
+            $searchModel = new \app\models\AsignaturasSearch();
+        }
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'esAdministrador' => $esAdministrador,
+        ]);
+    }
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     public function actionAsignaturasAlumnos() {
         $usuario = Yii::$app->user->identity->id;

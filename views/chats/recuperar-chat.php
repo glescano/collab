@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
 use yii\helpers\Html;
 
@@ -86,3 +87,16 @@ $username = '';
     - <?= Html::encode($sentencia["fecha_hora"]); ?>
     <br/><br/>
 <?php endforeach; ?>
+=======
+
+<?php $username = ''; ?>
+<?php foreach ($chat as $sentencia): ?>
+    <?php if ($sentencia["username"] != $username): ?>
+        <b><?php echo $sentencia["username"]; ?></b><br/>                      
+        <?php $username = $sentencia["username"]; ?>
+    <?php endif; ?>
+    &nbsp;&nbsp;<?php echo $sentencia["sentencia"]; ?>
+     - <?php echo $sentencia["fecha_hora"]; ?>  
+    <br/><br/>
+<?php endforeach; ?>
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

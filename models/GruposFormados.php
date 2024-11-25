@@ -9,11 +9,18 @@ use Yii;
  *
  * @property int $id
  * @property string $nombre
+<<<<<<< HEAD
  * $grupos_id
  *
  * @property GruposAlumnos[] $gruposAlumnos
  * @property Grupos $grupos
  * @property int puntaje
+=======
+ * @property int $grupos_id
+ *
+ * @property GruposAlumnos[] $gruposAlumnos
+ * @property Grupos $grupos
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
  */
 class GruposFormados extends \yii\db\ActiveRecord {
 
@@ -35,7 +42,10 @@ class GruposFormados extends \yii\db\ActiveRecord {
             [['grupos_id'], 'required'],
             [['grupos_id'], 'integer'],
             [['nombre'], 'string', 'max' => 45],
+<<<<<<< HEAD
             [['puntaje'], 'integer'],
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             [['grupos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Grupos::className(), 'targetAttribute' => ['grupos_id' => 'id']],
         ];
     }
@@ -64,6 +74,7 @@ class GruposFormados extends \yii\db\ActiveRecord {
     public function getGrupos() {
         return $this->hasOne(Grupos::className(), ['id' => 'grupos_id']);
     }
+<<<<<<< HEAD
     //un solo grupo
     public static function getDetalleGrupo($grupos_formados_id)
     {
@@ -82,6 +93,13 @@ class GruposFormados extends \yii\db\ActiveRecord {
 
         $query = (new \yii\db\Query())
                 ->select(['gf.id','gf.nombre', 'g.codigo', 'u.nombre as nombreAlumno', 'u.apellido as apellidoAlumno', 'u.id AS alumnoId'])
+=======
+
+    public static function getDetalleGrupos($grupos_id) {
+
+        $query = (new \yii\db\Query())
+                ->select(['gf.id','gf.nombre', 'g.codigo', 'u.nombre as nombreAlumno', 'u.apellido as apellidoAlumno'])
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 ->from('grupos_formados as gf')
                 ->innerJoin('grupos as g', 'gf.grupos_id = g.id')
                 ->innerJoin('grupos_alumnos as ga', 'gf.id = ga.grupos_formados_id')

@@ -2,8 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+<<<<<<< HEAD
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+=======
+
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 /* @var $this yii\web\View */
 /* @var $model app\models\Tareas */
 $usuario = Yii::$app->user->identity->id;
@@ -15,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tareas-view">
 
+<<<<<<< HEAD
     <h2 class="perfil-title"><?= Html::encode($this->title) ?><span>.</span></h2>
     <p>En esta sección, podrás visualizar todos los detalles relacionados con la actividad seleccionada. Aquí se incluye
         la información clave, como la consigna, el tipo de tarea, el año y si la actividad permite el uso de
@@ -27,15 +32,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
+=======
+    <h1><?= Html::encode($this->title) ?></h1>    
+
+    <p>
+        <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?=
+        Html::a('Eliminar', ['delete', 'id' => $model->id], [
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Está seguro que desea eliminar esta tarea?',
                 'method' => 'post',
             ],
+<<<<<<< HEAD
         ]) ?>
     </p>
 
     <?= DetailView::widget([
+=======
+        ])
+        ?>
+    </p>
+
+    <?=
+    DetailView::widget([
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         'model' => $model,
         'attributes' => [
             'id',
@@ -67,6 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return ($data->reportar_conflicto) ? 'Sí' : 'No';
                 },
             ],
+<<<<<<< HEAD
             [
                 'attribute' => 'actividad_gamificada',
                 'label' => 'Permite Actividad Gamificacada 🏆',
@@ -328,3 +351,19 @@ $this->registerJs($script);
     background-color: #2980b9;
 }
 </style>
+=======
+        ],
+    ])
+    ?>
+
+    <?php
+    $chatsxGrupo = app\models\Chats::getChatsGrupos($model->id);
+    ?>
+
+    <h2>Chats asociados a los grupos</h2>
+    <?php foreach ($chatsxGrupo as $alumno): ?>
+        Grupo <?= $alumno["grupos_formados_id"] ?> - <?= $alumno["alumnos"] ?> [<?= Html::a('ver chat', ['chats/grupo', 'chatid' => Yii::$app->security->encryptByPassword($alumno["id"], $oUser->password)]) ?>]<br/>
+    <?php endforeach; ?>
+
+</div>
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

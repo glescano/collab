@@ -30,6 +30,7 @@ tests/_output/*
 tests/_support/_generated
 
 #vagrant folder
+<<<<<<< HEAD
 /.vagrant
 
 #vendor folder
@@ -37,3 +38,6 @@ tests/_support/_generated
 
 #ignore configuraciones en db
 config/db.php
+=======
+/.vagrant
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

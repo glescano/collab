@@ -110,6 +110,7 @@ class AsignaturasAlumnosController extends Controller
             'asigid' => $asigid,
         ]);
     }
+<<<<<<< HEAD
     
     
     public function actionCreateAsociation()
@@ -131,6 +132,8 @@ class AsignaturasAlumnosController extends Controller
             'model' => $model,
         ]);
     }
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     /**
      * Updates an existing AsignaturasAlumnos model.

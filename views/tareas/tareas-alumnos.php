@@ -1,6 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+<<<<<<< HEAD
+=======
+use yii\grid\GridView;
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TareasSearch */
@@ -12,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tareas-index">
 
+<<<<<<< HEAD
     <h2 class="perfil-title"><?= Html::encode($asignatura) ?><span>.</span></h2>
     <h3><?= Html::encode($this->title) ?></h3>
     <p>En esta sección, podrás visualizar todas las actividades y tareas asociadas a la asignatura seleccionada. Puedes ingresar al chat de cada actividad para interactuar con los demás miembros de tu grupo. ¡Mantente al tanto de tus tareas y actividades colaborativas!</p>
@@ -96,3 +101,44 @@ $this->params['breadcrumbs'][] = $this->title;
     background-color: #2980b9;
 }
 </style>
+=======
+    <h1><?= Html::encode($asignatura) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?=
+    GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'nombre_t',
+                'label' => 'Actividad',
+            ],
+            'consigna',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{chat}',
+                'buttons' => [
+                    'chat' => function($url, $model) {
+                        $usuario = Yii::$app->user->identity->id;
+                        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+                        
+                        $chats = \app\models\Chats::find()->where(['tareas_id' => $model->id])->all();
+                        $idChat = 0;
+                        foreach ($chats as $ch) {                            
+                            $grupo = \app\models\GruposAlumnos::findOne(['grupos_formados_id' => $ch->grupos_formados_id, 'usuarios_id' => $usuario]);
+                            if ($grupo){
+                                $idChat = $ch->id;
+                            } 
+                        }
+                        return Html::a('Chat', ['chats/grupo', 'chatid' => Yii::$app->security->encryptByPassword($idChat, $oUser->password)]);
+                    },
+                ],
+            ],
+        ],
+    ]);
+    ?>
+</div>
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

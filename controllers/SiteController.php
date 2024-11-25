@@ -9,7 +9,10 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+<<<<<<< HEAD
 use app\models\RecuperarPasswordForm;
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 class SiteController extends Controller {
 
@@ -110,7 +113,11 @@ class SiteController extends Controller {
             $rbac->addChild($administrador, $profesor);
             $rbac->addChild($profesor, $estudiante);
             $rbac->addChild($estudiante, $guest);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             $usuario = new \app\models\Usuarios();
             $usuario->nombre = "Administrador";
             $usuario->apellido = "General";
@@ -118,6 +125,7 @@ class SiteController extends Controller {
             $usuario->password = "123456";
             $usuario->tipo = 2;
             $usuario->save();
+<<<<<<< HEAD
 
             $rbac->assign($administrador, $usuario->id);
 
@@ -128,6 +136,18 @@ class SiteController extends Controller {
             $mFormacionGrupos1 = new \app\models\MetodosFormacion();
             $mFormacionGrupos1->descripcion = "Algoritmo Genético";
             $mFormacionGrupos1->save();
+=======
+            
+            $rbac->assign($administrador, $usuario->id);
+            
+            $mFormacionGrupos = new \app\models\MetodosFormacion();
+            $mFormacionGrupos->descripcion = "Manual";
+            $mFormacionGrupos->save();
+            
+            $mFormacionGrupos1 = new \app\models\MetodosFormacion();
+            $mFormacionGrupos1->descripcion = "Algoritmo Genético";
+            $mFormacionGrupos1->save();            
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         }
 
         return $this->render('instalar', [
@@ -171,6 +191,7 @@ class SiteController extends Controller {
         return $this->render('about');
     }
 
+<<<<<<< HEAD
     public function actionRecuperarPassword() {
         $model = new RecuperarPasswordForm();
         $mensajeError = "";
@@ -198,4 +219,6 @@ class SiteController extends Controller {
         return $this->render('restablecimiento-exitoso');
     }
 
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 }

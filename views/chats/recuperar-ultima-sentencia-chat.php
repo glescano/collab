@@ -1,11 +1,15 @@
 <?php
+<<<<<<< HEAD
 use yii\helpers\Html;
 
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 $patron = '^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)^';
 ?>
 <?php $username = ''; ?>
 <?php foreach ($chat as $sentencia): ?>
     <?php if ($sentencia["username"] != $username): ?>
+<<<<<<< HEAD
         <b> <?= Html::encode($sentencia["username"]) ?> <?= " (" . Html::encode($puntaje) . " puntos)"; ?> - Rango Global: <span style="color:#005C53;"><?= Html::encode($rangoNombre) ?></span></b><br/>
         <?php $username = $sentencia["username"]; ?>
     <?php endif; ?>
@@ -116,3 +120,12 @@ $patron = '^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-z
         });
     });
 </script>
+=======
+        <b><?php echo $sentencia["username"]; ?></b><br/>                      
+        <?php $username = $sentencia["username"]; ?>
+    <?php endif; ?>
+    &nbsp;&nbsp;<?php echo preg_replace($patron, '<a href="$0" target="_blank">$0</a>', $sentencia["sentencia"]); ?>
+    - <?php echo $sentencia["fecha_hora"]; ?>  
+    <br/><br/>
+<?php endforeach; ?>
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

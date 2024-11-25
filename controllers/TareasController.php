@@ -4,16 +4,22 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Tareas;
+<<<<<<< HEAD
 use app\models\Evento;
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 use app\models\TareasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+<<<<<<< HEAD
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 
 
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 /**
  * TareasController implements the CRUD actions for Tareas model.
@@ -54,6 +60,7 @@ class TareasController extends Controller {
      * Lists all Tareas models.
      * @return mixed
      */
+<<<<<<< HEAD
     public function actionIndex($asigid)
     {
         $usuario = Yii::$app->user->identity->id;
@@ -103,6 +110,23 @@ class TareasController extends Controller {
     
  
     
+=======
+    public function actionIndex($asigid) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $asigid = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
+        
+        $searchModel = new TareasSearch();
+        $searchModel->asignaturas_id = $asigid;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'asigid' => $asigid,
+        ]);
+    }
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     public function actionTareasAlumnos($asigid, $year) {      
         $userid = Yii::$app->user->identity->id;   
@@ -130,11 +154,16 @@ class TareasController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
+<<<<<<< HEAD
         $modelEvento = new Evento();
 
         return $this->render('view', [
                     'model' => $this->findModel($id),
                     'modelEvento' => $modelEvento,
+=======
+        return $this->render('view', [
+                    'model' => $this->findModel($id),
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         ]);
     }
 
@@ -143,6 +172,7 @@ class TareasController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+<<<<<<< HEAD
    public function actionCreate($asigid, $tipoactividad) {
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     
@@ -150,6 +180,12 @@ class TareasController extends Controller {
         $model = new Tareas();
         $model->asignaturas_id = $asigid;
         $model->tipo_tarea = 'grupal';
+=======
+    public function actionCreate($asigid) {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        $model = new Tareas();
+        $model->asignaturas_id = $asigid;
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $grupos = \app\models\GruposFormados::getDetalleGrupos($model->grupos_id);
@@ -166,11 +202,15 @@ class TareasController extends Controller {
                     $titulo = $gr["nombre"];
                 }
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
+<<<<<<< HEAD
             'model' => $model,
             'tipoactividad' => $tipoactividad,
         ]);
@@ -249,6 +289,11 @@ class TareasController extends Controller {
     }
 }
 
+=======
+                    'model' => $model,
+        ]);
+    }
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     /**
      * Updates an existing Tareas model.
@@ -298,6 +343,7 @@ class TareasController extends Controller {
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+<<<<<<< HEAD
     /* Entorno gamificado*/
     public function actionElegirActividad($asigid) {
         return $this->render('elegir-actividad', [
@@ -351,4 +397,6 @@ class TareasController extends Controller {
    
 
 
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 }
