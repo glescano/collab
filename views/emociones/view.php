@@ -19,7 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
+<<<<<<< HEAD
+                'confirm' => 'Are you sure you want to delete this item?',
+=======
                 'confirm' => 'Are you sure  you want to delete this item?',
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 'method' => 'post',
             ],
         ]) ?>
@@ -32,7 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'valencia',
             'activacion',
             'dominancia',
+<<<<<<< HEAD
+            'chats_id',
+=======
             'sentencias_id',
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         ],
     ]) ?>
 

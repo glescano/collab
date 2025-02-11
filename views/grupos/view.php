@@ -33,6 +33,28 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     
     <?php 
+<<<<<<< HEAD
+  $grupos = app\models\GruposFormados::getDetalleGrupos($model->id);
+//   var_dump($grupos);
+  $titulo = "";
+  foreach ($grupos as $gr) {
+      if ($titulo != $gr["nombre"]) {
+          $varID = Yii::$app->security->encryptByPassword($gr["id"], $oUser->password);
+          echo "<h2>" . Html::encode($gr["nombre"]) . "-" ." ID: ". Html::encode($gr["id"]) . " " . Html::a('Eliminar', ['grupos-formados/delete', 'id' => $varID, 'model_id' => $model->id], [
+              'class' => 'btn btn-danger',
+              'data' => [
+                  'confirm' => 'Está seguro que desea eliminar este grupo?',
+                  'method' => 'post',
+              ],
+          ]) . " " .
+             "</h2>";
+          $titulo = $gr["nombre"];
+      }
+    //   var_dump($gr["alumnoId"]);
+      echo Html::a('Cambiar de grupo', ['grupos/cambiar-alumno', 'alumno_id' =>$gr["alumnoId"], 'grupo_id' => $gr["id"], 'view' => $model->id], ['class' => 'btn btn-primary btn-l', 
+      'style' => 'margin-bottom: 10px; margin-right: 10px;']) ." " .Html::encode($gr["apellidoAlumno"]) . ", " . Html::encode($gr["nombreAlumno"]). "<br/>";
+  }
+=======
     $grupos = app\models\GruposFormados::getDetalleGrupos($model->id);
     //var_dump($grupos);
     $titulo = "";
@@ -44,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo $gr["apellidoAlumno"] . ", " . $gr["nombreAlumno"] . "<br/>";
         
     }
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     ?>
 
 </div>

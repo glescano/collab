@@ -55,6 +55,33 @@ AppAsset::register($this);
             } elseif (array_key_exists('profesor', $rolesUsuario)) {
                 $opciones = [
                     ['label' => 'Asignaturas', 'url' => ['/asignaturas/index']],
+<<<<<<< HEAD
+                    ['label' => 'Alumnos', 'url' => ['/usuarios/index', 't' => 'a']],
+                    [
+                        'label' => 'Mis Test',
+                        'items' => [
+                            ['label' => 'Test de Estilos de Aprendizaje', 'url' => ['/usuarios/test-felder-silverman']],
+                            ['label' => 'Test de Personalidad', 'url' => ['/usuarios/test-big-five']],
+                        ]
+                    ],
+                ];
+            } elseif (array_key_exists('estudiante', $rolesUsuario)) {
+                $oUser = \app\models\Usuarios::findOne(['id' => Yii::$app->user->identity->id]);
+                    $opciones = [
+                        ['label'=> 'Cuenta Estudiante',
+                        'url'=> '#',
+                        'linkOptions' => ['class' => 'tipocuenta']],
+                    ['label' => 'Editar mi perfil', 'url' => ['/usuarios/actualizar-perfil', 'id' => Yii::$app->security->encryptByPassword(Yii::$app->user->identity->id, $oUser->password)]],
+                    ['label' => 'Mis Asignaturas', 'url' => ['/asignaturas/asignaturas-alumnos']],
+                    [
+                        'label' => 'Mis Test',
+                        'items' => [
+                            ['label' => 'Test de Estilos de Aprendizaje', 'url' => ['/usuarios/test-felder-silverman']],
+                            ['label' => 'Test de Personalidad', 'url' => ['/usuarios/test-big-five']],
+                        ]
+                    ],
+                    // ['label' => 'Tabla de clasificación', 'url' => ['/leaderboard/index']],
+=======
                     ['label' => 'Alumnos', 'url' => ['/usuarios/index', 't' => 'a']]
                 ];
             } elseif (array_key_exists('estudiante', $rolesUsuario)) {
@@ -63,6 +90,7 @@ AppAsset::register($this);
                     ['label' => 'Editar mis Datos', 'url' => ['/usuarios/actualizar-perfil', 'id' => Yii::$app->security->encryptByPassword(Yii::$app->user->identity->id, $oUser->password)]],
                     ['label' => 'Mis Asignaturas', 'url' => ['/asignaturas/asignaturas-alumnos']],
                     ['label' => 'Test de Estilos de Aprendizaje', 'url' => ['/usuarios/test-felder-silverman']]
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 ];
             } elseif (Yii::$app->user->isGuest) {
                 $opciones = [
@@ -71,9 +99,15 @@ AppAsset::register($this);
             }
             $opciones[] =  (isset(Yii::$app->user->identity->id)) ? '<li>'
             . Html::beginForm(['/site/logout'], 'post')
+<<<<<<< HEAD
+             . Html::submitButton(
+             'Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']
+             )
+=======
             . Html::submitButton(
             'Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']
             )
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             . Html::endForm()
             . '</li>' : '';
 

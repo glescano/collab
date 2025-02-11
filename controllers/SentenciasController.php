@@ -97,15 +97,59 @@ class SentenciasController extends Controller
     public function actionCrearConAjax($usuarios_id, $chats_id, $sentencia)
     {
         date_default_timezone_set('America/Argentina/Buenos_Aires');
+<<<<<<< HEAD
+        
+        // Crear una nueva instancia del modelo Sentencias
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $model = new Sentencias();
         $model->fecha_hora = date('Y-m-d h:i:s', time());
         $model->usuarios_id = $usuarios_id;
         $model->chats_id = $chats_id;
         $model->sentencia = $sentencia;
+<<<<<<< HEAD
+    
+        // Llamar al método para actualizar el puntaje del usuario en general
+        Yii::$app->runAction('logros/actualizar-puntaje-por-mensaje', ['usuario_id' => $usuarios_id]);
+    
+        // Obtener la tarea asociada al chat
+        $chat = \app\models\Chats::findOne($chats_id);
+    
+        if ($chat && $chat->tareas_id) {
+            // Buscar o crear un registro en tarea_usuario_puntaje
+            $tareaUsuarioPuntaje = \app\models\TareaUsuarioPuntaje::findOne(['id_usuario' => $usuarios_id, 'id_tarea' => $chat->tareas_id]);
+    
+            if (!$tareaUsuarioPuntaje) {
+                // Si no existe, crear un nuevo registro
+                $tareaUsuarioPuntaje = new \app\models\TareaUsuarioPuntaje();
+                $tareaUsuarioPuntaje->id_usuario = $usuarios_id;
+                $tareaUsuarioPuntaje->id_tarea = $chat->tareas_id;
+                $tareaUsuarioPuntaje->puntaje = 10; // Inicializamos con los 10 puntos
+            } else {
+                // Si existe, incrementar el puntaje
+                $tareaUsuarioPuntaje->puntaje += 10;
+            }
+    
+            // Guardar los cambios en la tabla tarea_usuario_puntaje
+            if (!$tareaUsuarioPuntaje->save(false)) {
+                Yii::error('Error al actualizar el puntaje en tarea_usuario_puntaje: ' . print_r($tareaUsuarioPuntaje->getErrors(), true), __METHOD__);
+            }
+        } else {
+            Yii::error('No se encontró un chat o tarea válida para el chat_id: ' . $chats_id, __METHOD__);
+        }
+    
+        // Guardar la sentencia
+        $model->save();
+    
+        return $model->id;
+    }
+    
+=======
         $model->save();
         return $model->id;
     }
 
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     /**
      * Updates an existing Sentencias model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -120,6 +164,11 @@ class SentenciasController extends Controller
         $model->fecha_hora = date('Y-m-d h:i:s', time());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+<<<<<<< HEAD
+       
+
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

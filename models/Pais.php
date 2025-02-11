@@ -47,6 +47,18 @@ class Pais extends \yii\db\ActiveRecord
     
     public static function getNombrePorId($id) {
         $objPais = static::findOne(['idpais' => $id]);
+<<<<<<< HEAD
+        
+        // Verifica si el país existe
+        if ($objPais !== null) {
+            return $objPais->nombre;
+        } else {
+            return 'Desconocido'; // O cualquier otro valor predeterminado
+        }
+    }
+    
+=======
         return $objPais->nombre;
     }
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 }

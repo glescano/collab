@@ -1,4 +1,11 @@
 <?php
+<<<<<<< HEAD
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\Tareas;
+use yii\widgets\ActiveForm;
+=======
 
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -6,10 +13,41 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TareasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 $this->title = 'Actividades de ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
+<<<<<<< HEAD
+
+?>
+
+<div class="tareas-index">
+
+    <h2 class="perfil-title"><?= Html::encode($this->title) ?><span>.</span></h2>
+    <p>En esta sección, podrás crear y gestionar actividades y eventos para tus asignaturas. Cada actividad puede ser utilizada para promover la participación en clase, fomentar la colaboración en equipo y reforzar los conceptos clave de la materia. </p>
+    <p><strong>Actividad:</strong> Las actividades son tareas o trabajos asignados a los estudiantes con el fin de reforzar el aprendizaje y evaluar su comprensión. Estas pueden incluir trabajos prácticos, ejercicios de investigación o discusiones en clase.</p>
+
+
+    <!-- <?php if (Yii::$app->session->hasFlash('success')): ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <?= Yii::$app->session->getFlash('success') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif; ?> -->
+    <div class="btns-tareas-index">
+ 
+
+    <?= Html::a('Crear Actividad', ['elegir-actividad', 'asigid' => $asigid], ['class' => 'button-g2']) ?>
+
+    </div>
+  
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        // 'filterModel' => $searchModel,
+=======
 ?>
 <div class="tareas-index">
 
@@ -24,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
     GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
@@ -36,6 +75,106 @@ $this->params['breadcrumbs'][] = $this->title;
             'year',
             ['class' => 'yii\grid\ActionColumn'],
         ],
+<<<<<<< HEAD
+    ]); ?>
+</div>
+
+<!-- Modal para Crear Evento -->
+<div class="modal fade" id="createEventModal" tabindex="-1" aria-labelledby="createEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createEventModalLabel">Crear Evento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php $form = ActiveForm::begin([
+                    'id' => 'create-event-form',
+                    'action' => ['tareas/create-evento', 'asigid' => $asigid],
+                    'options' => ['enctype' => 'multipart/form-data'],
+                ]); ?>
+
+                <?= $form->field($modelEvento, 'tipo_evento')->dropDownList([
+                    'Pregunta' => 'pregunta',
+                    'Juego' => 'juego',
+                    'Actividad' => 'actividad',
+                    'Debate' => 'debate',
+                ], ['prompt' => 'Selecciona el tipo de evento', 'id' => 'tipoEvento'])->label('Tipo de Evento') ?>
+
+                <?= $form->field($modelEvento, 'id_tarea')->dropDownList(
+                    ArrayHelper::map($tareas, 'id', 'nombre_t'),
+                    ['prompt' => 'Seleccionar actividad relacionada']
+                )->label('Actividad Relacionada') ?>
+
+                <div id="kahootOtroFields" style="display: none;">
+                    <?= $form->field($modelEvento, 'titulo')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($modelEvento, 'descripcion')->textarea(['rows' => 3]) ?>
+                    <?= $form->field($modelEvento, 'link')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($modelEvento, 'imagen')->fileInput() ?>
+                </div>
+
+                <div id="cuestionarioFields" style="display: none;">
+                    <?= $form->field($modelEvento, 'pregunta')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($modelEvento, 'descripcion_pregunta')->textarea(['rows' => 3]) ?>
+                    <?= $form->field($modelEvento, 'imagen')->fileInput() ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="save-event-btn">Guardar Evento</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+$script = <<< JS
+$('#tipoEvento').on('change', function() {
+    var tipoEvento = $(this).val();
+    if (tipoEvento === 'Juego' || tipoEvento === 'Actividad' || tipoEvento === 'Debate') {
+        $('#kahootOtroFields').show();
+        $('#cuestionarioFields').hide();
+    } else if (tipoEvento === 'Pregunta') {
+        $('#cuestionarioFields').show();
+        $('#kahootOtroFields').hide();
+    } else {
+        $('#kahootOtroFields, #cuestionarioFields').hide();
+    }
+});
+
+$('#save-event-btn').on('click', function() {
+    var form = $('#create-event-form');
+    var formData = new FormData(form[0]);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.success) {
+                $('#createEventModal').modal('hide');
+                location.reload();
+            } else {
+                var errorMsg = response.errors ? JSON.stringify(response.errors) : 'Error desconocido';
+                alert('Error al guardar el evento: ' + errorMsg);
+            }
+        },
+        error: function() {
+            alert('Error al guardar el evento');
+        }
+    });
+});
+JS;
+
+$this->registerJs($script);
+?>
+=======
     ]);
     ?>
 </div>
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

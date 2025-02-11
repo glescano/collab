@@ -110,6 +110,30 @@ class AsignaturasAlumnosController extends Controller
             'asigid' => $asigid,
         ]);
     }
+<<<<<<< HEAD
+    
+    
+    public function actionCreateAsociation()
+    {
+        $usuario = Yii::$app->user->identity->id;
+        $model = new AsignaturasAlumnos();
+        $model->usuarios_id = $usuario;
+        $model->year = date("Y");
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            Yii::$app->runAction('desafios/verificar-asociar-primera-materia', ['usuario_id' => $model->usuarios_id]);
+
+
+            return $this->redirect(['asignaturas/asignaturas-alumnos']);
+        }
+
+        return $this->render('create-asociation', [
+            'model' => $model,
+        ]);
+    }
+=======
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     /**
      * Updates an existing AsignaturasAlumnos model.

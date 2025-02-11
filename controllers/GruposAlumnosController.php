@@ -114,8 +114,16 @@ class GruposAlumnosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+<<<<<<< HEAD
+    public function actionDelete($id) {
+        $usuario = Yii::$app->user->identity->id;
+        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
+        $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
+
+=======
     public function actionDelete($id)
     {
+>>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
