@@ -52,14 +52,8 @@ class AsignaturasDocentes extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-<<<<<<< HEAD
     public function getAsignatura() {
         return $this->hasOne(Asignaturas::class, ['id' => 'asignaturas_id']);  // Ajusta 'asignaturas_id' según corresponda
-=======
-    public function getAsignaturas()
-    {
-        return $this->hasOne(Asignaturas::className(), ['id' => 'asignaturas_id']);
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     }
 
     /**

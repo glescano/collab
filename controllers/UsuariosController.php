@@ -62,11 +62,7 @@ class UsuariosController extends Controller {
             $rolesUsuario = [];
         }
 
-<<<<<<< HEAD
         if (array_key_exists('estudiante', $rolesUsuario) && !array_key_exists('profesor', $rolesUsuario)) {
-=======
-        if (array_key_exists('estudiante', $rolesUsuario)) {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             return $this->redirect(['site/index']);
         }
 
@@ -99,20 +95,12 @@ class UsuariosController extends Controller {
                     'model' => $this->findModel($id),
         ]);
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     public function actionFicha($id) {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $idUsuario = Yii::$app->security->decryptByPassword($id, $oUser->password);
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         return $this->render('ficha', [
                     'model' => $this->findModel($idUsuario),
         ]);
@@ -132,7 +120,6 @@ class UsuariosController extends Controller {
         } else {
             $model->tipo = 2;
         }
-<<<<<<< HEAD
     
         if ($model->load(Yii::$app->request->post())) {
             // Subida de la imagen de perfil
@@ -186,34 +173,6 @@ class UsuariosController extends Controller {
         $usuarioActualizar->save();
         return $this->render('promover-docente');
     }
-=======
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $rbac = Yii::$app->authManager;
-            if ($t == 'a') {
-                $estudiante = $rbac->getRole('estudiante');
-                $rbac->assign($estudiante, $model->id);
-            } elseif ($t == 'd') {
-                $profesor = $rbac->getRole('profesor');
-                $rbac->assign($profesor, $model->id);
-            } else {
-                $administrador = $rbac->getRole('administrador');
-                $rbac->assign($administrador, $model->id);
-            }
-
-            if (!isset(Yii::$app->user->identity->id)) {
-                return $this->redirect(['alta-exitosa']);
-            } else {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        }
-
-        return $this->render('create', [
-                    'model' => $model,
-                    'tipo' => $t,
-        ]);
-    }
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     public function actionAltaExitosa() {
         return $this->render('alta-exitosa');
@@ -228,7 +187,6 @@ class UsuariosController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-<<<<<<< HEAD
     
         if ($model->load(Yii::$app->request->post())) {
             // Subida de la imagen de perfil
@@ -311,34 +269,6 @@ class UsuariosController extends Controller {
     }
     
     
-=======
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-                    'model' => $model,
-        ]);
-    }
-
-    public function actionActualizarPerfil($id) {
-        $usuario = Yii::$app->user->identity->id;
-        $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
-        $idUsuario = Yii::$app->security->decryptByPassword($id, $oUser->password);
-
-
-        $model = $this->findModel($idUsuario);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['ficha', 'id' => Yii::$app->security->encryptByPassword($model->id, $oUser->password)]);
-        }
-
-        return $this->render('actualizar-perfil', [
-                    'model' => $model,
-        ]);
-    }
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     /**
      * Deletes an existing Usuarios model.
@@ -484,10 +414,7 @@ class UsuariosController extends Controller {
                 $model->estiloaprendizaje = $estiloAprendizaje;
 
                 if ($model->save()) {
-<<<<<<< HEAD
                     Yii::$app->runAction('desafios/verificar-primer-test-aprendizaje', ['usuario_id' => $model->id]);
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     echo strlen($model->estiloaprendizaje);
@@ -505,7 +432,6 @@ class UsuariosController extends Controller {
         }
     }
 
-<<<<<<< HEAD
     public function actionTestBigFive() {
 
         $model = $this->findModel(Yii::$app->user->identity->id);
@@ -564,8 +490,6 @@ class UsuariosController extends Controller {
         }
     }
 
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     /**
      * Finds the Usuarios model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

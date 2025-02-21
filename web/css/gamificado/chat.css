@@ -91,24 +91,11 @@
 /*eventos*/
 
 .evento{
-    background-color: #ffbf5f;
-    padding: 20px;
-    border-radius: 10px;
+    background-color: #EB6500;
+    padding: 30px;
+    border-radius: 30px;
     color: #fff;
     margin-bottom: 10px;
-    padding-left: 30px;
-}
-.event-id-status-link{
-    display: flex;
-    gap: 10px;
-  
-}
-.evento img {
-    width: 120px;
-}
-.evento h2{
-    font-size: 18px;
-    text-transform: uppercase;
 }
 .evento span{
     color: #2d2d2d;
@@ -118,7 +105,7 @@
 .respuesta-pregunta{
     background-color: #38928D;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 30px;
     color: #fff;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -127,7 +114,7 @@
 .debate-p{
     background-color: #2d2d2d;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 30px;
     color: #fff;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -136,7 +123,7 @@
 .respuesta-debate{
     background-color: #2d2d2d;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 30px;
     color: #fff;
     margin-bottom: 5px;
     margin-top: 5px;

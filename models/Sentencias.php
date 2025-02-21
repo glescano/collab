@@ -84,7 +84,6 @@ class Sentencias extends \yii\db\ActiveRecord {
         return $this->hasMany(Emociones::className(), ['sentencias_id' => 'id']);
     }    
     
-<<<<<<< HEAD
     public static function getSentenciasChat($chatid, $currentUserId)
     {
         $query = (new \yii\db\Query())
@@ -130,15 +129,6 @@ class Sentencias extends \yii\db\ActiveRecord {
                 ->where(['s.chats_id' => $chatid])
                 ->orderBy('s.id DESC')
                 ->limit(1);
-=======
-    public static function getSentenciasChat($chatid){
-        $query = (new \yii\db\Query())
-                ->select(['s.id', 's.sentencia','s.fecha_hora', 's.chats_id', 'u.username'])
-                ->from('sentencias as s')
-                ->innerJoin('usuarios as u', 's.usuarios_id = u.id')
-                ->where(['s.chats_id' => $chatid])
-                ->orderBy('s.id ASC');
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
         //echo $query->createCommand()->sql; die();
         return $query->all();

@@ -5,10 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\GruposFormados;
 use app\models\GruposFormadosSearch;
-<<<<<<< HEAD
 use app\models\Tareas;
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,10 +37,7 @@ class GruposFormadosController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-<<<<<<< HEAD
                     'eliminar' => ['POST'],
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 ],
             ],
         ];
@@ -122,7 +116,6 @@ class GruposFormadosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-<<<<<<< HEAD
     public function actionDelete($id, $model_id) {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
@@ -235,15 +228,6 @@ class GruposFormadosController extends Controller
     
     
     
-=======
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     /**
      * Finds the GruposFormados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -259,8 +243,5 @@ class GruposFormadosController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-<<<<<<< HEAD
   
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 }

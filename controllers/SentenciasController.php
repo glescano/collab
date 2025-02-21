@@ -97,17 +97,13 @@ class SentenciasController extends Controller
     public function actionCrearConAjax($usuarios_id, $chats_id, $sentencia)
     {
         date_default_timezone_set('America/Argentina/Buenos_Aires');
-<<<<<<< HEAD
         
         // Crear una nueva instancia del modelo Sentencias
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $model = new Sentencias();
         $model->fecha_hora = date('Y-m-d h:i:s', time());
         $model->usuarios_id = $usuarios_id;
         $model->chats_id = $chats_id;
         $model->sentencia = $sentencia;
-<<<<<<< HEAD
     
         // Llamar al método para actualizar el puntaje del usuario en general
         Yii::$app->runAction('logros/actualizar-puntaje-por-mensaje', ['usuario_id' => $usuarios_id]);
@@ -144,12 +140,6 @@ class SentenciasController extends Controller
         return $model->id;
     }
     
-=======
-        $model->save();
-        return $model->id;
-    }
-
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     /**
      * Updates an existing Sentencias model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -164,11 +154,8 @@ class SentenciasController extends Controller
         $model->fecha_hora = date('Y-m-d h:i:s', time());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-<<<<<<< HEAD
        
 
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

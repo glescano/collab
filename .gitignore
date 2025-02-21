@@ -12,9 +12,6 @@ nbproject
 # windows thumbnail cache
 Thumbs.db
 
-# composer vendor dir
-/vendor
-
 # composer itself is not needed
 composer.phar
 
@@ -26,18 +23,19 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
-tests/_output/*
-tests/_support/_generated
 
-#vagrant folder
-<<<<<<< HEAD
-/.vagrant
 
-#vendor folder
-/.vendor
 
-#ignore configuraciones en db
+
 config/db.php
-=======
-/.vagrant
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
+dbchat_backup_2025.sql
+chat.sql
+vendor.7z
+
+# Folders
+/vagrant
+/vendor
+/logs
+/tests
+/web/uploads/
+

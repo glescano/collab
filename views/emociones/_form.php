@@ -18,11 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dominancia')->textInput() ?>
 
-<<<<<<< HEAD
     <?= $form->field($model, 'chats_id')->textInput() ?>
-=======
-    <?= $form->field($model, 'sentencias_id')->textInput() ?>
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

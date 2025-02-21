@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php 
 use yii\helpers\Html;
 
@@ -17,8 +16,17 @@ $username = '';
     <?php endif; ?>
     
     <?php
+    // Detectar si la sentencia contiene un enlace
+    if (preg_match('/<a href=[\'"]([^\'"]+)[\'"][^>]*>([^<]+)<\/a>/', $sentencia["sentencia"], $matches)):
+        $url = $matches[1]; // Extraer la URL
+        $nombreArchivo = $matches[2]; // Extraer el nombre del archivo
+    ?>
+        &nbsp;&nbsp;<a href="<?= Html::encode($url) ?>" target="_blank" style="color: blue; text-decoration: underline;">
+            <?= Html::encode($nombreArchivo) ?>
+        </a>
+    <?php
     // Detectar si la sentencia es una respuesta a una pregunta
-    if (preg_match('/^\/pregunta (\d+)\s+(.+)$/', $sentencia["sentencia"], $matches)):
+    elseif (preg_match('/^\/pregunta (\d+)\s+(.+)$/', $sentencia["sentencia"], $matches)):
         $eventoId = $matches[1];
         $respuesta = $matches[2];
 
@@ -87,16 +95,3 @@ $username = '';
     - <?= Html::encode($sentencia["fecha_hora"]); ?>
     <br/><br/>
 <?php endforeach; ?>
-=======
-
-<?php $username = ''; ?>
-<?php foreach ($chat as $sentencia): ?>
-    <?php if ($sentencia["username"] != $username): ?>
-        <b><?php echo $sentencia["username"]; ?></b><br/>                      
-        <?php $username = $sentencia["username"]; ?>
-    <?php endif; ?>
-    &nbsp;&nbsp;<?php echo $sentencia["sentencia"]; ?>
-     - <?php echo $sentencia["fecha_hora"]; ?>  
-    <br/><br/>
-<?php endforeach; ?>
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

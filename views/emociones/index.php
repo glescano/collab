@@ -29,11 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'valencia',
             'activacion',
             'dominancia',
-<<<<<<< HEAD
             'chats_id',
-=======
-            'sentencias_id',
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

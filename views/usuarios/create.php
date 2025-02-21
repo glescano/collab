@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="usuarios-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
-<<<<<<< HEAD
     
     <div style="margin:20px 0; padding: 30px; text-align: justify; background-color: #F0DFD5">
         
@@ -30,8 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     
 
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     <?=
     $this->render('_form', [

@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     
     <?php 
-<<<<<<< HEAD
   $grupos = app\models\GruposFormados::getDetalleGrupos($model->id);
 //   var_dump($grupos);
   $titulo = "";
@@ -54,19 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
       echo Html::a('Cambiar de grupo', ['grupos/cambiar-alumno', 'alumno_id' =>$gr["alumnoId"], 'grupo_id' => $gr["id"], 'view' => $model->id], ['class' => 'btn btn-primary btn-l', 
       'style' => 'margin-bottom: 10px; margin-right: 10px;']) ." " .Html::encode($gr["apellidoAlumno"]) . ", " . Html::encode($gr["nombreAlumno"]). "<br/>";
   }
-=======
-    $grupos = app\models\GruposFormados::getDetalleGrupos($model->id);
-    //var_dump($grupos);
-    $titulo = "";
-    foreach ($grupos as $gr){
-        if ($titulo != $gr["nombre"]){
-            echo "<h2>" . $gr["nombre"] . "</h2>";
-            $titulo = $gr["nombre"];
-        }
-        echo $gr["apellidoAlumno"] . ", " . $gr["nombreAlumno"] . "<br/>";
-        
-    }
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     ?>
 
 </div>

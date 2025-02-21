@@ -6,20 +6,11 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
 $rolesUsuario = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id);
-<<<<<<< HEAD
 $parametrot = array_key_exists('profesor', $rolesUsuario) ? 'a' : 'u';
-=======
-$parametrot = array_key_exists('profesor', $rolesUsuario) ? 'a' :'u';
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 $this->title = '';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index', 't' => $parametrot]];
 $this->params['breadcrumbs'][] = $this->title;
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 ?>
 <div class="usuarios-view">
 
@@ -27,18 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-<<<<<<< HEAD
         <?=
         Html::a('Borrar', ['delete', 'id' => $model->id], [
-=======
-        <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => '¿Seguro que quiere eliminar este usuario?',
                 'method' => 'post',
             ],
-<<<<<<< HEAD
         ])
         ?>
         <?php
@@ -50,12 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?=
     DetailView::widget([
-=======
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         'model' => $model,
         'attributes' => [
             'id',
@@ -65,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'fechanacimiento',
             'tipo:boolean',
             'estiloaprendizaje',
-<<<<<<< HEAD
             [
                 'attribute' => 'personalidad',
                 'label' => 'Personalidad',
@@ -93,10 +72,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ])
     ?>
-=======
-            'email',            
-        ],
-    ]) ?>
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 </div>

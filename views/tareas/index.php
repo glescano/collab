@@ -1,24 +1,13 @@
 <?php
-<<<<<<< HEAD
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\models\Tareas;
 use yii\widgets\ActiveForm;
-=======
-
-use yii\helpers\Html;
-use yii\grid\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\TareasSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 $this->title = 'Actividades de ' . app\models\Asignaturas::findOne(['id' => $asigid])->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Asignaturas', 'url' => ['asignaturas/index', 'asigid' => $asigid]];
 $this->params['breadcrumbs'][] = $this->title;
-<<<<<<< HEAD
 
 ?>
 
@@ -47,22 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
-=======
-?>
-<div class="tareas-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Crear Actividad', ['create', 'asigid' => $asigid], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
@@ -75,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'year',
             ['class' => 'yii\grid\ActionColumn'],
         ],
-<<<<<<< HEAD
     ]); ?>
 </div>
 
@@ -173,8 +145,3 @@ JS;
 
 $this->registerJs($script);
 ?>
-=======
-    ]);
-    ?>
-</div>
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

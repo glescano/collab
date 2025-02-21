@@ -4,14 +4,10 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Grupos;
-<<<<<<< HEAD
 use app\models\GruposAlumnos;
 use app\models\GruposFormados;
 use app\models\GruposSearch;
 use app\models\Usuarios;
-=======
-use app\models\GruposSearch;
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -135,7 +131,6 @@ class GruposController extends Controller {
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $asigid = Yii::$app->security->decryptByPassword($asigid, $oUser->password);
-<<<<<<< HEAD
     
         $model = new Grupos();
         $model->asignaturas_id = $asigid;
@@ -143,15 +138,6 @@ class GruposController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->metodos_formacion_id == 1) {
                 // Lógica para formar grupos manualmente
-=======
-
-        $model = new Grupos();
-        $model->asignaturas_id = $asigid;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            if ($model->metodos_formacion_id == 1) {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 $grupos = json_decode($model->alumnosPorGrupo);
                 foreach ($grupos as $id => $alumnosGrupo) {
                     $objGrupo = new \app\models\GruposFormados();
@@ -166,7 +152,6 @@ class GruposController extends Controller {
                     }
                 }
             } elseif ($model->metodos_formacion_id == 2) {
-<<<<<<< HEAD
                 // Invocar al algoritmo genético
                 $alumnosporyear = \app\models\AsignaturasAlumnos::getListaAlumnosPorYear($model->year, $model->asignaturas_id);
                 $alumnos = [];
@@ -204,38 +189,10 @@ class GruposController extends Controller {
                     }
                 } else {
                     Yii::$app->session->setFlash('error', 'No hay alumnos disponibles para formar grupos.');
-=======
-                // Invocar al algoritmo genetico
-                $alumnosporyear = \app\models\AsignaturasAlumnos::getListaAlumnosPorYear($model->year, $model->asignaturas_id);
-                $alumnos = array();
-                $grupos = array();
-                foreach ($alumnosporyear as $alumnoInscripto) {
-                    list($e1, $e2, $e3, $e4) = explode('-', $alumnoInscripto['estiloaprendizaje']);
-                    $estilo = $this->getEstilo($e1) . "," . $this->getEstilo($e2);
-                    $estilo .= "," . $this->getEstilo($e3) . "," . $this->getEstilo($e4);
-                    $alumnos[] = array('nombre' => $alumnoInscripto['usuarios_id'], 'ea' => $estilo);
-                }
-
-                $grupos = $model->optimizarAG($alumnos, $model->cantidadintegrantes)[0];
-                $cont = 1;
-                foreach ($grupos["grupos"] as $grupo) {
-                    $objGrupo = new \app\models\GruposFormados();
-                    $objGrupo->nombre = "Grupo $cont";
-                    $objGrupo->grupos_id = $model->id;
-                    $objGrupo->save();
-                    foreach ($grupo as $miembro) {
-                        $objAlumnoGrupo = new \app\models\GruposAlumnos();
-                        $objAlumnoGrupo->usuarios_id = $alumnos[$miembro]["nombre"];
-                        $objAlumnoGrupo->grupos_formados_id = $objGrupo->id;
-                        $objAlumnoGrupo->save();
-                    }
-                    $cont += 1;
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
                 }
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
-<<<<<<< HEAD
     
         return $this->render('create', [
             'model' => $model,
@@ -244,14 +201,6 @@ class GruposController extends Controller {
     }
     
     
-=======
-
-        return $this->render('create', [
-                    'model' => $model,
-                    'asigid' => $asigid,
-        ]);
-    }
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     /**
      * Updates an existing Grupos model.
@@ -280,13 +229,10 @@ class GruposController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-<<<<<<< HEAD
         $usuario = Yii::$app->user->identity->id;
         $oUser = \app\models\Usuarios::findOne(['id' => $usuario]);
         $id = Yii::$app->security->decryptByPassword($id, $oUser->password);
 
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -306,7 +252,6 @@ class GruposController extends Controller {
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-<<<<<<< HEAD
     public function actionCambiarAlumno($alumno_id, $grupo_id, $view)
     {
         $alumno = Usuarios::findOne($alumno_id);
@@ -350,7 +295,5 @@ class GruposController extends Controller {
     
     
 
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
 }

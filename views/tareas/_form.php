@@ -20,7 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'year')->textInput() ?>
     
-<<<<<<< HEAD
     <?= $form->field($model, 'usar_sentencias_apertura')->radioList(['1' => 'Sí', '0' => 'No']) ?>
     
     <?= $form->field($model, 'reportar_estado_animo')->radioList(['1' => 'Sí', '0' => 'No']) ?>
@@ -40,24 +39,11 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'button-g2']) ?>
-=======
-    <?= $form->field($model, 'usar_sentencias_apertura')->radioList(array('1'=>'Sí', '0'=>'No')) ?>
-    
-    <?= $form->field($model, 'reportar_estado_animo')->radioList(array('1'=>'Sí','0'=>'No')) ?>
-    
-    <?= $form->field($model, 'reportar_conflicto')->radioList(array('1'=>'Sí','0'=>'No')) ?>
-    
-    <?= $form->field($model, 'grupos_id')->dropDownList(app\models\Grupos::getListaGrupos()) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
-<<<<<<< HEAD
 
 <script>
     // Lógica para mostrar/ocultar el campo puntaje_tarea según la selección de actividad_gamificada
@@ -83,5 +69,3 @@ use yii\widgets\ActiveForm;
         });
     });
 </script>
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2

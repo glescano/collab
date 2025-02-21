@@ -13,22 +13,12 @@ use yii\filters\AccessControl;
 /**
  * ChatsController implements the CRUD actions for Chats model.
  */
-<<<<<<< HEAD
 class ChatsController extends Controller {
 
     /**
      * @inheritdoc
      */
     public function behaviors() {
-=======
-class ChatsController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -59,17 +49,11 @@ class ChatsController extends Controller
      * Lists all Chats models.
      * @return mixed
      */
-<<<<<<< HEAD
     public function actionIndex() {
-=======
-    public function actionIndex()
-    {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $searchModel = new ChatsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-<<<<<<< HEAD
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
@@ -120,35 +104,11 @@ class ChatsController extends Controller
         $recuperarEventosUrl = Yii::$app->urlManager->createUrl(['eventos/recuperar-eventos', 'chatid' => $chatiddecoded]);
     
         // Renderizar la vista
-=======
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-    
-    public function actionGrupo($chatid)
-    {
-        $userid = Yii::$app->user->identity->id;   
-        $oUser = \app\models\Usuarios::findOne(['id' => $userid]);
-        $chatiddecoded = Yii::$app->security->decryptByPassword($chatid, $oUser->password);
-        
-        $oChat = Chats::findOne(['id' => $chatiddecoded]);
-        $grupo = \app\models\GruposAlumnos::findOne(['grupos_formados_id' => $oChat->grupos_formados_id, 'usuarios_id' => $userid]);
-        if (!$grupo && $oUser->tipo != 1){
-            throw new \yii\web\ForbiddenHttpException("No puede acceder a esta página");
-        }
-        
-        $chat = \app\models\Sentencias::getSentenciasChat($chatiddecoded);
-        $datosChat = Chats::findOne(['id' => $chatiddecoded]);
-        $tarea = \app\models\Tareas::findOne(['id' => $datosChat->tareas_id]);
-
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         return $this->render('grupo', [
             'chat' => $chat,
             'chatid' => $chatiddecoded,
             'tarea' => $tarea,
             'grupo_id' => $oChat->grupos_formados_id,
-<<<<<<< HEAD
             'asignatura' => $asignatura,
             'directorio' => $directorio,
             'recuperarEventosUrl' => $recuperarEventosUrl
@@ -407,19 +367,6 @@ class ChatsController extends Controller
     
     
     
-=======
-        ]);
-    }
-    
-    public function actionRecuperarChat($chatid)
-    {               
-        $chat = \app\models\Sentencias::getSentenciasChat($chatid);
-
-        return $this->renderAjax('recuperar-chat', [
-            'chat' => $chat,
-        ]);
-    }
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 
     /**
      * Displays a single Chats model.
@@ -427,16 +374,9 @@ class ChatsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-<<<<<<< HEAD
     public function actionView($id) {
         return $this->render('view', [
                     'model' => $this->findModel($id),
-=======
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         ]);
     }
 
@@ -445,12 +385,7 @@ class ChatsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-<<<<<<< HEAD
     public function actionCreate() {
-=======
-    public function actionCreate()
-    {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $model = new Chats();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -458,11 +393,7 @@ class ChatsController extends Controller
         }
 
         return $this->render('create', [
-<<<<<<< HEAD
                     'model' => $model,
-=======
-            'model' => $model,
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         ]);
     }
 
@@ -473,12 +404,7 @@ class ChatsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-<<<<<<< HEAD
     public function actionUpdate($id) {
-=======
-    public function actionUpdate($id)
-    {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -486,11 +412,7 @@ class ChatsController extends Controller
         }
 
         return $this->render('update', [
-<<<<<<< HEAD
                     'model' => $model,
-=======
-            'model' => $model,
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         ]);
     }
 
@@ -501,12 +423,7 @@ class ChatsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-<<<<<<< HEAD
     public function actionDelete($id) {
-=======
-    public function actionDelete($id)
-    {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -519,20 +436,12 @@ class ChatsController extends Controller
      * @return Chats the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-<<<<<<< HEAD
     protected function findModel($id) {
-=======
-    protected function findModel($id)
-    {
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
         if (($model = Chats::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
 }

@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupos-index">
 
-<<<<<<< HEAD
     <h2 class="perfil-title"><?= Html::encode($this->title) ?><span>.</span></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
@@ -27,11 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         menú de "Asignaturas" utilizando el botón
         <strong>"Asociar alumnos a asignaturas"</strong>.
     </p>
-=======
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
     <p>
         <?= Html::a('Crear Grupos', ['create', 'asigid' => Yii::$app->security->encryptByPassword($asigid, $oUser->password)], ['class' => 'btn btn-success']) ?>
     </p>
@@ -64,8 +58,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> 05b434acad30769acee29f0a6d2da576e66b11f2
